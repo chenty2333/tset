@@ -39,7 +39,8 @@ def main():
     out, resd = sys.argv[1], Path(sys.argv[2]); resd.mkdir(parents=True, exist_ok=True)
     rng = np.random.default_rng(20260929)
     res = {}
-    for subject in ('aismessages', 'http-request'):
+    subjects = [x for x in ('aismessages', 'http-request', 'marine-api') if (Path(sys.argv[1]) / 'gate' / x).is_dir()]
+    for subject in subjects:
         recs = load(out, subject)
         if not any(recs.values()): continue
         m = model(subject); T = len(m.targets); tn = [t.name for t in m.targets]

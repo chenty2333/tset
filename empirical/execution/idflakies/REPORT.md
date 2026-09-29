@@ -169,3 +169,90 @@ Paired contrasts in percentage points of targets detected, mean [95% bootstrap C
 | TOOL | GATE-IID | +0.00 [+0.00, +0.00] | +0.21 [-0.17, +0.60] | +0.46 [+0.25, +0.68] | +0.04 [+0.01, +0.08] |
 | TOOL | PAIR-IID | +10.82 [+9.61, +12.05] | +4.31 [+3.42, +5.21] | +0.73 [+0.52, +0.95] | +0.04 [+0.01, +0.08] |
 | TOOL | PAIR-GATE | +10.82 [+9.62, +12.04] | +4.10 [+3.26, +4.95] | +0.27 [+0.13, +0.42] | +0.00 [+0.00, +0.00] |
+
+# Rare regime: marine-api (PLAN_IDFLAKIES_RARE.md, frozen before the build)
+
+- **Setup:** marine-api was built on the server at the dataset revision (native `mvn test`: 926 tests run, 0 failures, 1 natively skipped). The tool's default original-order handling was used (`all_must_pass=true`), and no fallback was needed. A smoke test with seed 9001 was kept separately in `/root/icst/out_smoke` and is excluded from the analysis.
+- **Stop:** under load, one detector run took 5–18 minutes. The scheduler stopped issuing runs at the frozen hard stop (04:23 CST). The server was then shut down for billing reasons before the planned 05:31 JST retrieval, and the results were retrieved from the restarted server at 08:15 JST. No run was added after the stop.
+- **Completed runs:** gate 188, iid 183, pair 183. Nine runs hit the 30-minute timeout, and 14 were interrupted at shutdown; all of these are excluded. 177 seeds are complete for all three variants.
+- **Fidelity:** every executed order was a class-contiguous full permutation. GATE followed the simulated rule in all 3,363 of its decisions. All 127,440 target outcomes (42,480 per variant) matched S1 and S2, including the original-order and confirmation runs of the fidelity sample.
+- **Contrasts:** KR GATE-IID at r=20 is +3.4 pp [-3.7, +10.6], and all CIs include 0. Theory bounds the gain by about f/(2e) ≈ 0.6 pp, so these contrasts are only *consistent with* the bound, as the plan states.
+
+### Fidelity sample: marine-api (GATE seeds 1-20)
+
+| quantity | value |
+|---|---|
+| detector_runs | 20 |
+| complete_runs | 20 |
+| orig_orders | 20 |
+| orig_not_full_permutation | 0 |
+| orig_not_class_contiguous | 0 |
+| round_orders | 400 |
+| round_not_full_permutation | 0 |
+| round_not_class_contiguous | 0 |
+| transitions | 380 |
+| transitions_reverse | 195 |
+| transitions_fresh | 185 |
+| gate_expect_reverse | 195 |
+| gate_expect_fresh | 185 |
+| gate_matches | 380 |
+| gate_mismatches | 0 |
+| prev_empty_but_prev_was_reverse_fallback_transitions | 175 |
+| rounds_with_recorded_new_detection | 10 |
+| recorded_new_detections | 105 |
+| recorded_new_detections_targets | 105 |
+| recorded_new_detections_nontargets | 0 |
+| unfiltered_detections | 129 |
+| confirmation_runs_verify | 210 |
+| confirmation_runs_confirmation-sampling | 8 |
+| verified_lines | 218 |
+| verified_lines_mismatched | 0 |
+| round_orders_with_nontarget_failures | 0 |
+| round_nontarget_failure_instances | 0 |
+| orig_orders_with_nontarget_failures | 0 |
+| inventory_differs_from_dataset_metadata_runs | 20 |
+| identical_round_orders_within_run | 0 |
+
+| order class | target comparisons S1 | mismatches S1 | comparisons S2 | mismatches S2 |
+|---|---|---|---|---|
+| round | 4800 | 0 | 4800 | 0 |
+| orig | 240 | 0 | 240 | 0 |
+| confirm | 218 | 0 | 218 | 0 |
+
+### Powered comparison: marine-api (12 targets)
+
+launched {'gate': 189, 'iid': 186, 'pair': 188}, complete {'gate': 188, 'iid': 183, 'pair': 183}, seeds complete for all three variants: 177
+
+| variant | rounds | not full perm. | not class-contig. | transitions | reversals | tool-recorded rounds with new detection | S1 comp. | S1 mism. | S2 comp. | S2 mism. |
+|---|---|---|---|---|---|---|---|---|---|---|
+| gate | 3540 | 0 | 0 | 3363 | 1721 | 106 | 42480 | 0 | 42480 | 0 |
+| iid | 3540 | 0 | 0 | 3363 | 0 | 101 | 42480 | 0 | 42480 | 0 |
+| pair | 3540 | 0 | 0 | 3363 | 1770 | 106 | 42480 | 0 | 42480 | 0 |
+
+Mean detected targets (% of module targets):
+
+| metric | variant | r=2 | r=4 | r=10 | r=20 |
+|---|---|---|---|---|---|
+| KR | gate | 2.68 | 8.62 | 25.99 | 43.50 |
+| KR | iid | 3.11 | 8.90 | 21.33 | 40.11 |
+| KR | pair | 2.68 | 8.62 | 25.99 | 43.50 |
+| NR | gate | 2.68 | 8.62 | 25.99 | 43.50 |
+| NR | iid | 3.11 | 8.90 | 21.33 | 40.11 |
+| NR | pair | 2.68 | 8.62 | 25.99 | 43.50 |
+| TOOL | gate | 2.68 | 8.62 | 25.99 | 43.50 |
+| TOOL | iid | 3.11 | 8.90 | 21.33 | 40.11 |
+| TOOL | pair | 2.68 | 8.62 | 25.99 | 43.50 |
+
+Paired contrasts in percentage points of targets detected, mean [95% bootstrap CI over seeds]:
+
+| metric | contrast | r=2 | r=4 | r=10 | r=20 |
+|---|---|---|---|---|---|
+| KR | GATE-IID | -0.42 [-3.39, +2.40] | -0.28 [-5.08, +4.38] | +4.66 [-1.70, +11.02] | +3.39 [-3.67, +10.59] |
+| KR | PAIR-IID | -0.42 [-3.39, +2.54] | -0.28 [-5.08, +4.52] | +4.66 [-1.69, +10.88] | +3.39 [-3.96, +10.59] |
+| KR | PAIR-GATE | +0.00 [+0.00, +0.00] | +0.00 [+0.00, +0.00] | +0.00 [+0.00, +0.00] | +0.00 [+0.00, +0.00] |
+| NR | GATE-IID | -0.42 [-3.39, +2.40] | -0.28 [-5.08, +4.38] | +4.66 [-1.69, +11.16] | +3.39 [-3.81, +10.59] |
+| NR | PAIR-IID | -0.42 [-3.39, +2.40] | -0.28 [-5.08, +4.38] | +4.66 [-1.84, +11.02] | +3.39 [-3.95, +10.59] |
+| NR | PAIR-GATE | +0.00 [+0.00, +0.00] | +0.00 [+0.00, +0.00] | +0.00 [+0.00, +0.00] | +0.00 [+0.00, +0.00] |
+| TOOL | GATE-IID | -0.42 [-3.39, +2.40] | -0.28 [-4.94, +4.24] | +4.66 [-1.55, +11.02] | +3.39 [-3.81, +10.73] |
+| TOOL | PAIR-IID | -0.42 [-3.39, +2.54] | -0.28 [-4.94, +4.52] | +4.66 [-1.55, +11.02] | +3.39 [-3.95, +10.73] |
+| TOOL | PAIR-GATE | +0.00 [+0.00, +0.00] | +0.00 [+0.00, +0.00] | +0.00 [+0.00, +0.00] | +0.00 [+0.00, +0.00] |

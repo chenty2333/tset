@@ -7,7 +7,8 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent.parent / 'src'))
 from common import load_modules, fails_single, class_of
 
-REPO = {'aismessages': ('tbsalling/aismessages', '.'), 'http-request': ('kevinsawicki/http-request', './lib')}
+REPO = {'aismessages': ('tbsalling/aismessages', '.'), 'http-request': ('kevinsawicki/http-request', './lib'),
+        'marine-api': ('ktuukkan/marine-api', '.')}
 FAIL = ('FAILURE', 'ERROR')
 
 def model(name):
@@ -31,7 +32,7 @@ def main():
         if e['seed'] <= 20: e['run'] = e['seed']; runs[e['subject']].append(e)
     summary, mism = {}, collections.defaultdict(list)
     for subj, rs in runs.items():
-        m = model(subj); meta = json.loads((HERE.parent / 'results' / subj / 'metadata.json').read_text())
+        m = model(subj); meta = json.loads(((HERE.parent / 'results' / subj / 'metadata.json') if (HERE.parent / 'results' / subj).is_dir() else (HERE.parent / 'results_rare' / subj / 'metadata.json')).read_text())
         dataset_inv = sorted(meta['tests'])
         S = collections.Counter(); per_run = []
         S['detector_runs'] = len(rs)

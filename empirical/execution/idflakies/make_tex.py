@@ -4,12 +4,15 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 GEN = HERE.parents[2] / 'paper' / 'generated'
 p = json.loads((HERE / 'results/power.json').read_text())
+rare = HERE / 'results_rare_tool/power.json'
+if rare.exists(): p.update(json.loads(rare.read_text()))  # PLAN_IDFLAKIES_RARE.md
 fmt = lambda v: format(v, ',').replace(',', '{,}')
 S = lambda m, v, k: p[m]['structure'][v][k]
-mods, vars_ = ('aismessages', 'http-request'), ('gate', 'iid', 'pair')
+mods, vars_ = tuple(m for m in ('aismessages', 'http-request', 'marine-api') if m in p), ('gate', 'iid', 'pair')
 tot = lambda k: sum(S(m, v, k) for m in mods for v in vars_)
 mac = {
     'IdfRunsAis': fmt(p['aismessages']['seeds_used']), 'IdfRunsHttp': fmt(p['http-request']['seeds_used']),
+    'IdfRunsMarine': fmt(p['marine-api']['seeds_used']) if 'marine-api' in p else '0',
     'IdfDetectorRuns': fmt(sum(p[m]['seeds_used'] * 3 for m in mods)),
     'IdfOrders': fmt(tot('rounds')), 'IdfNonContig': fmt(tot('not_class_contiguous') + tot('not_full_permutation')),
     'IdfComparisons': fmt(tot('target_comparisons_S1')), 'IdfMismatches': fmt(tot('mismatches_S1')),
@@ -18,7 +21,7 @@ mac = {
 }
 (GEN / 'macros_idflakies.tex').write_text(''.join(f'\\newcommand{{\\{k}}}{{{v}}}\n' for k, v in mac.items()))
 rows = []
-for m, short in (('aismessages', 'aismessages'), ('http-request', 'http-request')):
+for m, short in ((m, m) for m in mods):
     for key, lab in (('gate-iid', r'\GATEp$-$\IIDp'), ('pair-gate', r'\PAIRp$-$\GATEp')):
         cells = []
         for r in (2, 4, 10, 20):

@@ -1,0 +1,257 @@
+{
+ "marine-api": {
+  "counts": {
+   "detector_runs": 20,
+   "complete_runs": 20,
+   "inventory_differs_from_dataset_metadata_runs": 20,
+   "orig_orders": 20,
+   "orig_not_full_permutation": 0,
+   "orig_not_class_contiguous": 0,
+   "orig_orders_with_nontarget_failures": 0,
+   "orig_nontarget_failure_instances": 0,
+   "round_orders": 400,
+   "round_not_full_permutation": 0,
+   "round_not_class_contiguous": 0,
+   "round_orders_with_nontarget_failures": 0,
+   "round_nontarget_failure_instances": 0,
+   "rounds": 400,
+   "rounds_with_recorded_new_detection": 10,
+   "rounds_with_unfiltered_detection": 16,
+   "unfiltered_detections": 129,
+   "recorded_new_detections": 105,
+   "recorded_new_detections_targets": 105,
+   "recorded_new_detections_nontargets": 0,
+   "transitions": 380,
+   "transitions_reverse": 195,
+   "transitions_fresh": 185,
+   "gate_expect_reverse": 195,
+   "gate_matches": 380,
+   "gate_expect_fresh": 185,
+   "prev_empty_but_prev_was_reverse_fallback_transitions": 175,
+   "confirmation_runs_verify": 210,
+   "confirmation_expected_verify_got_same": 210,
+   "confirmation_expected_verify_got_different": 0,
+   "confirmation_full_length": 0,
+   "confirmation_prefix_runs": 218,
+   "confirmation_class_noncontiguous": 0,
+   "confirmation_of_target_tests": 218,
+   "verified_lines_mismatched": 0,
+   "verified_lines": 218,
+   "identical_round_orders_within_run": 0,
+   "confirmation_runs_confirmation-sampling": 8,
+   "confirmation_expected_confirmation-sampling_got_same": 8,
+   "confirmation_expected_confirmation-sampling_got_different": 0
+  },
+  "comparisons": {
+   "round": {
+    "S1_comparisons": 4800,
+    "S2_comparisons": 4800
+   },
+   "orig": {
+    "S1_comparisons": 240,
+    "S2_comparisons": 240
+   },
+   "confirm": {
+    "S1_comparisons": 218,
+    "S2_comparisons": 218
+   }
+  },
+  "per_run": [
+   {
+    "run": 1,
+    "seed": 1,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 1248.0,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 2,
+    "seed": 2,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 767.4,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 3,
+    "seed": 3,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 1193.8,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 4,
+    "seed": 4,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 777.9,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 5,
+    "seed": 5,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 780.8,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 6,
+    "seed": 6,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 1212.7,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 7,
+    "seed": 7,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 1053.5,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 8,
+    "seed": 8,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 725.8,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 9,
+    "seed": 9,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 1584.0,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 10,
+    "seed": 10,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 763.4,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 11,
+    "seed": 11,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 766.5,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 12,
+    "seed": 12,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 754.3,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 13,
+    "seed": 13,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 1310.4,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 14,
+    "seed": 14,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 1399.9,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 15,
+    "seed": 15,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 780.7,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 16,
+    "seed": 16,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 809.1,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 17,
+    "seed": 17,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 1174.1,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 18,
+    "seed": 18,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 1076.4,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 19,
+    "seed": 19,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 1286.9,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 20,
+    "seed": 20,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 750.0,
+    "rounds_recorded": 20,
+    "complete": true
+   }
+  ],
+  "model_targets": [
+   "net.sf.marineapi.ais.event.AbstractAISMessageListenerTest.testBasicListenerWithUnexpectedMessage",
+   "net.sf.marineapi.ais.event.AbstractAISMessageListenerTest.testConstructor",
+   "net.sf.marineapi.ais.event.AbstractAISMessageListenerTest.testGenericsListenerDefaultConstructorThrows",
+   "net.sf.marineapi.ais.event.AbstractAISMessageListenerTest.testGenericsListener",
+   "net.sf.marineapi.ais.event.AbstractAISMessageListenerTest.testOnMessageWithExpectedMessage",
+   "net.sf.marineapi.ais.event.AbstractAISMessageListenerTest.testParametrizedConstructor",
+   "net.sf.marineapi.ais.event.AbstractAISMessageListenerTest.testSequenceListener",
+   "net.sf.marineapi.ais.event.AbstractAISMessageListenerTest.testSequenceListenerWithIncorrectOrder",
+   "net.sf.marineapi.ais.event.AbstractAISMessageListenerTest.testSequenceListenerWithMixedOrder",
+   "net.sf.marineapi.ais.parser.AISMessageFactoryTest.testCreate",
+   "net.sf.marineapi.ais.parser.AISMessageFactoryTest.testCreateWithIncorrectOrder",
+   "net.sf.marineapi.ais.parser.AISMessageFactoryTest.testCreateWithTwo"
+  ],
+  "dataset_inventory_size": 926
+ }
+}

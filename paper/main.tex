@@ -32,6 +32,9 @@
 \input{generated/macros_limits_S1.tex}
 \input{generated/macros_coverage_S1.tex}
 \input{generated/macros_execution.tex}
+\input{generated/macros_execution_rare.tex}
+\input{generated/macros_execution_all.tex}
+\input{generated/macros_idflakies.tex}
 \makeatletter\def\nosign#1{\expandafter\@nosign#1\relax}\def\@nosign#1#2\relax{\ifx+#1\else#1\fi#2}\makeatother
 
 \begin{document}
@@ -44,7 +47,7 @@
 \maketitle
 
 \begin{abstract}
-Should detectors of order-dependent (OD) flaky tests spend their rerun budget on reversed test orders? iDFlakies does, because the reverse of a passing order is more likely to fail. We show that this intuition is correct but its payoff is bounded. First, we prove that an order and its reversal have nonpositively correlated failure events in four structural classes of OD tests, which together cover all \NTargets{} published OD models we study. The proofs combine a composable sum-of-squares certificate, a cyclic-cut reduction to Harris' inequality, and a two-square window identity; counterexamples mark where the property fails. Second, we prove a stopping rule: independent reversal pairs save at most half a suite run in expected time to a test's first failure, and independent $k$-run blocks at most $(k-1)/2$ runs when $kf\le1$, where $f$ is the failure probability. Outcome-gated reversal, as deployed, changes the order distribution and inherits neither guarantee. Simulating the \NTargets{} models in 47 modules, pairing saves \KRSaveMean{} runs per test and adds \nosign\KRPairMinusIidTwenty--\nosign\NRPairMinusIidTwenty{} percentage points at 20 runs. Real executions of two complete modules, 300 order/reversal pairs each, match all \ExecComparisons{} predicted outcomes of \ExecTargets{} OD tests. Finally, we derive the accuracy a reversal predictor needs to beat random orders, which turns the remaining gap into a concrete target.
+Should detectors of order-dependent (OD) flaky tests spend their rerun budget on reversed test orders? iDFlakies does, because the reverse of a passing order is more likely to fail. We show that this intuition is correct but its payoff is bounded. First, we prove that an order and its reversal have nonpositively correlated failure events in four structural classes of OD tests; the most general, common-cleaner class alone covers \CovThmOne{} of the \NTargets{} published OD models we study. The proofs combine a composable sum-of-squares certificate, a cyclic-cut reduction to Harris' inequality, and a two-square window identity; counterexamples mark where the property fails. Second, we prove a stopping rule: independent reversal pairs save at most half a suite run in expected time to a test's first failure, and independent $k$-run blocks at most $(k-1)/2$ runs when $kf\le1$, where $f$ is the failure probability. Outcome-gated reversal, as deployed, changes the order distribution and inherits neither guarantee. Simulating the \NTargets{} models in 47 modules, pairing saves \KRSaveMean{} runs per test and adds \nosign\KRPairMinusIidTwenty--\nosign\NRPairMinusIidTwenty{} percentage points at 20 runs. Real executions of three complete modules, one with OD tests that fail in only 3\% of orders, match all \ExecAllComparisons{} predicted outcomes of \ExecAllTargets{} OD tests order by order, and reveal OD tests the dataset misses. \IdfDetectorRuns{} runs of the real iDFlakies confirm the simulated gate in every decision. Finally, we derive the accuracy a reversal predictor needs to beat random orders, which turns the remaining gap into a concrete target.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -58,16 +61,16 @@ Reversal is a particularly consequential example. Wei et al.~\cite{wei2021tacas}
 
 \textbf{Our answer is a limit, not a faster detector.} Independent reversal pairs save at most \emph{half a suite run per target} in expected time to its first failure, for any fixed failure event on the sampled orders. For a target failing in 1\% of random orders, even optimal pairing reduces 100 expected runs only to 99.5, not 50. For independent blocks of $k$ uniform runs, the saving is at most $(k-1)/2$ when $kf\le1$. Thus a fixed small block cannot yield a constant-factor improvement on increasingly rare failures. This rules out a broad family of local scheduling changes as a remedy for rare OD tests; it is stronger than observing a small gain on one dataset.
 
-\textbf{What readers can use.}
+\textbf{What is new.} Reversal and its link to antithetic sampling are old ideas. What was missing is when the antithetic sign actually holds for OD tests, where it can fail (Table~\ref{tab:classify}), and what it can buy. We contribute:
 \begin{itemize}
-\item \emph{Detector builders:} distinguish unconditional pairing from a suite-level gate. Pairing is provably no worse than independent sampling under explicit OD-model hypotheses; a gate needs its own evaluation. At iDFlakies' default of 20 runs, our simulation finds no reason to replace the deployed gate.
-\item \emph{Researchers:} use the half-run and block limits to screen proposed schedules before expensive evaluation. To beat these limits, change the schedule class: coordinate longer blocks or use information about which orders will fail. We derive an exact accuracy/cost tradeoff for an imperfect reversal predictor.
-\item \emph{Evaluators:} separate model validity, simulator correctness, and actual executions. A reference-simulator match establishes only the second. State the passing-reference assumption and evaluate outcome-dependent policies jointly over a module.
+\item a safety theorem: an order and its reversal have nonpositively correlated failures in four structural classes, with a composable sum-of-squares certificate, a cyclic-cut reduction to Harris' inequality, and a two-square window identity, plus counterexamples at the frontier;
+\item a limits map: at most half a run for pairs, $(k-1)/2$ for $k$-run blocks, lower bounds for broader schedules, and the exact accuracy/cost a reversal predictor needs;
+\item an evaluation on \NTargets{} published OD models in 47 modules, checked against real executions order by order.
 \end{itemize}
 
-\textbf{Evidence and scope.} We prove reversal's nonpositive failure covariance for four structural cases covering all \NTargets{} published OD models studied here. We simulate all those models and separately execute two complete modules to check matched-order predictions (Section~\ref{sec:execution}). At 20 runs, pairing adds \nosign\KRPairMinusIidTwenty--\nosign\NRPairMinusIidTwenty\pp{} over random orders. Of the \NTargets{} models, \NInconsistent{} fail the recorded original order under the abstraction; the \NConsistent{} reference-consistent models are reported separately. Such failures can be genuine: in an executed module, the recorded order really fails the six affected targets.
+\textbf{What practitioners should do.} Keep iDFlakies' gate at its default budgets: from 10 runs on, it is within 1\pp{} of every alternative and never significantly worse than random orders. Use unconditional pairing for budgets of two to four runs, where the gate often skips useful reversals. Do not expect more from reversal variants. The misses are rare OD tests, and finding them needs information about which orders will fail, or designs spanning about $1/f$ runs.
 
-\textbf{Contributions and reading path.} Section~\ref{sec:theory} gives three central results with their proof ideas: when pairing is safe, its half-run/block ceiling, and lower bounds for broader scheduling classes. It also separates the deployed gate from those guarantees and turns an ideal oracle into a measurable predictor requirement. Section~\ref{sec:empirical} measures effect sizes and abstraction sensitivity; Section~\ref{sec:discussion} states the resulting tool decisions. The supplement contains complete proofs, the frontier conjecture, and exact checks. Practical readers can skip the proofs.
+Section~\ref{sec:theory} states the theory with proof ideas; complete proofs are in the supplement, and practical readers can skip them. Section~\ref{sec:empirical} answers three research questions, and Section~\ref{sec:discussion} turns them into decisions.
 
 \section{Background and Motivation}\label{sec:background}
 \textbf{OD tests.} Following Wei et al.~\cite{wei2021tacas}, a victim $v$ with polluters $P$ and polluter-specific cleaner sets $C_p$ fails in order $\omega$ iff
@@ -93,7 +96,7 @@ $p\,c\,v$ & no & $v\,c\,p$ & no\\
 \end{tabular}
 \end{table}
 
-\textbf{A three-test example.} Let classes be $\{v,c\}$ and $\{p\}$, where $p$ pollutes $v$ and $c$ cleans. Table~\ref{tab:example} lists all orders. The four legal orders are $vcp$, $cvp$, $pvc$, $pcv$, and only $pvc$ fails, so the flake rate is $f=1/4$. The reverse of the passing order $cvp$ is the failing order $pvc$. Thus $\Prb(\text{reverse fails}\mid\text{pass})=1/3>f$, which is the effect Wei et al.\ exploit. Now pair a random order with its reversal. No order fails in both directions, so one pair detects $v$ with probability $2f=1/2$; two independent orders detect it with probability $7/16$. In expected runs until the first failure, pairing needs $3.5$ runs and independent sampling needs $4$. The saving is exactly half a run, and Theorem~\ref{thm:half} shows that half a run is the most independent reversal pairing can save.\footnote{The closed form printed for this setting (``Special Case~2'' in~\cite[Sec.~4.4]{wei2021tacas}) gives $\Prb(\text{pass}\wedge\text{reverse fails})=1/2$ here instead of $1/4$. In general it overstates the probability by $\gamma_1 S_\pi/[k(\pi_1+\gamma_1+1)]$ in the notation of~\cite{wei2021tacas}. The reported comparison in~\cite{wei2021tacas} was obtained by sampling. Corrected formulas and an exhaustive check are in our package.}
+\textbf{A three-test example.} Let classes be $\{v,c\}$ and $\{p\}$, where $p$ pollutes $v$ and $c$ cleans. Table~\ref{tab:example} lists all orders. The four legal orders are $vcp$, $cvp$, $pvc$, $pcv$, and only $pvc$ fails, so the flake rate is $f=1/4$. The reverse of the passing order $cvp$ is the failing order $pvc$. Thus $\Prb(\text{reverse fails}\mid\text{pass})=1/3>f$, which is the effect Wei et al.\ exploit. Now pair a random order with its reversal. No order fails in both directions, so one pair detects $v$ with probability $2f=1/2$; two independent orders detect it with probability $7/16$. In expected runs until the first failure, pairing needs $3.5$ runs and independent sampling needs $4$. The saving is exactly half a run, and Theorem~\ref{thm:half} shows that half a run is the most independent reversal pairing can save.\footnote{The closed form printed for this setting (``Special Case~2'' in~\cite[Sec.~4.4]{wei2021tacas}) gives $\Prb(\text{pass}\wedge\text{reverse fails})=1/2$ here ($k=2$, $\pi_1=0$, $\gamma_1=1$, $\pi_2=1$, $\gamma_2=0$) instead of $1/4$. In general it overstates the probability by $\gamma_1 S_\pi/[k(\pi_1+\gamma_1+1)]$ in the notation of~\cite{wei2021tacas}. The reported comparison in~\cite{wei2021tacas} was obtained by sampling. Corrected formulas and an exhaustive check are in our package.}
 
 \section{Model}\label{sec:model}
 \begin{definition}[Hierarchical legal orders]
@@ -260,68 +263,24 @@ For a hypothetical target with $f=0.01$, $B=0$, a predictor with $s=0.8$ and $a=
 \textbf{Verification scope.} Complete proofs, the unresolved frontier, and auxiliary identities are in the supplement. Exact checks enumerate 14{,}791 common-cleaner hierarchy models and 731{,}630 legal orders, check closed forms and small counterexamples, and test the scheduling identities.
 
 \section{Empirical Study}\label{sec:empirical}
-We ask:
+The theory says what pairing can and cannot buy. We now measure it on real OD tests, with three questions:
 \begin{itemize}
-\item \RQ{1}: Do the recorded OD models satisfy the hypotheses of Theorem~\ref{thm:cov}, and do they show nonpositive reversal covariance?
-\item \RQ{2}: How much does pairing gain per OD test, and how much headroom do the limits leave?
-\item \RQ{3}: How do \GATEp{}, \STRICTp{}, and \PAIRp{} compare with \IIDp{} at suite level?
-\item \RQ{4}: Are the conclusions robust to semantics, data inconsistencies, and aggregation?
-\item \RQ{5}: Do matched-order predictions agree with real executions in two buildable modules?
+\item \RQ{1}: How much does reversal pairing buy for real OD tests, measured against the limits of Section~\ref{sec:theory}?
+\item \RQ{2}: Does iDFlakies' outcome-gated reversal change this picture for whole modules?
+\item \RQ{3}: Does the polluter/cleaner abstraction behind RQ1 and RQ2 predict real executions?
 \end{itemize}
 
-\subsection{Subjects and Semantics}
-We use the public dataset of Li et al.~\cite{li2023issta}: \NTargets{} known OD tests (\NVictims{} victims and \NBrittles{} brittles) in 47 modules of 27 open-source Java projects. The dataset gives polluters and cleaners, or state-setters, for every test, together with each module's recorded original order. Our primary semantics \textbf{S1} is exactly that of Li et al.'s reference simulator: Eq.~\eqref{eq:def1}, with the 21 cleaner \emph{groups} (``$a|b$'') split into individual cleaners. The sensitivity semantics \textbf{S2} lets a group clean only if all of its members run between polluter and victim. Orders follow iDFlakies' default detector type: a uniform class order and uniform method orders.
+\subsection{Subjects and Method}
+We use the public dataset of Li et al.~\cite{li2023issta}: \NTargets{} known OD tests (\NVictims{} victims and \NBrittles{} brittles) in 47 modules of 27 open-source Java projects. It gives polluters and cleaners, or state-setters, for every test, and each module's recorded original order. Our primary semantics \textbf{S1} is exactly that of Li et al.'s reference simulator: Eq.~\eqref{eq:def1}, with the 21 cleaner \emph{groups} (``$a|b$'') split into individual cleaners. The sensitivity semantics \textbf{S2} lets a group clean only if all of its members run between polluter and victim. Orders follow iDFlakies' default: a uniform class order and uniform method orders.
 
-\textbf{Simulation and execution.} The 47-module policy comparison simulates the published models; Section~\ref{sec:execution} checks the abstraction against real executions of two complete modules. The abstraction predicts that the recorded original order fails for \NInconsistent{} of \NTargets{} targets, despite the recorded passing outcome. Our primary analysis keeps the published population; a second view scores only the \NConsistent{} S1 reference-consistent targets. KR supplies an external passing reference, even when the abstraction disagrees with it; NR needs no reference.
+\textbf{Per-test statistics.} \NExact{} tests (all brittles, and victims whose polluters share one cleaner set) have exact rational $f$ and $B$ from two-level closed forms. For the other \NMC{} victims we estimate $f$ and $B$ from $2\times10^6$ sampled orders each and propagate uncertainty by a parametric bootstrap. Gains and expected runs then follow from Eqs.~\eqref{thm:budget}--\eqref{thm:both} and Theorem~\ref{thm:block}.
 
-\begin{table}[t]
-\caption{Reference-consistency sensitivity at 20 runs: modelled detection gain over \IIDp{} (pp, Monte Carlo 95\% CI half-width). ``Consistent'' restricts scoring, not the suite-level gate's state.}\label{tab:reference}
-\centering\small
-\setlength{\tabcolsep}{3pt}
-\resizebox{\columnwidth}{!}{%
-\begin{tabular}{@{}lrcccc@{}}
-\toprule
-Population & $n$ & \multicolumn{2}{c}{\PAIRp{}$-$\IIDp{}} & \multicolumn{2}{c}{\GATEp{}$-$\IIDp{}}\\
- & & KR & NR & KR & NR\\
-\midrule
-\csname @@input\endcsname generated/table_reference_sensitivity.tex
-\bottomrule
-\end{tabular}}
-\end{table}
+\textbf{Suite simulation.} For RQ2 we simulate all targets of a module jointly on the same orders, \Runs{} detector runs of 40 rounds per module and policy. \GATEp{} reproduces the tool's rule: reverse iff the previous round detected no new target and the previous order was not itself a reversal. All policies consume the same stream of fresh orders (common random numbers); per-module contrasts use a Bonferroni correction over 47 modules. We do not model confirmation reruns, unknown flaky tests, or wall-clock cost. The simulator agrees with the per-target closed forms (largest $|z|=3.26$ over 6{,}272 comparisons) and with the unmodified simulator of Li et al.\ on all \NTargets{} tests.
 
-\subsection{Computation and Statistics}
-\textbf{Per-test statistics (RQ1, RQ2).} Every brittle and every victim whose polluters share one cleaner set disjoint from the polluters (\NExact{} tests) has exact rational $f$ and $B$ from the two-level closed forms in the supplement. We cross-checked each closed form with $2\times10^5$ sampled orders; across 516 comparisons the largest $|z|$ was 2.73. For the other \NMC{} victims we estimate $f$ and $B$ from $2\times10^6$ sampled orders each and propagate uncertainty by a parametric bootstrap of the four outcome cells. Per-test gains and expected run counts then follow from Eqs.~\eqref{thm:budget}--\eqref{thm:both} and Theorem~\ref{thm:block}.
+\textbf{Reference outcome.} Under the abstraction, the recorded original order fails for \NInconsistent{} targets, although it was recorded as passing. KR supplies an external passing reference regardless; NR needs none. We report all targets. Restricting the scoring to the \NConsistent{} consistent targets changes no conclusion (RQ2), and RQ3 shows that such failures can be real.
 
-\textbf{Suite-level simulation (RQ3).} We simulate all targets of a module jointly on the same orders, with \Runs{} independent detector runs of 40 rounds per module and policy. \GATEp{} reproduces the tool's rule: reverse iff the previous round detected no new target and the previous order was not itself a reversal; fresh orders are not de-duplicated. Under NR we adapt ``new'' to ``newly detected under NR''. All four policies consume the same stream of fresh orders (common random numbers). We report the percentage of all \NTargets{} OD tests detected, obtained by summing expected detections over modules, with 95\% confidence intervals. Per-module contrasts use a Bonferroni correction over 47 modules. Outcomes are deterministic for a given order. We model neither confirmation reruns, nor unknown OD or non-OD flaky tests, nor wall-clock cost.
-
-\textbf{Implementation validation, not execution validation.} (i) For \IIDp{} and \PAIRp{}, the expected number of detected targets equals the sum of per-target closed forms by linearity. Across 6{,}272 module/budget/protocol comparisons, the largest $|z|$ was 3.26. (ii) We ran the \emph{unmodified} simulator of Li et al. on 150 of our sampled orders per module. It reports the same first passing and first failing order for all \NTargets{} tests.
-
-\begin{table}[t]
-\caption{Theorem coverage, hypothesis audit, and failure statistics (S1).}\label{tab:audit}
-\centering\small
-\resizebox{\columnwidth}{!}{%
-\begin{tabular}{@{}lr@{}}
-\toprule
-OD tests (victims / brittles) & \NTargets{} (\NVictims{} / \NBrittles{})\\
-Covered by Thm.~\ref{thm:cov}(a) / (c) / (d) & \CovThmOne{} / \CovThmThree{} / \CovThmFour{}\\
-Exact closed form for $f,B$ & \NExact{}\\
-\quad victims with common cleaners / brittles & 200 / \NBrittles{}\\
-Estimated by Monte Carlo & \NMC{}\\
-\quad with $d>0$ supported (pointwise 95\% CI) & \NMCneg{}\\
-\quad with $d<0$ supported (pointwise 95\% CI) & \NMCpos{}\\
-Exact tests with $d=0$ (no strict gain) & \NZeroGap{}\\
-Tests with $B=0$ (attain half-run limit) & \NBzero{}\\
-Flake rate $f$: mean / median / min & \FMean{} / \FMedian{} / \FMin{}\,\%\\
-Tests with $f<0.1$ & \NflowTen{}\\
-Pass the recorded original order under the model & \NConsistent{}\\
-\bottomrule
-\end{tabular}}
-\end{table}
-
-\subsection{RQ1: Hypotheses and Covariance}
-Table~\ref{tab:audit} summarises the audit. For the class-contiguous orders that iDFlakies samples, proven theorems cover all \CovTheorems{} tests. Theorem~\ref{thm:cov}(a) covers \CovThmOne{}: all brittles, 200 victims whose polluters share their cleaners, and one victim whose only polluter is listed as its own cleaner (a vacuous entry, which the reference simulator also ignores). Theorem~\ref{thm:cov}(c) covers \CovThmThree{} victims whose classes are one-sided. Theorem~\ref{thm:cov}(d) covers the \CovThmFour{} \texttt{activiti} victims, whose polluters share one global clean-up test per class and have a few class-local cleaners. For the \NMC{} tests without a two-level closed form, the pointwise 95\% intervals also support $d>0$. No test in the dataset shows positive covariance, so Example~\ref{ex:boundary} remains a theoretical boundary here. No exact test has $d=0$, so the conditional-probability effect of Theorem~\ref{thm:cov} is strict for all of them. \NBzero{} tests have $B=0$: no legal order fails in both directions, usually because the victim has one polluter or the test is a brittle.
-
-\textit{Answer:} The safety theorem covers all \NTargets{} recorded OD models under the orders iDFlakies uses. All \NTargets{} models have nonpositive reversal covariance, so independent pairing never lowers their detection probability.
+\subsection{RQ1: What Pairing Buys per Test}
+\textbf{Pairing is safe for every model.} Theorem~\ref{thm:cov}(a) alone covers \CovThmOne{} of the \NTargets{} models: all brittles, 200 victims whose polluters share their cleaners, and one victim whose only polluter is listed as its own cleaner, a vacuous entry. The remaining \CovThmThree{} and \CovThmFour{} victims satisfy the class-contiguous cases (c) and (d). Independently of the theorems, $d=f^2-B$ is positive for every model: exactly for the \NExact{} closed-form tests, and with pointwise 95\% intervals for the other \NMC{}. So pairing never lowers any test's detection probability, and no dataset model reaches the boundary of Example~\ref{ex:boundary}.
 
 \begin{figure*}[t]
 \centering
@@ -330,37 +289,7 @@ Table~\ref{tab:audit} summarises the audit. For the class-contiguous orders that
 \label{fig:pertest}
 \end{figure*}
 
-\begin{table}[t]
-\caption{Per-test detection (\%) and gain of \PAIRp{} over \IIDp{}, averaged over \NTargets{} OD tests (S1). Bootstrap 95\% CIs are narrower than $\pm$0.01\pp.}\label{tab:pertest}
-\centering\small
-\setlength{\tabcolsep}{3.5pt}
-\begin{tabular}{@{}lrrrrr@{}}
-\toprule
-Budget $r$ (runs) & 2 & 4 & 10 & 20 & 40\\
-\midrule
-\csname @@input\endcsname generated/table_pertest_S1.tex 
-\end{tabular}
-\end{table}
-
-\subsection{RQ2: Per-Test Benefit Versus the Limits}
-Fig.~\ref{fig:pertest}(a) plots the expected saving until the first failure. The \NBzero{} tests with $B=0$ save exactly half a run, as Theorem~\ref{thm:half} predicts. The mean saving is \KRSaveMean{} runs: \KRRunsIID{} runs under \IIDp{} versus \KRRunsPair{} under \PAIRp{}, a relative saving of \KRSaveRelMean\% on average. Without a reference the mean saving is \NRSaveMean{} runs (\NRRunsIID{} versus \NRRunsPair{}), and \NRSaveAtLimit{} tests attain the one-run limit of Eq.~\eqref{thm:both}. Reversal thus already delivers nearly all of the benefit that the theory allows, but that benefit is at most a fraction of one run.
-
-Table~\ref{tab:pertest} shows the consequences for fixed budgets. Pairing adds \KRGainTwo\pp{} at $r=2$, but only \KRGainTen\pp{} at $r=10$ and \KRGainTwenty\pp{} at $r=20$ under KR. Under NR the corresponding numbers are \NRGainTwo, \NRGainTen, and \NRGainTwenty\pp. The largest single-test gain at $r=10$ is \KRMaxGainTen\pp. Fig.~\ref{fig:pertest}(b) shows that the gain follows the bound of the rare-failure bound in Section~\ref{sec:theory} closely: it peaks for $f$ around $1/r$ and vanishes for frequently failing tests, which are detected anyway. The tests that remain undetected are the rare ones. At $r=10$ and $r=20$, \KRShareLowTen\% and \KRShareLowTwenty\% of the \IIDp{} misses (KR) come from the \NflowTen{} tests with $f<0.1$. For these tests the budget-uniform gain is $O(f)$; the exact envelope, rather than just its leading term $f/(2e)$, is given in Section~\ref{sec:theory}.
-
-\begin{table}[t]
-\caption{Where the benefit and the misses are (KR, S1): mean flake rate, share of tests with $B=0$, mean runs saved, mean gain at $r=10$, and share of all \IIDp{} misses at $r=20$.}\label{tab:breakdown}
-\centering\small
-\setlength{\tabcolsep}{2.2pt}
-\resizebox{\columnwidth}{!}{%
-\begin{tabular}{@{}lrrrrrr@{}}
-\toprule
-Group & $n$ & $\bar f$\,\% & $B{=}0$\,\% & saved & gain & misses\,\%\\
-\midrule
-\csname @@input\endcsname generated/table_breakdown_S1.tex 
-\end{tabular}}
-\end{table}
-
-Table~\ref{tab:breakdown} explains why. Brittles and single-polluter victims always have $B=0$ and save exactly half a run. Brittles, however, are rarely failing ($\bar f=10.8\%$): a brittle fails only when it precedes all of its state-setters. Together, brittles and single-polluter victims account for 90\% of the \IIDp{} misses at $r=20$. Victims with several polluters fail often and gain little. The budget needed for a given coverage barely changes: to detect 90\% of the known OD tests, \IIDp{} needs \RunsKRIidNinety{} runs and \PAIRp{} \RunsKRPairNinety{} under KR (\RunsNRIidNinety{} and \RunsNRPairNinety{} under NR); for 95\%, the numbers are \RunsKRIidNinetyFive{} versus \RunsKRPairNinetyFive{} (KR) and \RunsNRIidNinetyFive{} versus \RunsNRPairNinetyFive{} (NR).
+\textbf{But it saves less than half a run.} \NBzero{} tests have $B=0$ and save exactly half a run (Fig.~\ref{fig:pertest}(a)). On average pairing saves \KRSaveMean{} runs: \KRRunsIID{} under \IIDp{} versus \KRRunsPair{} under \PAIRp{} (NR: \NRSaveMean{} runs). At fixed budgets the average per-test gain is \KRGainTwo\pp{} at $r=2$, but only \KRGainTen\pp{} at $r=10$ and \KRGainTwenty\pp{} at $r=20$ (KR). The gain follows the rare-failure bound of Section~\ref{sec:theory} closely (Fig.~\ref{fig:pertest}(b)): it peaks near $f=1/r$ and vanishes for frequently failing tests, which are found anyway. Reversal thus already delivers nearly all that independent pairs can deliver.
 
 \begin{table}[t]
 \caption{The limits map on real data: expected runs to the first failure (KR), averaged over all \NTargets{} OD tests and over the \NflowTen{} rare ones ($f<0.1$).}\label{tab:map}
@@ -379,16 +308,9 @@ uniform marginals (lower bound) & \ETUniform & \ETUniformRare\\
 \end{tabular}
 \end{table}
 
-Table~\ref{tab:map} places these numbers on the map of Section~\ref{sec:theory}. The gap from \IIDp{} to the uniform-marginal lower bound is \HeadroomUniformPct\% of its mean expected runs, and pairing closes \HeadroomShare\% of that gap. Because per-target optima may conflict, this gap is an upper limit on what any detector could save, not a saving on offer. Four-run blocks remain limited, especially for rare tests. For those tests, reducing expected runs by a fixed fraction $\eta>0$ through independent blocks necessarily requires $k\ge1+2\eta/f$ in the $kf\le1$ regime.
+\textbf{The misses, and the headroom, are rare tests.} At $r=10$ and $r=20$, \KRShareLowTen\% and \KRShareLowTwenty\% of the \IIDp{} misses come from the \NflowTen{} tests with $f<0.1$. Most are brittles and single-polluter victims: they have $B=0$, but fail rarely. Table~\ref{tab:map} places the averages on the map of Section~\ref{sec:theory}. The uniform-marginal bound lies \HeadroomUniformPct\% below \IIDp{}, and pairing closes \HeadroomShare\% of that gap. For the rare tests, \IIDp{} needs \ETIidRare{} runs and the bound is \ETUniformRare. Per-target optima may conflict, so the gap bounds what any detector could save rather than offering a saving. Closing a fixed fraction $\eta$ of it with independent blocks requires $k\ge1+2\eta/f$ runs per block.
 
-\textit{Answer:} Pairing saves half a run for \NBzero{} tests and \KRSaveMean{} runs on average under the model. Its aggregate detection gain is below 1\pp{} from 10 runs on. Closing the remaining gap requires longer-horizon or information-directed designs.
-
-\begin{figure*}[t]
-\centering
-\includegraphics[width=\textwidth]{figures/suite_S1.pdf}
-\caption{Suite-level difference to \IIDp{} in detected OD tests (percentage points of \NTargets), with 95\% confidence bands (S1, \Runs{} detector runs per module). The dotted line marks iDFlakies' default budget of 20 runs.}
-\label{fig:suite}
-\end{figure*}
+\textit{Answer:} Pairing is safe for all \NTargets{} models, and saves \KRSaveMean{} runs per test on average, below 1\pp{} of detection from 10 runs on. The remaining headroom lies with rare tests and needs longer-horizon or information-directed designs.
 
 \begin{table}[t]
 \caption{Suite-level detection (\% of \NTargets{} OD tests) and differences in percentage points with 95\% CI half-widths (S1).}\label{tab:suite}
@@ -403,47 +325,41 @@ Budget $r$ (runs) & 2 & 4 & 10 & 20 & 40\\
 \end{tabular}}
 \end{table}
 
-\subsection{RQ3: Suite-Level Policies}
-Table~\ref{tab:suite} and Fig.~\ref{fig:suite} compare the four policies on complete modules. Three observations stand out.
+\subsection{RQ2: The Deployed Gate}
+Table~\ref{tab:suite} compares the four policies on complete modules.
 
-\emph{First, the differences are real but confined to tiny budgets.} Under KR, \PAIRp{} improves on \IIDp{} by \KRPairMinusIidTwo\pp{} at $r=2$ and by \KRPairMinusIidFour\pp{} at $r=4$, but only by \KRPairMinusIidTen\pp{} at $r=10$ and \KRPairMinusIidTwenty\pp{} at $r=20$. The picture under NR is the same: \NRPairMinusIidTwo, \NRPairMinusIidFour, \NRPairMinusIidTen, and \NRPairMinusIidTwenty\pp.
+\emph{Differences are confined to tiny budgets.} Under KR, \PAIRp{} improves on \IIDp{} by \KRPairMinusIidTwo\pp{} at $r=2$ and \KRPairMinusIidFour\pp{} at $r=4$, but only by \KRPairMinusIidTen\pp{} at $r=10$ and \KRPairMinusIidTwenty\pp{} at $r=20$ (NR: \NRPairMinusIidTwo, \NRPairMinusIidFour, \NRPairMinusIidTen, \NRPairMinusIidTwenty\pp).
 
-\emph{Second, we observe no significant loss for the modelled gate relative to random sampling.} \GATEp{} never falls significantly below \IIDp{} in any module, under either protocol and at any budget from 1 to 40 runs; the most negative module-level $z$-score is $-1.0$, even before correcting for multiple comparisons. This is absence of detected harm rather than an equivalence test. From 10 runs on, \GATEp{} and \PAIRp{} differ by at most 0.11\pp{} in aggregate: \KRPairMinusGateTen{} and \KRPairMinusGateTwenty\pp{} under KR, and \NRPairMinusGateTen{} and \NRPairMinusGateTwenty\pp{} under NR. Per module the sign varies: at $r=10$ under NR, \PAIRp{} is significantly better in \NRPairBetterGateTen{} modules and worse in \NRPairWorseGateTen. Under NR the gate reverses after the first round almost always, because one run cannot reveal both outcomes, so it behaves like \PAIRp{} early on.
+\emph{The gate is never significantly worse than random orders.} This holds in every module, under both protocols, at every budget from 1 to 40 runs; the most negative module-level $z$-score is $-1.0$ before any multiple-comparison correction. From 10 runs on, \GATEp{} and \PAIRp{} differ by at most 0.11\pp{} in aggregate, with signs that vary by module. Under NR the gate almost always reverses after the first round, because one run cannot reveal both outcomes.
 
-\emph{Third, the gate matters only under a tiny budget with a passing reference.} There the first round often detects something new, so \GATEp{} forgoes the reversal and falls behind \PAIRp{} by \KRPairMinusGateTwo\pp{} at $r=2$. \STRICTp{} is weaker still at small budgets, because a run without any failure is rare in modules with many OD tests.
+\emph{The gate costs detection only with a tiny budget and a passing reference.} There the first round often finds something new, so \GATEp{} skips the reversal and trails \PAIRp{} by \KRPairMinusGateTwo\pp{} at $r=2$. \STRICTp{} is weaker still, because a run without any failure is rare in modules with many OD tests. Per module (supplement), reversal adds at most about 1\pp{} at $r=10$ under KR. The largest effects ($+3.0$\pp, NR) occur where OD tests fail in most orders, so that detection waits for a \emph{passing} run.
+
+\textbf{The real tool.} We also ran the unmodified iDFlakies (commit f54b3f0) on the two frequently failing executed modules of RQ3, together with two minimal patches of its decision code: one never reverses (\IIDp), and one reverses after every fresh order (\PAIRp). Every variant made 20-round detector runs with shared seeds (\IdfRunsAis{} per variant on \texttt{aismessages}, \IdfRunsHttp{} on \texttt{http-request}; \IdfDetectorRuns{} runs in total), under a protocol frozen before the first run. The simulation matches the tool. All \IdfOrders{} executed orders were class-contiguous permutations of the module. The gate reversed exactly when our rule predicts, in all \IdfGateTransitions{} decisions. All \IdfComparisons{} target outcomes on the tool's own orders matched S1. Table~\ref{tab:idflakies} gives the measured contrasts. On \texttt{aismessages} they reproduce the simulation (e.g., \GATEp$-$\IIDp{} at $r=2$: $+6.1$\pp{} measured, $+5.7$\pp{} simulated). On \texttt{http-request}, the tool's own reference order fails 15 of the 25 targets in its runner, although native Maven passes them. Round-0 \emph{passes} of those targets then count as new detections, so the gate never reverses in round~1 and forgoes most of reversal's benefit at small budgets. This is the suite-level dependence of Section~\ref{sec:theory}-C, observed in the deployed tool.
 
 \begin{table}[t]
-\caption{Detection (\%) after 10 runs in the \NBigModules{} modules with at least five OD tests (\NBigModuleTests{} of \NTargets{} tests; S1).}\label{tab:modules}
+\caption{Real iDFlakies runs: detection difference in percentage points of the module's targets (KR, mean and 95\% bootstrap CI over paired detector runs).}\label{tab:idflakies}
 \centering\small
-\setlength{\tabcolsep}{2.6pt}
+\setlength{\tabcolsep}{2.5pt}
 \resizebox{\columnwidth}{!}{%
-\begin{tabular}{@{}lrrrrrrr@{}}
+\begin{tabular}{@{}llccc@{}}
 \toprule
-& & \multicolumn{3}{c}{KR} & \multicolumn{3}{c}{NR}\\
-\cmidrule(lr){3-5}\cmidrule(l){6-8}
-Module & OD & \IIDp & \PAIRp & \GATEp & \IIDp & \PAIRp & \GATEp\\
+Module & Contrast & $r=2$ & $r=4$ & $r=10$\\
 \midrule
-\csname @@input\endcsname generated/table_modules_S1.tex 
+\csname @@input\endcsname generated/table_idflakies.tex
+\bottomrule
 \end{tabular}}
 \end{table}
 
-Table~\ref{tab:modules} shows the largest modules. Where detection is already high, reversal adds about 1\pp{} or less at $r=10$ (e.g., $+1.3$\pp{} for \texttt{lib} under KR). Where it is low, reversal adds less than 0.5\pp. In \texttt{dubbo-config-api} (23\%), 37 brittles fail in only 2.6\% of orders. In \texttt{marine-api} (27\%), 12 victims fail in 3.1\% of orders. The largest per-module effects ($+3.0$\pp) appear under NR in modules whose OD tests fail in most orders, e.g., \texttt{integration-test-3\_7} ($f=0.83$). There, detection needs a \emph{passing} run, the mirror image of the rare-failure case. In \texttt{spring-ws-core} ($f=0.96$, NR) the gate even beats unconditional pairing, by 2.1\pp.
+\textbf{Robustness.} Under S2 the suite contrasts change by at most 0.04\pp{} at any budget. Scoring only the \NConsistent{} reference-consistent targets gives \PAIRp{}$-$\IIDp{} at $r=10$ of \KRConsPairMinusIidTen\pp{} (KR) and \NRConsPairMinusIidTen\pp{} (NR). Weighting modules equally gives \KRMWPairMinusIidTen\pp{} and \NRMWPairMinusIidTen\pp. The supplement has the tables.
 
-\textit{Answer:} In aggregate under S1, all modelled reversal policies are within 1\pp{} of random orders from 10 runs on. The deployed gate is never significantly worse than random and is within 0.11\pp{} of unconditional pairing at realistic budgets. Its clearest aggregate advantage over the modelled gate occurs with a passing reference and two to four runs; individual modules can differ.
+\textit{Answer:} From 10 runs on, all reversal policies are within 1\pp{} of random orders, and the deployed gate is never significantly worse; the real tool confirms both the simulated gate rule and these magnitudes. At budgets of two to four runs, unconditional pairing is better, especially when the tool's reference order does not pass.
 
-\subsection{RQ4: Robustness}
-\textbf{Semantics.} Under S2 (conjunctive cleaner groups), \NExactAlt{} tests are exact and all \NMCAlt{} estimated tests again have $d>0$. The suite contrasts change by at most 0.04\pp{} at any budget; e.g., \PAIRp{}$-$\IIDp{} at $r=10$ is \KRPairMinusIidTenAlt\pp{} (KR) and \NRPairMinusIidTenAlt\pp{} (NR).
+\subsection{RQ3: Real Executions}\label{sec:execution}
+RQ1 and RQ2 rest on the published polluter/cleaner models. We therefore executed complete modules and compared each real outcome with the model's prediction for the same order.
 
-\textbf{Reference-order consistency.} Table~\ref{tab:reference} reports both populations at the default budget without hiding the inconsistent targets. The consistent view retains the original gate decisions, including decisions influenced by inconsistent targets; it is not a rerun on a cleaned suite. The abstraction predicts a \emph{failure} of the recorded original order for \NInconsistent{} tests, despite the historical passing-reference assumption. For 59 of the 104 affected victims, every uncleaned polluter lies in another class; for the other 45, an uncleaned polluter shares the victim's class. Class-level resets or omitted cleaners are possible explanations. The six such targets in our executed \texttt{http-request} module really fail in the recorded order (Section~\ref{sec:execution}), so reference inconsistency alone does not indicate model error. Restricted to the \NConsistent{} consistent tests, \PAIRp{}$-$\IIDp{} at $r=10$ is \KRConsPairMinusIidTen\pp{} (KR) and \NRConsPairMinusIidTen\pp{} (NR), and \GATEp{}$-$\IIDp{} is \KRConsGateMinusIidTen\pp{} (KR).
+\textbf{Protocol.} Before building anything, we froze the modules, fallbacks, seeds, sample sizes, and stopping rules. Selection could not depend on model agreement. The primaries were \texttt{aismessages} (two targets, model $f=2/3$, $B=1/3$) and \texttt{http-request/lib} (25 targets, six reference-inconsistent, $f=1/3$, $B=0$). Both built at the dataset revisions without changes to code, tests, dependencies, or fixtures, and their native test inventories matched the recorded ones exactly (44 and 163 tests). Every execution ran the complete module in a fresh JVM with normal class and method fixtures. An ordered JUnit runner kept whole-class execution and checked each actual test start against the requested order. The formal sample has 300 independent uniform class-contiguous orders per module, each followed by its reversal. All \ExecRuns{} formal executions were valid, with exact order agreement and no skips or timeouts. \ExecPilotRuns{} pilot runs (three repetitions of the recorded order, and five random orders twice each) were stable and are excluded.
 
-\textbf{Aggregation.} Weighting modules equally instead of tests gives \PAIRp{}$-$\IIDp{} at $r=10$ of \KRMWPairMinusIidTen\pp{} (KR) and \NRMWPairMinusIidTen\pp{} (NR).
-
-\textit{Answer:} The small pairing gains persist under alternative cleaner-group semantics, scoring only reference-consistent targets, and equal-module weighting. RQ5 addresses execution fidelity.
-
-\subsection{RQ5: Bounded Real-Execution Check}\label{sec:execution}
-\textbf{Frozen selection and protocol.} Before building, we fixed two primary modules and two technical-failure fallbacks, without selecting on observed model agreement. The primaries were \texttt{aismessages} (two reference-consistent OD targets, model $f=2/3$, $B=1/3$) and \texttt{http-request/lib} (25 targets, six reference-inconsistent, model $f=1/3$, $B=0$). Both built at the dataset revisions without modifying production code, tests, dependencies, or fixtures; no fallback was used. Native Maven/JUnit discovery exactly matched the recorded inventories of 44 and 163 tests, respectively. This is a feasibility-selected case study, not a representative sample.
-
-Each execution ran the complete module in a fresh JVM with normal class and method fixtures. The ordered JUnit runner retained whole-class execution and checked every actual test start/finish against the requested sequence. Three repetitions of the recorded order and two repetitions of five fixed random orders gave stable outcomes in both modules; these \ExecPilotRuns{} pilot runs were excluded. The formal sample was frozen at 300 independent uniform class-contiguous orders per module, each followed by its whole-order reversal in a separate fresh JVM. All \ExecRuns{} formal executions completed with exact order agreement and no skips or timeouts. S1 and S2 predicted outcomes on these same orders, without model adjustment. Tool versions, regression tests, and per-target intervals are in the supplement and package.
+\textbf{Rare failures.} Both modules have $f\ge1/3$, whereas our argument concerns rare failures. A second protocol, frozen before any build, therefore added \texttt{marine-api} (\ExecRareTests{} tests, \ExecRareTargets{} targets, model $f=1/32$, $B=0$) with \ExecRarePairs{} pairs and a fixed fallback order. It built unchanged, and no fallback was needed. Before the formal sample, the runner gained method-order control for one JUnit~3 class, and it now accepts the one natively ignored test; the package documents both. All \ExecRareRuns{} formal executions were valid.
 
 \begin{table}[t]
 \caption{Real executions: complete-suite size / OD targets, independent pairs, ranges of observed anchor $f$ and joint $B$ across targets, and S1 mismatches / target outcomes. These ranges are not confidence intervals.}\label{tab:execution}
@@ -455,33 +371,34 @@ Each execution ran the complete module in a fresh JVM with normal class and meth
 Module & tests/OD & pairs & $\hat f$ & $\hat B$ & mismatch\\
 \midrule
 \csname @@input\endcsname generated/table_execution.tex
+\csname @@input\endcsname generated/table_execution_rare.tex
 \bottomrule
 \end{tabular}}
 \end{table}
 
-\textbf{Results and uncertainty.} All \ExecComparisons{} formal target outcomes matched S1 and S2 (Table~\ref{tab:execution}). Agreement is order by order, which is stronger than matching marginal rates. With the pair as the independent unit, zero pairs containing any target mismatch gives a one-sided 95\% upper bound of $1-0.05^{1/300}\approx0.00994$ on that event's probability, separately for each module. Zero observed joint failures in \texttt{http-request} are likewise consistent with, not proof of, $B=0$. We report pointwise Wilson intervals using 300 pairs, not 600 independent directions. For \ExecMarginalOutside{} of the 27 targets, the model's theoretical $f$ lies outside the anchor-rate 95\% interval; the model on the \emph{same sampled orders} has the identical empirical rate, so these deviations are not execution/prediction disagreements.
+\textbf{Every outcome matches.} All \ExecAllComparisons{} target outcomes matched S1 and S2 order by order (Table~\ref{tab:execution}), which is stronger than matching failure rates. In \texttt{marine-api}, targets failed in only \ExecRareFailingDirections{} of \ExecRareDirections{} executions, and the model predicted each of these failures and every pass. With the pair as the independent unit, zero mismatching pairs bound the mismatch probability (one-sided 95\%) by $1-0.05^{1/300}\approx0.0099$ in the first two modules and by \ExecRareZeroBound{} in \texttt{marine-api}. There the model's $f=1/32$ lies inside every target's 95\% interval (observed \ExecRareFMin--\ExecRareFMax), and no pair failed in both directions. The 12 targets fail in correlated groups, so they are not 12 independent confirmations. For \ExecMarginalOutside{} of the 27 targets in the first two modules, the model's theoretical $f$ lies outside the observed 95\% interval, but the model has the identical rate on the same sampled orders; this is sampling variation, not disagreement.
 
-\textbf{The reference-order discrepancy is observable.} Native Maven baselines passed all tests, but executing the recorded original order made six known \texttt{http-request} targets fail, consistently with S1/S2, in all three repetitions. For these targets the model is right and the historical passing reference does not reproduce. Three tests outside the published target set also failed during sampling; we report them but did not add them to the targets.
+\textbf{The recorded original order really fails.} Native Maven runs passed every test, but executing the recorded original order failed the six reference-inconsistent \texttt{http-request} targets in all three repetitions, exactly as S1 and S2 predict. For these targets the model is right and the historical passing reference does not reproduce.
 
-\textit{Answer:} The abstraction predicts every sampled outcome of these 27 targets exactly, including the six reference-inconsistent ones. The check covers two modules with $f\ge1/3$ (Section~\ref{sec:threats}).
+\textbf{The dataset misses OD tests.} Three \texttt{http-request} tests outside the published targets also failed in about a third of the orders. They behave exactly like the module's 25 known victims. The same polluter and cleaner, which set and reset a static connection factory, explain all 613 recorded runs and 14 targeted confirmation runs. We report them but keep them out of the target set.
+
+\textit{Answer:} The abstraction predicts every sampled outcome of the \ExecAllTargets{} executed targets exactly, in the rare regime as well as for frequently failing and reference-inconsistent targets. It also explains three OD victims that the dataset missed.
 
 \section{Discussion}\label{sec:discussion}
-\textbf{Decision 1: do not sell a local scheduling change as a rare-test solution.} Independent reversal pairs cannot save more than half a run per target. This result needs only equal uniform marginals, not a faithful polluter/cleaner abstraction. Generalising the transformation to independent fixed-size blocks still saves only a bounded number of runs in the rare-event regime. These limits are a stopping criterion for optimisation; reversal still helps at a two-run budget.
+\textbf{For tool builders: keep the gate, and stop tuning reversal.} At iDFlakies' default budgets, the gate, unconditional pairing, and random orders differ by less than 1\pp, and the gate is never significantly worse than random. Only when a per-commit budget is two to four runs does unconditional pairing pay off: by \KRPairMinusGateTwo\pp{} over the gate at $r=2$ in simulation, and by up to 12.5\pp{} in the real tool when its reference order does not pass. Beyond that, no reversal variant can help much. Independent pairs save at most half a run per test, and blocks of $k$ runs at most $(k-1)/2$. These limits need only uniform marginals, not our OD model, so they hold whatever the tests do.
 
-\textbf{Decision 2: do not replace the deployed gate on these results alone.} At 20 runs, our modelled aggregate differences are small. With a two-run KR budget, pairing exceeds the gate by \KRPairMinusGateTwo\pp{}, which warrants evaluating unconditional pairing for small per-commit budgets. The gate has no per-target safety guarantee, and confirmation reruns, unknown flaky tests, and historical-order suppression can change its behaviour.
+\textbf{For rare OD tests: buy information, or coordinate longer horizons.} Rare tests cause almost all misses, and the dataset's OD tests were themselves found by earlier detectors, so rare ones are probably underrepresented. Equation~\eqref{eq:predictor} tells a reversal predictor what it must achieve: $sJ(1-f)>f(c+aq)$. Shared-state analysis~\cite{gyori2015poldet,bell2015electrictest,gambi2018pradet} and prioritisation~\cite{iqbal2025ftw} are candidate sources of that information. Covering designs over about $1/f$ runs~\cite{wei2021tacas,li2023issta} are the other way past the block limit.
 
-\textbf{Decision 3: evaluate information, not just reversal frequency.} Shared-state analysis~\cite{gyori2015poldet,bell2015electrictest,gambi2018pradet} and prioritisation~\cite{iqbal2025ftw} might supply information about useful reversals. Equation~\eqref{eq:predictor} states exactly how recall, false positives, and prediction cost affect expected runs for a fixed target, and so tells such tools which operating point they must reach. Longer-horizon covering designs~\cite{wei2021tacas,li2023issta} are the other way out of the block limit.
-
-\textbf{Next steps.} A tool-level evaluation that executes the competing policies should include rare OD tests, confirmation reruns, unknown flaky tests, and elapsed time.
+\textbf{For evaluators: separate model, simulator, and execution.} Agreement with a reference simulator checks only the simulator; real executions check the model. Evaluate outcome-gated policies jointly over a module, because no per-target statistic determines them (Proposition~\ref{prop:gate}), and state the passing-reference assumption.
 
 \section{Threats to Validity}\label{sec:threats}
-\textbf{Construct.} The 47-module policy outcomes come from the polluter/cleaner abstraction used by prior work~\cite{wei2021tacas,li2023issta}. The separate two-module execution check supports only its sampled cases, not all projects or unobserved orders. The abstraction does not reproduce the passing original order for \NInconsistent{} tests. We therefore report results for the consistent subset as well. The dataset lists no polluter groups, so OD tests that need several polluters jointly are not represented. We also ignore non-OD flakiness and failures that alter later behaviour. We do not model wall-clock cost, confirmation reruns, or the tool's reuse of historical orders.
+\textbf{Construct.} The 47-module results rest on the polluter/cleaner abstraction of prior work~\cite{wei2021tacas,li2023issta}. RQ3 checks it against real executions, but only for the sampled orders of the executed modules. The dataset lists no polluter groups, so OD tests that need several polluters jointly are not represented. We ignore non-OD flakiness, failures that alter later behaviour, confirmation reruns, the tool's reuse of historical orders, and wall-clock cost.
 
-\textbf{Unproven cases.} Every S1 model in the dataset is covered by a theorem; this is a claim about the recorded model, not the underlying execution. The open two-level conjecture matters only for suites with cleaners that are neither global nor class-local and that sit in classes with polluters.
+\textbf{Population.} The dataset's OD tests were found by earlier detectors, so rarely failing OD tests are probably underrepresented, and RQ3 found three victims it misses. Both effects make our finding that rare tests dominate the misses conservative.
 
-\textbf{Internal.} The simulation is validated against closed forms and against the reference simulator of Li et al. Monte Carlo error is reported and is at least an order of magnitude smaller than the effects we interpret. The theorems have complete proofs. Our package checks their small-instance consequences by exhaustive enumeration on all small hierarchies (14{,}791 models, 731{,}630 orders) and exact rational checks of the budget and hitting-time identities.
+\textbf{Theory.} Theorem~\ref{thm:cov} covers every S1 model in the dataset; this is a statement about the recorded models. The general class-contiguous case remains a conjecture, checked exhaustively up to seven tests. The proofs are complete, and the package checks their consequences exhaustively on small instances (14{,}791 hierarchy models, 731{,}630 orders) and verifies the budget and hitting-time identities in exact arithmetic.
 
-\textbf{External.} The simulation covers 47 Maven modules and one tool at one commit. Execution covers two feasibility-selected modules on one Linux/JDK environment, with model failure rates at least $1/3$; it provides no direct evidence for rare failures or environment portability. Other frameworks group tests hierarchically too (e.g., nested describe blocks in Jest~\cite{hashemi2025js}), and Theorem~\ref{thm:cov} covers arbitrary nesting, but the empirical magnitudes may differ. The theory's hypotheses (common cleaners, independent anchors) are explicit, and Examples~\ref{ex:suite}--\ref{ex:boundary} show what fails without them.
+\textbf{External.} The simulation covers 47 Maven modules and one tool at one commit. Execution covers feasibility-selected modules in one Linux/JDK environment. Other frameworks also nest tests (e.g., describe blocks in Jest~\cite{hashemi2025js}), and Theorem~\ref{thm:cov}(a) covers arbitrary nesting, but the empirical magnitudes may differ.
 
 \section{Related Work}\label{sec:related}
 \textbf{OD test detection.} DTDetector introduced reversal, randomised, and bounded exhaustive detection~\cite{zhang2014dtdetector}. iDFlakies randomises class-contiguous orders and classifies flaky tests~\cite{lam2019idflakies}. Other work detects state pollution or test dependencies directly~\cite{gyori2015poldet,bell2015electrictest,gambi2018pradet}, repairs OD tests~\cite{shi2019ifixflakies}, or detects them incrementally~\cite{li2022incidflakies}. Empirical studies cover Python~\cite{gruber2021python} and JavaScript~\cite{hashemi2025js}; see Parry et al.~\cite{parry2021survey} for a survey. Systematic approaches cover test pairs with Tuscan squares~\cite{wei2021tacas,li2023issta}. Li et al.\ found that most generated orders are unnecessary and called for prioritisation~\cite{li2023issta}, which Iqbal et al.\ pursue~\cite{iqbal2025ftw}.
@@ -491,10 +408,10 @@ Module & tests/OD & pairs & $\hat f$ & $\hat B$ & mismatch\\
 \textbf{Antithetic sampling.} Pairing a sample with a reflected one is the classical antithetic technique~\cite{hammersley1956antithetic,owen2013mc}, and its use for estimating probabilities is well studied~\cite{snijders1984antithetic}. Those results reduce estimator variance, and they help only when the pair is negatively correlated. Theorem~\ref{thm:cov} establishes that sign for OD-test semantics, using a certificate for hierarchies and Harris' correlation inequality~\cite{harris1960} for unconstrained orders. The sign is not generic (Table~\ref{tab:classify}). Theorem~\ref{thm:half} and Eq.~\eqref{thm:both} concern detection times rather than estimator variance.
 
 \section{Conclusion}\label{sec:conclusion}
-Reversal's value is bounded, even when its intuition is correct: independent pairs save at most half a run per target's first failure, and independent small blocks cannot deliver constant-factor savings for rare failures. Under explicit OD-model hypotheses, pairing is safe; a suite-level gate is a different policy and does not inherit that guarantee. Simulation of \NTargets{} published models finds gains below 1\pp{} from 10 runs on. Real executions of two modules match all \ExecComparisons{} predicted outcomes of \ExecTargets{} targets. Our predictor tradeoff makes the next question concrete: can useful failure information be obtained accurately and cheaply enough to outperform outcome-blind sampling?
+Reversal's value is bounded, even when its intuition is correct: independent pairs save at most half a run per target's first failure, and independent small blocks cannot deliver constant-factor savings for rare failures. Under explicit OD-model hypotheses, pairing is safe; a suite-level gate is a different policy and does not inherit that guarantee. Simulation of \NTargets{} published models finds gains below 1\pp{} from 10 runs on. Real executions of three modules match all \ExecAllComparisons{} predicted outcomes of \ExecAllTargets{} targets, including rarely failing ones. Our predictor tradeoff makes the next question concrete: can useful failure information be obtained accurately and cheaply enough to outperform outcome-blind sampling?
 
 \section*{Acknowledgment}
-We used generative AI tools extensively and disclose their use here. Gemini (Google) assisted with the literature search. GPT and Codex (OpenAI) and Claude (Anthropic) proposed proof strategies and wrote first versions of several proofs, including the cyclic-cut, window-identity, and composition arguments behind Theorem~\ref{thm:cov}(b) and~(d). These tools also wrote the simulation, verification, and execution code, and drafted and revised the text. The authors checked every proof, which independent exact computations also cross-check, verified every citation against its source, and regenerated every number from the released scripts. The authors take full responsibility for the content.
+We thank GPT and Codex (OpenAI) and Claude (Anthropic), which helped us push the theory forward. They carried out much of the mathematical derivation for cases (b)--(d) of the safety theorem, wrote most of the simulation, verification, and execution code, and helped draft and polish the text. Gemini (Google) helped with the literature search. We then checked every proof and the idea behind it ourselves, cross-checked the derivations with independent exact computations, verified every citation against its source, and regenerated all numbers from the released scripts. We take full responsibility for the content.
 
 \section*{Data Availability}\label{sec:data}
 The anonymized replication package is available at \url{https://anonymous.4open.science/r/tset-71C0}. It contains the complete proofs, exact verification scripts, the suite simulator, the analysis scripts that generate every number, table, and figure in this paper, the real-execution protocol, runner, and measurements, and the processed dataset of Li et al.~\cite{li2023issta} with provenance.

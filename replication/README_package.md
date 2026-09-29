@@ -23,10 +23,10 @@ Python ≥ 3.10, numpy ≥ 2.0, and matplotlib. No network access is needed, exc
 | Safety theorem (main Theorem 1), frontier | `docs/supplement_proofs.pdf`; `theory/src/verify_theory.py`, `theory/strengthen/`, `theory/conjecture/`, `theory/crosscheck/` |
 | Block limit (Theorem 2), broader bounds (Theorem 3) | Supplement section "Limits of scheduling"; `theory/strengthen/verify_new.py`, `theory/src/verify_predictor.py` |
 | Predictor tradeoff and target-aware attainment | Supplement sections on the imperfect predictor and uniform-marginal attainment; `theory/src/verify_predictor.py` |
-| RQ1: theorem coverage | `empirical/results/coverage_S1.json`, `pertest_S1.csv`; coverage files retain historical theorem IDs: 1→main 1(a), 3→1(c), 4→1(d) |
-| RQ2: per-target benefits and bounds, Fig. 1 | `summary_S1.json` → `pertest`; `table_pertest_S1.tex`, `table_breakdown_S1.tex`, `macros_limits_S1.tex` |
-| RQ3: suite policies, Fig. 2 | `suite_S1.json`, `summary_S1.json` → `suite`; `table_suite_S1.tex`, `table_modules_S1.tex` |
-| Reference sensitivity at 20 runs and RQ4 | `table_reference_sensitivity.tex`, generated from both `suite_S1.json` and `suite_S2.json`; consistent-target scoring retains the original all-target gate decisions |
+| RQ1: coverage, per-test benefit, limits map (Fig. 1, Table III; supplement tables on audit, per-test detection, breakdown) | `empirical/results/coverage_S1.json`, `pertest_S1.csv`, `summary_S1.json` → `pertest`; `table_pertest_S1.tex`, `table_breakdown_S1.tex`, `macros_limits_S1.tex`. Coverage files keep historical theorem IDs: 1→main 1(a), 3→1(c), 4→1(d) |
+| RQ2: suite policies and robustness (Table IV; supplement figure and tables on modules and reference consistency) | `suite_S1.json`, `suite_S2.json`, `summary_S1.json` → `suite`; `table_suite_S1.tex`, `table_modules_S1.tex`, `table_reference_sensitivity.tex`. Consistent-target scoring keeps the original all-target gate decisions |
+| RQ2: real iDFlakies runs (Table V) | `empirical/execution/idflakies/` (REPORT.md, patches, per-round results) |
+| RQ3: real executions (Table VI) | `empirical/execution/` (see below); the extra http-request victims are in `empirical/execution/extra_tests/REPORT.md` |
 | Implementation validation (not project execution) | `validation_S1.json`, `validation_S2.json`, `pertest_S1_validation.json` |
 
 ## Bounded real-execution check

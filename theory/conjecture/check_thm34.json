@@ -1,0 +1,10 @@
+{
+  "theorem3": {
+    "instances": 249,
+    "min_gap": "1/144"
+  },
+  "theorem4": {
+    "instances": 249,
+    "min_gap": "1/576"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "provenance": "SYNTHETIC exact examples. This is NOT the ISSTA 2023 dataset.",
+  "probabilities": "exact",
+  "tests": [
+    {"id": "three-test-print-counterexample", "module": "synthetic-one", "f": "1/4", "B": "0"},
+    {"id": "hierarchical-zero-gain", "module": "synthetic-two", "f": "1/2", "B": "1/4"},
+    {"id": "rare-shared-cleaner", "module": "synthetic-three", "f": "1/100", "B": "0"},
+    {"id": "six-test-general-cleaners", "module": "synthetic-four", "f": "11/16", "B": "1/2"}
+  ]
+}

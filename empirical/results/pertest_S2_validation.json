@@ -1,0 +1,12 @@
+{
+  "semantics": "S2",
+  "targets": 289,
+  "exact": 254,
+  "monte_carlo": 35,
+  "mc_samples_for_non_closed_form": 2000000,
+  "mc_samples_for_closed_form_check": 200000,
+  "closed_form_check_max_abs_z": 2.726175818723831,
+  "closed_form_check_count": 508,
+  "seed": 20261102,
+  "seconds": 62.8
+}

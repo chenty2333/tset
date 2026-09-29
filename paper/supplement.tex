@@ -1,0 +1,1159 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,booktabs,array,microtype}
+\usepackage[margin=24mm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem,longtable}
+\setlist{itemsep=2pt,topsep=4pt}
+\setlength{\parskip}{4pt}
+\setlength{\parindent}{0pt}
+\widowpenalty=10000\clubpenalty=10000
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\E}{\mathbb E}
+\newcommand{\Prb}{\mathbb P}
+\newcommand{\ind}{\mathbf 1}
+\newcommand{\IID}{\mathrm{IID}}
+\newcommand{\PAIR}{\mathrm{pair}}
+\title{At Most Half a Run: Guarantees and Limits of Reversal-Based\\Detection of Order-Dependent Flaky Tests\\[5pt]\large Supplementary material: complete proofs, examples, and computation details}
+\author{Anonymous submission}
+\date{}
+\hypersetup{pdftitle={Supplementary material},pdfauthor={Anonymous}}
+
+\newtheorem{xtheorem}{Theorem}\renewcommand{\thextheorem}{A.\arabic{xtheorem}}
+\newtheorem{xlemma}[xtheorem]{Lemma}
+\newtheorem{xproposition}[xtheorem]{Proposition}
+\newtheorem{xcorollary}[xtheorem]{Corollary}
+\theoremstyle{definition}\newtheorem{xexample}[xtheorem]{Example}\theoremstyle{plain}
+\newcommand{\PP}{\mathbb P}\newcommand{\EE}{\mathbb E}\newcommand{\Cov}{\operatorname{Cov}}
+\providecommand{\ind}{\mathbf 1}
+\newcommand{\Fail}{\mathsf F}\newcommand{\Clean}{\mathsf C}\newcommand{\Und}{\mathsf U}
+\newcommand{\cl}{\operatorname{cl}}
+\newcommand{\xcheck}[1]{\par\smallskip\textit{Exact sanity check.} #1\par}
+\begin{document}
+\maketitle
+\begin{abstract}
+This supplement accompanies the paper and contains complete proofs of all theorems, propositions, and examples, the corrected two-level formulas for the reversal analysis of Wei et al.~\cite{wei}, and the computational details of the empirical study. All theorem numbers here are local to the supplement.
+\end{abstract}
+\setcounter{tocdepth}{1}
+\begingroup\small\setlength{\parskip}{0pt}\tableofcontents\endgroup
+\section{Probability space and execution semantics}
+\begin{definition}[Hierarchical legal orders]
+A rooted tree has distinct tests as leaves. At each internal node, choose a uniform permutation of its children, independently of every other node, and execute each resulting child subtree contiguously. Every test runs exactly once. The resulting finite set of leaf orders is $\Omega$ and its distribution is $\mu$. The reverse map $R\sigma$ reverses the entire leaf sequence.
+\end{definition}
+Every legal order uniquely specifies the child permutation at every nontrivial internal node. Hence $\mu$ is uniform on $\Omega$, with
+\[
+ |\Omega|=\prod_{z\text{ internal}}(\deg z)!.
+\]
+Reversing the child permutation at every node gives $R\sigma$. Thus $R$ is a measure-preserving involution. If there are at least two distinct leaves, it has no fixed point. Unequal class sizes and arbitrary nesting are allowed.
+
+\begin{definition}[Common-cleaner semantics]
+Fix a victim $v$ and pairwise disjoint sets $P,C,\{v\}$. Each complete run begins with a clean bit. A test in $P$ sets the bit to one; a test in $C$ sets it to zero; all other tests leave it unchanged. The victim fails exactly when the bit is one upon reaching $v$. It does not alter that bit and failure does not stop the run.
+\end{definition}
+Different victims may have different action sets; no independence between victims is assumed. For one fixed victim let
+\[
+ F=\{\sigma:v\text{ fails}\},\quad f=\mu(F),\quad
+ B=\Prb(F(\sigma)\land F(R\sigma)),\quad q=1-2f+B.
+\]
+$B$ denotes a joint probability, not a covariance. The covariance is $B-f^2$. Write $d=f^2-B$ and $J=f-B$. Measure preservation gives the complete pair table:
+\begin{center}
+\begin{tabular}{c|cc}
+ & reverse passes & reverse fails\\\hline
+original passes & $q$ & $f-B$\\
+original fails & $f-B$ & $B$
+\end{tabular}
+\end{center}
+For any equal-marginal Bernoulli pair, regardless of software semantics,
+\begin{equation}\label{eq:frechet}
+ \max(0,2f-1)\le B\le f.
+\end{equation}
+These inequalities follow directly from nonnegativity of the four cells and are sufficient for such a Bernoulli joint distribution to exist.
+
+\subsection{Two distinct detection protocols}
+\textbf{Known reference.} A passing outcome for the target is available outside the stated budget; discovery means observing at least one failure. With a known failing reference, exchange ``failure'' and ``pass.''
+
+\textbf{No reference.} Both a passing and a failing outcome must occur inside the stated budget. A one-run detection probability is then zero. These protocols must not be silently interchanged, especially for tests that usually fail rather than usually pass. The cost of an external reference, confirmation reruns, and initialization must be stated separately.
+
+\section{Hierarchical covariance and an explicit certificate}
+\begin{lemma}[Pruning]
+Deleting action-irrelevant leaves and then empty branches preserves the joint distribution of the victim's nearest relevant actions on its two sides. The induced order of retained children is uniform at every remaining node, and different nodes remain independent.
+\end{lemma}
+\begin{proof}
+For any uniform permutation of $k$ children and a retained subset of size $s$, each of the $s!$ relative orders has the same number $k!/s!$ of extensions. Restricting a node's permutation is a function only of that independent permutation. Apply this at each node. Irrelevant tests do not modify the bit, so nearest relevant actions determine both original and reversed outcomes exactly as before. Suppressing unary nodes changes no relative order.
+\end{proof}
+
+For a nonempty relevant subtree without $v$, let $\alpha$ be the probability that its last relevant action is a polluter. Reversal symmetry makes this the first-action probability as well. A pollutant leaf has $\alpha=1$, a cleaner leaf has $\alpha=0$, and an internal node has $\alpha$ equal to the arithmetic mean of its relevant children's values.
+
+For a subtree containing $v$, define:
+\[
+ f_T=\Prb(\text{nearest left action is P}),\quad
+ B_T=\Prb(\text{nearest left and right actions are P}),
+\]
+\[
+ u_T=\Prb(\text{no left action}),\quad
+ t_T=\Prb(\text{no left action and nearest right action is P}).
+\]
+Absence of a left action means a clean bit, not failure. Mirror definitions give the same numbers by symmetry.
+
+\begin{theorem}[Covariance on arbitrary hierarchical trees]\label{thm:cov}
+Under the common-cleaner semantics, $B\le f^2$ on every hierarchical execution tree. The four summary probabilities can be computed in one postorder traversal, using $O(|T|)$ arithmetic operations.
+\end{theorem}
+\begin{proof}
+If no relevant action besides $v$ exists, then $f=B=0$. Otherwise consider the lowest node on the victim's ancestor path with another relevant child. It has $k\ge2$ relevant children, one containing only $v$, and the other $k-1$ children have endpoint probabilities $\alpha_i$. Put
+\[
+ S=\sum_i\alpha_i,\qquad Q=\sum_i\alpha_i^2.
+\]
+An ordered neighboring pair around the victim child appears with probability $1/[k(k-1)]$; internal orders of different siblings are independent. Consequently
+\begin{equation}\label{eq:base}
+ f=S/k,\quad B=(S^2-Q)/[k(k-1)],\quad
+ u=1/k,\quad t=S/[k(k-1)].
+\end{equation}
+For a victim subtree that already contains another action, define
+\[
+ G_T(x)=(f_T+u_Tx)^2-B_T-2t_Tx.
+\]
+At the lowest node direct expansion gives
+\begin{equation}\label{eq:sos}
+ G_T(x)=\frac{(x-S/(k-1))^2}{k^2}
+       +\frac{Q-S^2/(k-1)}{k(k-1)}\ge0.
+\end{equation}
+The second term is nonnegative by Cauchy--Schwarz.
+
+Now let a parent have $k$ relevant children, of which the current victim subtree is one. Let the endpoint probabilities of the other children sum to $S$ and put $h=S/k$. Because the victim subtree already contains another action, it cannot simultaneously lack actions on both sides of $v$. A missing side can be supplied by an adjacent outside sibling; a present side cannot be changed by it. Therefore
+\begin{equation}\label{eq:rec}
+ f'=f+uh,\qquad B'=B+2th,\qquad u'=u/k,\qquad t'=t/k.
+\end{equation}
+For example, $u'$ requires the victim subtree to be the first child, while $t'$ has the same extra first-child requirement. In $B'$ the two new cases are disjoint, since both sides cannot be absent internally. Substitution yields
+\[
+ G_{\mathrm{parent}}(x)=G_T(h+x/k).
+\]
+Nonnegativity for all real $x$ propagates to the root. At $x=0$ it says $f^2-B\ge0$. Each node uses a constant number of accumulated sums over its children; this proves the arithmetic-operation claim. Exact rational bit complexity is not being identified with unit-cost arithmetic.
+\end{proof}
+
+\begin{corollary}[Exact gap certificate and equality]\label{cor:cert}
+Retain $(k_0,S_0,Q_0)$ at the lowest branch. For each higher relevant ancestor, retain $(k_j,h_j)$ as in \eqref{eq:rec}, listed bottom to top. Starting with $x=0$ at the root, process this list in reverse order by $x\leftarrow h_j+x/k_j$. Then
+\begin{equation}\label{eq:certificate}
+ d=f^2-B=\frac{(x-S_0/(k_0-1))^2}{k_0^2}
+       +\frac{Q_0-S_0^2/(k_0-1)}{k_0(k_0-1)}.
+\end{equation}
+For a nontrivial victim subtree, $d=0$ exactly when all lowest-branch sibling endpoint probabilities are equal and $x=S_0/(k_0-1)$.
+\end{corollary}
+\begin{proof}
+Repeated affine substitution in $G$ evaluates the base expression at exactly the stated $x$. Equality requires both nonnegative summands to vanish; equality in Cauchy--Schwarz requires all the $\alpha_i$ to be equal.
+\end{proof}
+An equality example with a genuine victim is $((v,(p_1,c)),p_2)$, where $P=\{p_1,p_2\}$ and $C=\{c\}$. Here $f=1/2$, $B=1/4$, and pairing gives exactly zero benefit. Thus strict improvement is not a theorem for arbitrary nesting.
+
+\section{Independent pairs: complete budget formulas and ceilings}
+\begin{definition}[Independent-anchor reversal pairs]
+Draw $\sigma_1,\sigma_2,\ldots$ independently from $\mu$. Execute
+$\sigma_1,R\sigma_1,\sigma_2,R\sigma_2,\ldots$, without dropping a reversal because another target was discovered. A budget $r=2m+\epsilon$, $\epsilon\in\{0,1\}$, consists of $m$ completed pairs and, if odd, the next fresh anchor.
+\end{definition}
+The next theorems first concern a single target with a known passing reference.
+
+\begin{theorem}[Exact discovery and per-target noninferiority]\label{thm:budget}
+For $r=2m+\epsilon$,
+\begin{equation}\label{eq:budget}
+ D_{\PAIR}(r)=1-q^m(1-f)^\epsilon,\qquad
+ D_{\IID}(r)=1-(1-f)^r.
+\end{equation}
+If $B\le f^2$, then $D_{\PAIR}(r)\ge D_{\IID}(r)$ for every budget. For multiple targets satisfying this inequality, the expected number discovered is also no smaller.
+\end{theorem}
+\begin{proof}
+A pair misses with probability $q$, and completed pairs are independent. A final fresh anchor misses with probability $1-f$. Also $q\le(1-f)^2$ is equivalent to $B\le f^2$. For multiple targets, sum their discovery indicators and apply linearity of expectation; independence between target outcomes is unnecessary.
+\end{proof}
+This does not imply a higher probability of discovering at least one target, of discovering all targets, or a lower wall-clock cost. Section~\ref{sec:suite} gives an objective-conflict example.
+
+\begin{theorem}[The correctly scoped paired ceiling]\label{thm:ceiling}
+For independent two-run blocks with the same marginal failure probability $f$ in both positions, put $L=\max(0,2f-1)$. With an independent final anchor,
+\begin{equation}\label{eq:ceiling}
+ D(r)\le U_{\mathrm{ind-pair}}(r;f)
+ =1-(1-2f+L)^m(1-f)^\epsilon.
+\end{equation}
+The bound is sharp at the single-target Bernoulli-coupling level. It also holds when blocks are chosen adaptively but each block's two conditional marginals, given all preceding history, remain equal to $f$. It is not a bound for arbitrary dependence across pairs.
+\end{theorem}
+\begin{proof}
+In each block \eqref{eq:frechet} gives a miss probability at least $1-2f+L$. Multiply under independence. In the conditional version, multiply conditional miss lower bounds along the history where the target has not been discovered, assuming the final singleton also has conditional failure rate $f$. The four-cell distribution with $B=L$ achieves the single-event bound in every independent block.
+\end{proof}
+A fixed legal-order reversal need not realize $B=L$, and different targets need not be able to realize their individual optimal couplings simultaneously. Thus summing single-test ceilings gives an upper bound on expected discoveries, not a joint achievability theorem. Equality after rounding a table to one decimal place is not exact optimality.
+
+\begin{theorem}[Finite-budget gain and rare-event limitation]\label{thm:gain}
+Suppose $d=f^2-B\ge0$, $r\ge2$, and $m=\lfloor r/2\rfloor$. Then
+\begin{align}
+ \Delta_r&=D_{\PAIR}(r)-D_{\IID}(r)\\
+ &= (1-f)^\epsilon\bigl[(1-f)^{2m}-((1-f)^2-d)^m\bigr],\label{eq:gain}\\
+ 0\le\Delta_r&\le m d(1-f)^{r-2}\le m f^2(1-f)^{r-2}.\label{eq:gainbound}
+\end{align}
+For $0<f<1$, the relative reduction of the IID remaining miss probability is
+\[
+ \frac{\Delta_r}{(1-f)^r}
+ =1-\left(1-\frac{d}{(1-f)^2}\right)^m
+ \le\min\left(1,\frac{m d}{(1-f)^2}\right).
+\]
+\end{theorem}
+\begin{proof}
+Set $a=(1-f)^2$ and observe $0\le a-d=q\le a$. The identity
+$a^m-(a-d)^m=d\sum_{j=0}^{m-1}a^{m-1-j}(a-d)^j$
+bounds the difference by $mda^{m-1}$. Multiply by $(1-f)^\epsilon$ and use $d\le f^2$. Divide by $(1-f)^r$ for the final identity and use $1-(1-z)^m\le\min(1,mz)$ for $z\in[0,1]$.
+\end{proof}
+For example, $f=0.01$, $B=0$, and $r=20$ give a discovery gain of about $0.00083413$, i.e. $0.083413$ percentage points. This is an analytic example, not an empirical dataset average.
+
+\begin{corollary}[Uniform-in-budget rare-event envelope]
+For $0<f\le1/2$ and even budgets,
+\[
+ \sup_{m\ge1}\Delta_{2m}
+ \le \frac{f^2}{-2e(1-f)^2\log(1-f)}=O(f).
+\]
+At the optimal Bernoulli coupling $B=0$, the supremum is asymptotic to $f/(2e)$ as $f\downarrow0$.
+\end{corollary}
+\begin{proof}
+Let $\lambda=-2\log(1-f)>0$. Theorem~\ref{thm:gain} bounds the gain by $f^2e^\lambda m e^{-\lambda m}\le f^2e^\lambda/(e\lambda)$. This upper bound is $f/(2e)+O(f^2)$. For $B=0$ and $m=\lfloor1/(2f)\rfloor$, Taylor expansion of the two logarithms in
+$(1-f)^{2m}-(1-2f)^m$ gives $f/(2e)+O(f^2)$, supplying a matching lower bound. Odd budgets multiply the preceding even-budget gain by $1-f$, so they cannot increase the envelope. In the software model, one polluter and $n-2$ common cleaners in a flat permutation give $f=1/n$, $B=0$, realizing an asymptotically tight sequence.
+\end{proof}
+
+\section{Sharp hitting-time limits: one half of a run and one run}
+\begin{theorem}[Half-run theorem]\label{thm:half}
+Let independent identically distributed two-run blocks have equal marginal failure rate $f>0$ and joint failure probability $B$. Let $T$ count complete suite runs up to and including the first failure of one fixed target, starting at a fresh block. Then
+\begin{equation}\label{eq:firsttime}
+ \E T_{\PAIR}=\frac{2-f}{2f-B},\qquad
+ \E T_{\IID}=\frac1f,
+\end{equation}
+\begin{equation}\label{eq:half}
+ \E T_{\IID}-\E T_{\PAIR}
+ =\frac{f^2-B}{f(2f-B)}\le\frac12.
+\end{equation}
+The saving is nonnegative exactly when $B\le f^2$. In that case its relative value is at most $f/2$. The half-run bound is sharp within the common-cleaner model.
+\end{theorem}
+\begin{proof}
+For $j\ge0$, $\Prb(T>2j)=q^j$ and $\Prb(T>2j+1)=q^j(1-f)$. Summing the survival probabilities gives $(2-f)/(1-q)=(2-f)/(2f-B)$. Subtracting from $1/f$ gives \eqref{eq:half}. Its upper bound is equivalent to
+$2(f^2-B)\le f(2f-B)$, or $B(2-f)\ge0$, which always holds. Divide the absolute saving by $1/f$ for the relative bound. If $B=0$, equality holds. A single polluter and any number of common cleaners in a flat order have $f>0$ and $B=0$: one polluter cannot lie on both sides of $v$.
+\end{proof}
+The upper bound does not require the common-cleaner assumption; that assumption supplies the nonnegative lower bound through Theorem~\ref{thm:cov}. This result concerns one target and independent blocks, not completion time for an entire suite, adaptively chosen nonuniform orders, or a universal wall-clock saving. A rare target with $f=0.01$ can improve from $100$ to $99.5$ expected runs at best under this schedule class, not to $50$ runs.
+
+\begin{theorem}[No-reference discovery and the one-run theorem]\label{thm:both}
+Assume $0<f<1$. If both outcomes must be observed within $r=2m+\epsilon\ge1$ runs, then
+\begin{align}
+ D^{\pm}_{\IID}(r)&=1-(1-f)^r-f^r,\\
+ D^{\pm}_{\PAIR}(r)&=1-q^m(1-f)^\epsilon-B^m f^\epsilon.\label{eq:both}
+\end{align}
+If $B\le f^2$, the paired probability is no smaller. Under the same covariance assumption, the time until both outcomes have appeared satisfies
+\begin{align}
+ \E T^{\pm}_{\PAIR}
+ &=\frac{2-f}{2f-B}+\frac{1+f}{1-B}-1,\\
+ \E T^{\pm}_{\IID}&=\frac1f+\frac1{1-f}-1,\\
+ 0\le\E T^{\pm}_{\IID}-\E T^{\pm}_{\PAIR}&\le1.
+\end{align}
+The upper bound is sharp.
+\end{theorem}
+\begin{proof}
+For a nonempty sequence, absence of both outcomes means either all passes or all failures, two disjoint events. This proves \eqref{eq:both}. Under $B\le f^2$ both miss terms are bounded by their IID counterparts, since $q\le(1-f)^2$ as well. Pathwise, if $T_1,T_0$ are the first failure and first pass times, then $T^\pm=T_1+T_0-1$: one of these times is one. Apply Theorem~\ref{thm:half} first to failure, then to pass with marginal $1-f$ and joint probability $q$. Each saving is at most one half and is nonnegative. For $f=1/2,B=0$, a pair always contains both outcomes: the means are two paired runs versus three IID runs, attaining one.
+\end{proof}
+For $r=0$ both discovery protocols have probability zero. If $f=0$ or $1$, observing both outcomes has infinite expected time and zero discovery probability. The first-failure time is infinite for $f=0$ and one for $f=1$. The formulas in Section~4 handle these boundary rates without a division by zero.
+
+The independent-pair no-reference ceiling is obtained by setting $B=L$ in \eqref{eq:both}, since both miss terms increase with $B$. For even $r=2m\ge2$ it is $1-|1-2f|^m$.
+
+\section{What changes when pairs are not independent?}\label{sec:orbits}
+\begin{theorem}[Uniform-marginal union bounds]\label{thm:union}
+For any schedule $(\sigma_1,\ldots,\sigma_r)$, with arbitrary dependence, if each individual $\sigma_t$ has marginal distribution $\mu$, then
+\[
+ D(r)\le\min(1,rf).
+\]
+Without a reference and with $r\ge2$,
+\[
+ D^\pm(r)\le\min(1,rf,r(1-f)).
+\]
+\end{theorem}
+\begin{proof}
+Apply the union bound to the events that a failure occurs at position $t$. Observing both outcomes implies observing a failure and also a pass, so apply the same bound to passes. No conditional-uniformity or independence hypothesis is needed.
+\end{proof}
+For a single Bernoulli event these marginal relaxations are sharp: one can choose a random count of failures with mean $rf$, then choose their positions uniformly. For known-reference detection with $rf\le1$, use counts zero and one; for $rf\ge1$, use counts with no zero. For no-reference detection, use counts zero and one when $rf<1$, counts $r-1,r$ when $rf>r-1$, and counts in $\{1,\ldots,r-1\}$ otherwise. This is an abstract coupling construction, not a single algorithm simultaneously optimal for every target.
+
+\begin{proposition}[Reversal orbits sampled without replacement]\label{prop:wor}
+Suppose $|\Omega|=2K$ and reversal has no fixed points. Let $H$ reversal orbits contain at least one failing order, so $H/K=2f-B$. Select $m\le K$ distinct orbits uniformly without replacement, order them uniformly, and choose each orbit's orientation by an independent fair coin. Every individual run is uniform on $\Omega$, but discovery is
+\begin{equation}\label{eq:wor}
+ D_{\mathrm{wor}}(2m)=1-\frac{\binom{K-H}{m}}{\binom Km}.
+\end{equation}
+Moreover,
+\[
+ 0\le D_{\mathrm{wor}}(2m)-D_{\PAIR}(2m)
+ \le \min\left(1,\frac{m(m-1)}{2K}\right).
+\]
+\end{proposition}
+\begin{proof}
+All misses require every selected orbit to belong to the $K-H$ miss orbits, giving the hypergeometric expression. Sequential miss factors $(K-H-j)/(K-j)$ are no larger than $(K-H)/K$ until misses become impossible, so sampling without replacement is at least as good as independent orbit selection. Couple with-replacement draws to a without-replacement sequence by resampling only repeated orbits. Until the first repeated draw, schedules agree; the probability of any repetition is at most $\binom m2/K$. The discovery indicators differ only if that coupling diverges. Uniform choice of an orbit at each position, followed by a fair orientation, proves the uniform marginal claim.
+\end{proof}
+This upper bound also explains why orbit deduplication need not be a useful practical improvement when the order space is enormous. The proposition corrects a quantifier, not a claim of large real-project gains.
+
+\subsection{A three-test refutation of an unrestricted paired ceiling}
+Let the classes be $\{v,c\}$ and $\{p\}$. The four legal orders are
+\[
+ vcp,\ cvp,\ pvc,\ pcv.
+\]
+Only $pvc$ fails. The reversal orbits are $\{vcp,pcv\}$ (no failures) and $\{cvp,pvc\}$ (one failure). Thus $f=1/4$, $B=0$, and four runs using two independent pairs discover with probability $3/4$. Sampling the two orbits without replacement discovers with probability one. It is still a paired schedule and every run is marginally uniform. Therefore $1-(1-2f)^m$ cannot be called the ceiling for \emph{all} paired schedules.
+
+\section{Outcome-adaptive reversal changes the distribution}\label{sec:gate}
+\begin{proposition}[Marginal law of a gated second run]\label{prop:gate}
+Let $\sigma\sim\mu$, let $R$ preserve $\mu$, and choose reversal with probability $g(\sigma)\in[0,1]$. Otherwise draw a fresh $\eta\sim\mu$ independently. If $\nu$ is the second-run law, then
+\begin{equation}\label{eq:gate}
+ \frac{d\nu}{d\mu}(\tau)=1+g(R\tau)-\E_\mu g.
+\end{equation}
+It equals $\mu$ if and only if $g$ is constant $\mu$-almost surely. For a deterministic gate of acceptance mass $a$, the total variation distance is $a(1-a)$.
+\end{proposition}
+\begin{proof}
+For any measurable set $A$, reversal contributes
+$\int g(\sigma)\ind\{R\sigma\in A\}\,d\mu(\sigma)
+=\int_A g(R\tau)\,d\mu(\tau)$.
+The fresh branch contributes $(1-\E g)\mu(A)$. This proves the density and the equality criterion. For an indicator gate, half the mean absolute difference of that density from one is
+$\tfrac12[a(1-a)+(1-a)a]=a(1-a)$.
+\end{proof}
+In particular, a union bound using the original $f$ at every run cannot automatically be applied to an outcome-gated detector. The valid general bound is $\min(1,\sum_t\Prb(F(\sigma_t)))$, using its actual marginals. The special case $rf$ requires the additional hypothesis in Theorem~\ref{thm:union}.
+
+A four-order abstract example makes this concrete. Let $R$ swap $0,1$ and $2,3$, let $F=\{0\}$, and set $g=\ind\{1\}$. The second-run masses are $(7,3,3,3)/16$. Two-run discovery is $5/8$, larger than $2f=1/2$. No union bound is violated: the second-run failure rate is $7/16$, not $1/4$. This example demonstrates the hypothesis failure, not behavior of a particular real dataset.
+
+\begin{proposition}[Exact effect of the gate on two-run target discovery]
+Relative to two IID draws, the gated policy's discovery gain for one target is
+\begin{equation}\label{eq:gatedgain}
+ \E\left[g(\sigma)\ind\{\neg F(\sigma)\}
+          \bigl(\ind\{F(R\sigma)\}-f\bigr)\right].
+\end{equation}
+\end{proposition}
+\begin{proof}
+A first-run failure is discovered under either policy. Conditional on a first-run pass and its complete order, the second-run failure probability changes from $f$ to $g(\sigma)\ind\{F(R\sigma)\}+(1-g(\sigma))f$. Average the difference.
+\end{proof}
+Nonpositive covariance controls a constant gate, or a gate conditioned only on the target's pass in this initial two-run comparison. It does not control an additional condition involving other targets. History-dependent novelty filtering introduces further state, so a full tool simulation must retain that state rather than reuse the initial two-run formula.
+
+\section{Suite-level counterexamples and sufficient simulation state}\label{sec:suite}
+\subsection{A physical five-test counterexample}
+Use two clean bits $A,B$, and three contiguous classes:
+\[
+ \{v_A,p_B\},\quad\{v_B,p_A\},\quad\{c\}.
+\]
+$v_A$ checks $A=0$, $v_B$ checks $B=0$, each $p$ sets the indicated bit, and $c$ clears both. Each victim satisfies the common-cleaner model. Of the 24 legal orders, eight pass both victims, eight fail only $v_A$, and eight fail only $v_B$. The both-pass set is reversal-invariant; the other two sets are exchanged by reversal.
+
+Assume a known passing reference and no previous discoveries. The initial two-run ``gate'' policy reverses exactly when the first run finds no failures, otherwise it draws fresh. Exact probabilities are:
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+Policy & expected discoveries & at least one & both\\\midrule
+Two IID orders & $10/9$ & $8/9$ & $2/9$\\
+Initial no-new-failure gate & $8/9$ & $2/3$ & $2/9$\\
+One unconditional pair & $4/3$ & $2/3$ & $2/3$\\\bottomrule
+\end{tabular}
+\end{center}
+These follow by summing the three first-order classes and the independent or reversed second-order choices. They demonstrate both the sign failure of suite-level gating and the conflict between discovery count and discovering at least one target. They do not measure prevalence. Prior Java execution of this example was a plain program, not a JUnit/Surefire/iDFlakies integration test.
+
+Unconditional pairing does not dominate the gate either. For classes $\{v_0,v_1,c\},\{p\}$, let $v_0$ have polluter $p$ and no cleaners, and $v_1$ have polluter $p$ and cleaner $c$. Initial two-run expected counts are $19/16$ for IID, $25/16$ for the gate, and $3/2$ for an unconditional pair.
+
+\subsection{Scalar profiles are insufficient for an adaptive suite}
+On $\Omega=\{0,1,2,3\}$, with $R$ swapping $0,1$ and $2,3$, compare two outcome tables. In Table A target failure sets are $F_1=\{0\},F_2=\{1\}$; in Table B they are $F_1=\{0\},F_2=\{2\}$. Every target in both tables has $f=1/4,B=0$. However, the initial no-discovery gate yields expected counts $5/8$ and $9/8$, respectively. IID yields $7/8$ in both tables and unconditional pairing yields one in both. Therefore no function of only individual $(f_i,B_i)$ can determine this adaptive suite policy's discovery count. This is an abstract joint-outcome example; no physical common-cleaner realization is claimed for these two particular tables.
+
+\subsection{Exact finite-state evaluation, not an IID shortcut}
+For a finite outcome table, a no-reference simulation can maintain a record
+\[
+ s=(\ell,V,A_0,A_1,b),
+\]
+where $\ell$ is the previous order, $V$ is the set of previously issued orders, $A_0,A_1$ are targets whose pass/fail outcomes have been seen, and $b$ records whether the preceding round discovered any new two-outcome target. A known-reference protocol initializes the appropriate outcome sets. A source-style abstraction chooses $R\ell$ only when $b$ is false and $R\ell\notin V$, otherwise draws a fresh order; fresh draws may repeat. Executing an order updates the outcome sets, $V$, and $b$.
+
+If $K(s,o)$ is this transition kernel, $s[o]$ the update, and $W$ the desired terminal utility, the exact recursion is
+\[
+ V_0(s)=W(s),\qquad V_{r+1}(s)=\sum_{o\in\Omega}K(s,o)V_r(s[o]).
+\]
+Induction on $r$ proves exactness by conditioning on the next order. The state space can be exponential; this is an evaluation characterization, not a scalable new algorithm. Actual confirmation filters, historical-order reuse, and framework failures must be modeled separately to claim tool replication. The scalar-profile auditing script deliberately does not calculate this policy.
+
+\section{Boundary: different cleaners can reverse the covariance sign}\label{sec:boundary}
+The general abstraction in Wei et al.~\cite{wei} is
+\begin{equation}\label{eq:def1}
+ F(\omega)\iff \exists p\in P:\ p\prec_\omega v\ \land\
+ \nexists c\in C_p:\ p\prec_\omega c\prec_\omega v.
+\end{equation}
+Here is a counterexample to extending Theorem~\ref{thm:cov} to all hierarchical instances of this abstraction, even with disjoint polluters and cleaners.
+
+Let
+\[
+ T=(((v,(p_1,c_1)),(p_2,c_2)),p_3),\qquad
+ C_{p_1}=C_{p_2}=\{c_1\},\quad C_{p_3}=\{c_2\}.
+\]
+All five internal nodes are binary, giving 32 legal orders. A concrete realization has three initially zero bits. Each $p_i$ sets bit $i$; $c_1$ clears bits 1 and 2; $c_2$ clears bit 3; $v$ fails iff any bit is one. Its individual polluters and the cleaner sets recovered by all triples $(p,c,v)$ coincide with the declared sets.
+
+A direct exact count from \eqref{eq:def1}, independently checked by that bit execution, gives
+\[
+ f=22/32=11/16,\qquad B=16/32=1/2,
+ \qquad B-f^2=7/256>0.
+\]
+The two-run paired discovery probability is $7/8=224/256$, below the IID value $231/256$. The complete 32-order truth table is in the artifact. This is a nested-tree counterexample, not evidence that a positive-covariance test occurs in the two-level ISSTA dataset. Common-cleaner results remain valid; probability identities and upper bounds not using $B\le f^2$ remain valid too.
+
+For a hand-checkable derivation, let $a=1$ when $c_1$ precedes $p_1$ within their pair; $u=1$ when that pair precedes $v$; $w=1$ when $(p_2,c_2)$ precedes the victim subtree; and $z=1$ when $p_3$ precedes the remaining subtree. These are four independent fair bits. The fifth bit, the internal order of $(p_2,c_2)$, does not affect this victim's outcome. The failure indicators reduce to
+\begin{align*}
+ F&=z(1-w)\ \lor\ (1-u)w\ \lor\ ua,\\
+ F^R&=(1-z)w\ \lor\ u(1-w)\ \lor\ (1-u)(1-a),
+\end{align*}
+where juxtaposition denotes conjunction. For $w=0$, five of the eight $(a,u,z)$ assignments fail originally and four fail in both directions. For $w=1$, six fail originally and four fail in both directions. Hence $f=(5+6)/16$ and $B=(4+4)/16$. This proves the stated count without relying on numerical sampling. The artifact also checks the 32-order truth table against independent bit execution and verifies all cleaner-extraction triples.
+
+\section{Two-level closed forms and a correction of the TACAS 2021 printed formula}\label{sec:twolevel}
+Let the victim's class contain $a$ polluters and $b$ common cleaners, and let $r=a+b>0$. There are $k$ relevant classes in total. For other relevant classes put $\alpha_i=p_i/(p_i+c_i)$, $S=\sum_{i=2}^k\alpha_i$, and $h=S/k$. Then
+\begin{equation}\label{eq:corrected}
+ f=\frac{a+h}{r+1},\quad
+ B=\frac{a(a-1+2h)}{r(r+1)},\quad
+ J=\frac{a(b+1)+(b-a)h}{r(r+1)}.
+\end{equation}
+\begin{proof}
+A local immediate predecessor is a polluter with probability $a/(r+1)$. If the victim is first in its class, the external predecessor contributes $h/(r+1)$. For joint failure, both neighbors local contribute $a(a-1)/[r(r+1)]$. When the victim is at either class endpoint, the other local neighbor being a polluter and the external neighbor being a polluter contributes $ah/[r(r+1)]$ per endpoint. Add these disjoint cases for $B$, and use $J=f-B$.
+\end{proof}
+When $r=0$, with $Q=\sum_{i=2}^k\alpha_i^2$ and $k>1$, the correct formulas are $f=S/k$, $B=(S^2-Q)/[k(k-1)]$. With no other action, $f=B=0$.
+
+The printed Special Case 2 expression in \cite[Section 4.4]{wei} is
+\[
+ J_{\mathrm{print}}=\frac{a+kab+aS_\gamma+b(r+1)S}{kr(r+1)},
+ \qquad S_\gamma=k-1-S.
+\]
+Subtraction from \eqref{eq:corrected} gives
+\[
+ J_{\mathrm{print}}-J=\frac{bS}{k(r+1)}.
+\]
+For classes $\{v,c\},\{p\}$, $J=1/4$, $f=1/4$, and $\Prb(F(R\sigma)\mid\neg F(\sigma))=1/3$, whereas the printed expression gives $J=1/2$. This is separate from the practical performance question. The following paragraph of the original paper states that its reported comparison uses sampled orders. Accordingly this record does not infer that those numerical results were computed with the erroneous expression, nor make the stronger unverified assertion that the formula had no downstream influence of any kind.
+
+\section{Interleaved orders with polluter-specific cleaners}\label{sec:flat}
+This section proves Theorem~2 of the paper.
+
+\textbf{Setting.} All $n!$ orders of the tests are equally likely. A victim $v$ has polluters $P$ and cleaner sets $C_p$ ($p\in P$), with $C=\bigcup_p C_p$, $P\cap C=\emptyset$ and $v\notin P\cup C$. The victim fails in $\sigma$ iff some $p\in P$ precedes $v$ and no $c\in C_p$ lies strictly between $p$ and $v$.
+
+\textbf{Representation.} Draw i.i.d.\ uniform times $U_t$ for all tests and order the tests by time. Condition on $U_v=u$. The indicators $X_t=\mathbf 1\{U_t<u\}$ are i.i.d.\ Bernoulli$(u)$. Given $X$, the times on the left are i.i.d.\ uniform on $(0,u)$ and those on the right are i.i.d.\ uniform on $(u,1)$. The two sides are therefore arranged independently and uniformly. Define the \emph{scan} of a side as its tests listed by increasing distance from $v$. In $\sigma$, the victim fails iff in the left scan some polluter occurs before every one of its cleaners that is present on the left. In $R\sigma$, the right side of $\sigma$ precedes $v$ in reverse, so $F(R\sigma)$ holds iff the same happens in the right scan. For a finite set $S$ let $g(S)$ be the probability of the event for a uniform scan of $S$. Then $\E[\mathbf 1_{F(\sigma)}\mathbf 1_{F(R\sigma)}\mid u,X]=g(L)\,g(R)$.
+
+\begin{lemma}[Insertion]\label{lem:ins}
+Let $s$ be a uniform scan of $S$ and insert $t\notin S$ at a uniformly random position. The result is a uniform scan of $S\cup\{t\}$. If $t\in P$, the event cannot be destroyed; if $t\in C$, it cannot be created; if $t\notin P\cup C$, it is unchanged. Hence $g(S\cup\{t\})\ge g(S)$ for $t\in P$ and $g(S\cup\{t\})\le g(S)$ for $t\in C$.
+\end{lemma}
+\begin{proof}
+A polluter $q$ is \emph{active} if it occurs before all of $C_q\cap S$. Inserting $t\in P$ leaves the relative order of every $q$ and $C_q$ unchanged because $t\notin C$. So every active polluter stays active, and $t$ may be active itself. Inserting $t\in C$ leaves every polluter's relative order to its other cleaners unchanged. It deactivates $q$ iff $t\in C_q$ and $t$ lands before $q$. Since $t\notin P$, it creates no active polluter.
+\end{proof}
+
+\begin{lemma}[Position]\label{lem:pos}
+$\pi_j=\Prb(F\mid v\text{ has }j\text{ tests to its left})$ is nondecreasing in $j$. This holds even if roles overlap.
+\end{lemma}
+\begin{proof}
+Given $j{+}1$ tests on the left in a uniform scan, delete the last element of the scan, i.e., the farthest test. The remaining scan is a uniform scan of a uniform $j$-subset. The deleted element is scanned after every other left test, so it lies between no polluter and $v$ and deactivates no one. Deleting it can therefore only remove an active polluter, i.e., the event can only be destroyed. Hence $\pi_{j+1}\ge\pi_j$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~2]
+Fix $u$. Order the product space $\{0,1\}^{T\setminus v}$ coordinatewise, with $X_t=1$ above $X_t=0$ for $t\in P$, the reverse for $t\in C$, and either orientation for irrelevant tests. By Lemma~\ref{lem:ins}, $g(L)$ is increasing and $g(R)$ is decreasing in this order. By Harris' inequality for product measures, $\E[g(L)g(R)\mid u]\le\E[g(L)\mid u]\,\E[g(R)\mid u]$. Write $a(u)=\E[g(L)\mid u]=\Prb(F(\sigma)\mid U_v=u)$. The map $U\mapsto1-U$ reverses orders and preserves the law, so $\E[g(R)\mid u]=\Prb(F(R\sigma)\mid U_v=u)=a(1-u)$. Since $|L|\sim\mathrm{Bin}(n-1,u)$ is stochastically increasing in $u$, Lemma~\ref{lem:pos} shows that $a$ is nondecreasing, and $a(1-\cdot)$ is nonincreasing. Chebyshev's integral inequality gives $\int_0^1 a(u)a(1-u)\,du\le\int_0^1a\cdot\int_0^1a(1-u)\,du=f^2$. Integrating the conditional bound over $u$ proves $B\le f^2$.
+\end{proof}
+
+\section{The frontier of the covariance guarantee}\label{sec:frontier}
+\textbf{Three levels, disjoint roles.} The six-test tree of Section~\ref{sec:boundary} (Example~2 of the paper) has $B-f^2=7/256$.
+
+\textbf{Two levels, overlapping roles.} Take classes $\{6,4,v,2\}$, $\{1\}$, $\{3\}$, $\{5\}$, polluters $P=\{1,3,4,5,6\}$, and cleaner sets $C_1=\{5,6\}$, $C_6=\{4\}$, $C_4=\{2,3,5\}$, $C_5=\{1,3,6\}$, $C_3=\{5,6\}$. Exhaustive enumeration of the $4!\cdot4!=576$ legal orders gives $f=83/96$ and $B=3/4$, so $B-f^2=23/9216>0$. Several tests are both polluters and cleaners of other polluters. Hill-climbing searches found this instance. An exhaustive search over all two-level instances with overlapping roles and at most five tests (72{,}928 instances) finds none, and the largest value of $B-f^2$ there is exactly $0$. We have not searched six-test instances exhaustively.
+
+\textbf{Two levels, disjoint roles (Conjecture~1).} An exhaustive search covers every class structure up to isomorphism, every assignment of roles (polluter, cleaner, irrelevant), and every family of cleaner sets. Among all 578{,}658 such instances with at most seven tests (549{,}150 of them with exactly seven), the largest value of $B-f^2$ is $-1/729$. The proof of Theorem~2 fails for two reasons, and both are genuine.
+\begin{itemize}
+\item At the class level, a class that contains a polluter and a cleaner is a single item that can both create and destroy the event, so Lemma~\ref{lem:ins} fails.
+\item A cleaner in the victim's own class breaks Lemma~\ref{lem:pos}. For classes $\{v,c\}$, $\{p\}$ with $C_p=\{c\}$, let $u$ be the victim's time within its class and $w$ its class's time. Then $\Prb(F\mid u,w)=(1-u)w$, which decreases in $u$.
+\end{itemize}
+
+\textbf{Interleaved orders, overlapping roles.} Among all 1{,}426{,}549 instances with at most six tests, $B-f^2\le-1/n^2$ for an $n$-test instance. In general the largest value observed is $-1/n^2$, attained by one polluter whose cleaner set contains every other test.
+
+\section{Two-level orders: two further theorems}\label{sec:twolevel2}
+Throughout this section orders are class-contiguous (two levels), roles are disjoint ($P\cap\bigcup_pC_p=\emptyset$, $v\notin P\cup C$), and $K$ denotes the victim's class.
+
+\textbf{Time representation.} Give every class $X$ an i.i.d.\ uniform class time $W_X$ and every test $t$ an i.i.d.\ uniform internal time $V_t$. Order the classes by $W$ and the tests of a class by $V$. This yields the uniform class-contiguous order. Condition on $w=W_K$ and $u=V_v$; all other times remain independent and uniform. A local test $t\in K$ is left of $v$ iff $V_t<u$, at distance $|V_t-u|$. A class $X\ne K$ is left of $K$ iff $W_X<w$, at distance $|W_X-w|$. The left scan visits local left tests by increasing distance, then left classes by increasing distance, each class from its right end, i.e., by decreasing $V$. The right scan is symmetric. The map $t\mapsto1-t$ on all times preserves the law and reverses the order, so $\Prb(F(R\sigma)\mid u,w)=\Prb(F(\sigma)\mid1-u,1-w)$.
+
+\begin{theorem}[One-sided classes]\label{thm:onesided}
+Suppose that (i) every class $X\ne K$ contains no polluter or has only cleaners that clean polluters of $X$ alone, and (ii) $K$ contains no polluter or has only cleaners that clean polluters of $K$ alone. Then $B\le f^2$.
+\end{theorem}
+\begin{proof}
+\emph{Inner step.} Order each remaining coordinate as follows.
+\begin{itemize}
+\item Local polluter: by $(V_t-u)\bmod1$. Local cleaner: by $(u-V_t)\bmod1$.
+\item Class $X\ne K$ with a polluter: by $(W_X-w)\bmod1$. Class without a polluter: by $(w-W_X)\bmod1$.
+\item Tests inside $X\ne K$: polluters by increasing $V$, cleaners by decreasing $V$.
+\end{itemize}
+We claim $F(\sigma)$ is nondecreasing and $F(R\sigma)$ nonincreasing in each coordinate.
+
+For a local polluter the order runs right-near, right-far, left-far, left-near. On the right the polluter does not affect $F(\sigma)$. Placing it on the left can only add an active polluter, and moving it nearer on the left leaves fewer tests between it and $v$. Since roles are disjoint, it deactivates no one. $F(R\sigma)$ behaves in the mirror way.
+
+For a local cleaner the order runs left-near, left-far, right-far, right-near. A local cleaner on the left lies between every class-level polluter on the left and $v$, whatever its local distance. Moving it farther on the left only removes it from between local polluters and $v$.
+
+A class with a polluter, by (i), cleans nothing outside itself. Moving it nearer on the left therefore leaves fewer outside cleaners between its polluters and $v$, and it changes no other polluter's status. A class without a polluter moving nearer on the left can only lie between more polluters and $v$.
+
+Inside a class with a polluter, its cleaners clean only its own polluters. A polluter nearer the class's end facing $v$ (larger $V$ on the left, smaller on the right) can only be more active, and a cleaner facing $v$ can only deactivate more.
+
+Each coordinate is a totally ordered probability space and the coordinates are independent. Harris' inequality therefore gives $\E[\mathbf 1_{F(\sigma)}\mathbf 1_{F(R\sigma)}\mid u,w]\le a(u,w)\,a(1-u,1-w)$ with $a(u,w)=\Prb(F\mid u,w)$.
+
+\emph{Outer step.} Given $u$ and the number $J$ of left classes, the left classes form a uniform $J$-subset in uniform order. Deleting the farthest left class, which is scanned last, cannot activate any polluter: its cleaners could only affect polluters scanned after them, and there are none. So $\Prb(F\mid u,J)$ is nondecreasing in $J$, and $a$ is nondecreasing in $w$.
+
+For the local side, delete the farthest local left test, which is scanned after all other local left tests but before every class. If $K$ contains no polluter, this test is a cleaner or irrelevant, so deleting it can only activate. Then $a$ is nonincreasing in $u$. If $K$'s cleaners clean only $K$'s polluters, the farthest local test, if it is a cleaner, deactivates no one. Deleting it can then only deactivate, so $a$ is nondecreasing in $u$.
+
+In either case $a$ is monotone in each of $u$ and $w$, in a direction that does not depend on the other coordinate, and $b(u,w)=a(1-u,1-w)$ has the opposite monotonicity. Harris' inequality on $[0,1]^2$ gives $\int\!\!\int ab\le(\int\!\!\int a)^2=f^2$.
+\end{proof}
+With a single class, hypothesis (i) is void and (ii) holds, so Theorem~2 is the one-class case of Theorem~\ref{thm:onesided}.
+
+\begin{theorem}[Global plus class-local cleaners]\label{thm:globallocal}
+Let $G=\bigcap_{p\in P}C_p$ be the global cleaners, and suppose every other cleaner of $p$ (an \emph{extra}) lies in $p$'s class. Suppose further that every class $X\ne K$ containing a polluter contains a global cleaner or a polluter $p$ with $C_p\subseteq G$. Then $B\le f^2$.
+\end{theorem}
+\begin{proof}
+\emph{Class items.} Let $X\ne K$ be reached by the scan on either side, which requires that no global cleaner occurred nearer. The first of the following in $X$'s scan decides the outcome: a global cleaner (outcome K), or a polluter not preceded within $X$ by one of its extras (outcome T). Extras of $X$'s polluters lie in $X$, and extras of other polluters do not. By hypothesis one of the two always occurs, so $X$ is never transparent. The outcome is a function of $X$'s internal order alone. By reversal of the uniform internal order it has the same law, T with probability $\alpha_X$, from both ends. Outcomes of different classes are independent and independent of the class order.
+
+\emph{Reduction to the victim's class.} Let $k$ be the number of relevant classes (with $K$), $S=\sum_X\alpha_X$ and $Q=\sum_X\alpha_X^2$. In $K$, call a side \emph{undecided} if it contains neither a global cleaner nor an active local polluter. Such a side reaches the class level, where the nearest class decides. Write $f_0,B_0$ for the local failure probabilities, $u_0$ for the probability that the left side is undecided, $t_0$ for the probability that the left side is undecided and the right side fails locally, and $z_0$ for the probability that both sides are undecided. $K$ is at a uniform position among the $k$ classes. The nearest left class is T with probability $h=S/k$, and nearest classes on both sides are T with probability $h_2=(S^2-Q)/[k(k-1)]\le h^2$ by Cauchy--Schwarz, exactly as in Theorem~1. By independence of the local and class levels,
+\[
+f=f_0+u_0h,\qquad B=B_0+2t_0h+z_0h_2 .
+\]
+Hence $f^2-B\ge H(h)$ with $H(x)=(f_0+u_0x)^2-B_0-2t_0x-z_0x^2$. Moreover $H(x)=f_x^2-B_x$, where $f_x,B_x$ refer to the local model in which each undecided side independently fails with probability $x$ (a ``tail'').
+
+\emph{Window lemma: $H(x)\ge0$ for $x\in[0,1]$.} Represent $K$'s local order by i.i.d.\ uniform times and condition on the times of $v$ and of the local global cleaners. Let $\ell_L$ be the distance from $v$ to the nearest global cleaner on its left, or to $0$ if there is none, with $e_L=1$ in the latter case; define $\ell_R,e_R$ symmetrically.
+
+\emph{Stage 1.} Every other local test falls in the left window, the right window, or outside, independently with probabilities $\ell_L$, $\ell_R$ and $1-\ell_L-\ell_R$, and uniformly inside a window. Let $T_L$ be the event that an active polluter occurs in the left window. Then the left score is $s_L=c_L+(1-c_L)\mathbf 1_{T_L}$ with $c_L=xe_L$, a constant given the conditioning, and similarly on the right. Order polluters right $<$ outside $<$ left and extras left $<$ outside $<$ right. By the insertion lemma (Section~\ref{sec:flat}), $T_L$ is increasing and $T_R$ decreasing. Harris' inequality and $1-c\ge0$ give a nonpositive conditional covariance.
+
+\emph{Stage 2.} $\E[s_L\mid\cdot]=\psi(\ell_L,e_L)=xe_L+(1-xe_L)\tau(\ell_L)$, where $\tau(\ell)$ is the failure probability for a left window of length $\ell$. $\tau$ is nondecreasing: in a longer window additional tests appear at the far end, where they deactivate no one (the position lemma). Hence $\psi$ is nondecreasing in $\ell$ and in $e$. Let $g$ be the number of local global cleaners and condition on $v$'s rank $r$ among these $g+1$ points. Then $(\ell_L,\ell_R)=(D_r,D_{r+1})$ are two coordinates of the Dirichlet$(1,\dots,1)$ spacing vector, independent of $r$. Given $D_r=a$, $D_{r+1}\overset{d}{=}(1-a)\beta$ with $\beta\sim$ Beta$(1,g)$ independent, which is stochastically decreasing in $a$. So $\E[\psi(D_{r+1},e_R)\mid D_r]$ is nonincreasing in $D_r$, and Chebyshev's inequality gives $\mathrm{Cov}(\psi(D_r,e_L),\psi(D_{r+1},e_R)\mid r)\le0$.
+
+\emph{Stage 3.} By exchangeability of spacings, $\E[\psi(D_r,e_L)\mid r]=m(e_L)$ with $m(1)\ge m(0)$, and similarly on the right. Here $e_L=\mathbf 1\{r=1\}$ and $e_R=\mathbf 1\{r=g+1\}$, whose covariance under a uniform rank is $-1/(g+1)^2\le0$ for $g\ge1$ and $0$ for $g=0$.
+
+By the law of total covariance the three stages sum to $\mathrm{Cov}(s_L,s_R)\le0$, i.e., $H(x)\ge0$. With $x=h\in[0,1]$, $f^2-B\ge H(h)+z_0(h^2-h_2)\ge0$.
+\end{proof}
+Theorem~\ref{thm:globallocal} contains the two-level case of Theorem~1: with no extras, every polluter satisfies $C_p\subseteq G$. The window lemma also holds numerically in the stronger form $H\ge0$ on all of $\mathbb R$ (2{,}500 exact local models).
+
+\textbf{Coverage and checks.} On the ISSTA'23 data, Theorem~1 covers 259 tests, Theorem~\ref{thm:onesided} covers 20, and Theorem~\ref{thm:globallocal} covers 10 (\texttt{empirical/src/coverage.py}). One victim lists its only polluter as that polluter's own cleaner. This is a vacuous self-cleaner, so the test is covered by Theorem~1. Randomised exact checks with up to nine tests, 249 instances per theorem, satisfy both theorems (\texttt{theory/conjecture/check\_thm34.py}). The window lemma holds on 7{,}500 exact local models (\texttt{local\_lemma.py}).
+
+\textbf{What remains of Conjecture~1.} After the extension in Section~\ref{sec:extensions}, only instances outside both $\mathcal O$ (one-sided classes) and $\mathcal L$ (non-global cleaners class-local) remain open. Conditioning on the victim's class alone does not suffice. With asymmetric sets of locally cleaned polluters, the class-level covariance can be positive (\texttt{c1\_test.py}: $+0.055$). A proof must therefore average over the victim's class, as the window lemma does for global cleaners.
+
+\section{Extensions: cyclic cut, the all-real window identity, and composition}\label{sec:extensions}
+This section proves the extended form of Theorem~4 of the paper (no condition on outside classes), the all-real invariant behind it, its propagation to deeper hierarchies, and partial results for interleaved orders with overlapping roles. Statements are numbered A.1--A.16. Three labels refer to targets stated in the paper's discussion. \textbf{S1} is the claim that the window polynomial $H$ of the victim's class is nonnegative on all of $\mathbb R$. \textbf{S2} is the sharp gap $f^2-B\ge1/m^2$ for interleaved orders, where $m$ counts $v$ and the relevant tests. \textbf{S3} is $B\le f^2$ for interleaved orders with overlapping roles. S1 is proved in full; S2 and S3 are proved in the regions stated below. Every extension has a complete proof; the finite checks are independent sanity checks. The paper's Theorem~4 is Theorem~A.9 below with $G=\bigcap_pC_p$. It strictly extends Theorem~\ref{thm:globallocal} of Section~\ref{sec:twolevel2}, as Example~A.10 shows.
+
+The victim is $v$. Polluters are $P$, and $C_p$ is the cleaner set of $p$. An order fails exactly when some $p\in P$ is before $v$ and no member of $C_p$ is strictly between them. A side scan starts next to $v$ and moves outward. A polluter encountered before any of its cleaners is active. A scan fails if it encounters an active polluter. The left and right failure indicators are $F_L,F_R$, and
+\[
+f=\PP(F_L=1)=\PP(F_R=1),\quad B=\PP(F_L=F_R=1),\quad d=f^2-B.
+\]
+Roles are disjoint when $P\cap\bigcup_p C_p=\varnothing$. Throughout, $v\notin P\cup\bigcup_p C_p$. A self-cleaner $p\in C_p$ can be removed without changing the strictly-between semantics; all cleaner sets below are normalized in this way.
+
+For flat quantitative statements, discard irrelevant tests and put
+\[
+m=1+\left|P\cup\bigcup_p C_p\right|.
+\]
+The relative order of the retained tests is uniform: every retained permutation has the same number of extensions. Thus this deletion changes neither $f$ nor $B$.
+
+A designated global set $G$ means any $G\subseteq\bigcap_p C_p$. With disjoint roles, stop a scan at the first active polluter or the first member of $G$. Its state is respectively $\Fail$ or $\Clean$, and is $\Und$ if neither occurs. A global cleaner blocks every farther polluter, so $\Fail$ is exactly the original failure event. Write
+\begin{equation}\label{x:eq:summaries}
+(f,B,u,t,z)=\bigl(\PP(\Fail_L),\PP(\Fail_L\Fail_R),
+\PP(\Und_L),\PP(\Und_L\Fail_R),\PP(\Und_L\Und_R)\bigr).
+\end{equation}
+All distributions considered for this summary are invariant under swapping left and right. Set
+\begin{equation}\label{x:eq:H}
+H(x)=(f+ux)^2-B-2tx-zx^2.
+\end{equation}
+For the score $s_x(\Fail)=1,s_x(\Clean)=0,s_x(\Und)=x$, this is
+$H(x)=-\Cov(s_x(L),s_x(R))$.
+
+\subsection{Elementary probabilistic tools and a cyclic-cut representation}
+
+\begin{xlemma}[Scalar and product association]\label{x:lem:association}
+For bounded functions $a,b$ of a real random variable $X$, and an independent copy $X'$, 
+\[
+2\Cov(a(X),b(X))=
+\EE[(a(X)-a(X'))(b(X)-b(X'))].
+\]
+Consequently, equal monotonicity gives nonnegative covariance and opposite monotonicity gives nonpositive covariance. The same assertions hold for coordinatewise monotone functions on a finite product of independent totally ordered probability spaces, with the orientation of each coordinate chosen separately.
+\end{xlemma}
+\begin{proof}
+Expanding the displayed expectation proves the identity. For one coordinate, the sign follows pointwise. For the product statement, prove nonnegative association for two increasing functions by induction on the number of coordinates. Condition on the last coordinate. By induction, their conditional covariance over the other independent coordinates is nonnegative. Each conditional mean is increasing in the last coordinate, so the covariance of these means is nonnegative by the scalar result. The law of total covariance finishes. Reversing selected coordinate orders is harmless. Apply the nonnegative result to $a$ and $-b$ for opposite monotonicities.
+\end{proof}
+\xcheck{On a product of two Bernoulli coordinates, enumerate four outcomes and verify the assertion for all increasing Boolean functions. This is the product-association inequality traditionally attributed to Harris ~\cite{harris}; the preceding argument proves the precise version used here.}
+
+\begin{xlemma}[Two neighboring uniform spacings]\label{x:lem:spacings}
+Let a marker and $r$ other labeled points have independent uniform positions on $(0,1)$. The marker's rank $J$ among these $r+1$ points is uniform on $\{1,\ldots,r+1\}$, independent of the ordered spacing vector and of the order of the other labels. Let $L,R$ be its distances to the nearest other point on the corresponding side, using the endpoint 0 or 1 when needed. The joint distribution of $(L,R)$ is the same for every value of $J$ and every order of the other labels.
+
+For $r\ge1$, a pair of these spacings satisfies
+\[
+R\mid L=a\ \overset d=\ (1-a)Z,\qquad Z\sim\operatorname{Beta}(1,r).
+\]
+For $r=0$, $(L,R)=(V,1-V)$ with $V$ uniform. In either case, two functions of $L$ and $R$ with the same direction of monotonicity have nonpositive covariance.
+\end{xlemma}
+\begin{proof}
+The joint density of $r+1$ ordered uniform points is $(r+1)!$ on their order simplex. The change from ordered positions to the $r+2$ spacings has determinant one. Thus the spacings have constant density on the simplex of nonnegative coordinates summing to one, and are exchangeable. All permutations of the point labels have equal conditional probability given the ordered positions, proving the independence assertions. Conditional on $J=j$, the two windows are the spacings $D_j,D_{j+1}$, whose joint distribution does not depend on $j$.
+
+Fixing one spacing to $a$ leaves $r+1$ exchangeable spacings uniformly distributed on the simplex with total $1-a$. A coordinate divided by $1-a$ has survival function $(1-z)^r$, hence the stated beta law. This is stochastically decreasing as $a$ increases. If $h$ is increasing, $\EE[h(R)\mid L=a]$ is decreasing, so its covariance with an increasing function of $a$ is nonpositive by Lemma~\ref{x:lem:association}. If both functions are decreasing, their directions again become opposite after conditioning. For $r=0$ the assertion follows directly from $R=1-L$.
+\end{proof}
+\xcheck{The exact moment identity $\EE[L^iR^j]=i!j!(r+1)!/(r+i+j+1)!$ for nonnegative integers $i,j$ checks the spacing formulas, including $r=0$. The marked-item tests below also check the required rank decoupling directly by finite enumeration.}
+
+\begin{xlemma}[Cyclic cut; arbitrary roles]\label{x:lem:cut}
+Write a flat order as $\sigma=A\,v\,B$ and define $T\sigma=B\,v\,A$, preserving the internal order of each word. Then $T$ is a bijective involution on all permutations, commutes with reversal, and transforms the original and reversed failure events into
+\begin{align}
+M_+&=\{\exists p\in P:\ Z_p> Z_t\text{ for every }t\in\{v\}\cup C_p\},\label{x:eq:max}\\
+M_-&=\{\exists p\in P:\ Z_p< Z_t\text{ for every }t\in\{v\}\cup C_p\},\label{x:eq:min}
+\end{align}
+where the transformed uniform order is represented by independent continuous uniform heights $Z_t$. This holds even when roles overlap.
+\end{xlemma}
+\begin{proof}
+The involution and reversal identities follow by writing the two words on either side of $v$. A polluter $p$ before $v$ in $\sigma$ lies in $A$. No cleaner is between $p$ and $v$ exactly when all cleaners in $A$ occur before $p$; cleaners in $B$ impose no condition. In $T\sigma$, every member of $B$ and $v$ is before $p$, so the condition is precisely that $p$ is after $v$ and all of its cleaners. Conversely this condition in $T\sigma$ places $p$ in $A$ and excludes every cleaner from the original interval $(p,v)$. This proves \eqref{x:eq:max}. Commutation with reversal gives \eqref{x:eq:min}. No disjointness was used.
+\end{proof}
+\xcheck{For every order of at most five tests and every cleaner family with $P=\{1,\ldots,a\}$, compare the two scan indicators with the two extremum predicates after the cut. The included checker performs 563,654 such order checks.}
+
+\begin{xcorollary}[Flat disjoint-role covariance]\label{x:cor:flat}
+For flat orders and disjoint roles, $B\le f^2$.
+\end{xcorollary}
+\begin{proof}
+In \eqref{x:eq:max}, increase all polluter heights and decrease all cleaner heights and the victim height. The event can only become true. Event \eqref{x:eq:min} has the opposite monotonicities in the same product order. Lemma~\ref{x:lem:association} therefore gives $\PP(M_+\cap M_-)\le\PP(M_+)\PP(M_-)=f^2$.
+\end{proof}
+\xcheck{This recovers Section~\ref{sec:flat} by a different representation. The local-model checks enumerate the corresponding flat disjoint-role probabilities. For overlapping roles the coordinate orientations need not be consistent, so this corollary does not claim S3.}
+
+\subsection{S1: an explicit all-real sum of squares}
+
+\begin{xlemma}[Local rank decoupling]\label{x:lem:rank}
+Consider a flat victim class, disjoint roles, and $g$ designated local global cleaners. All other local cleaners can be arbitrary polluter-specific cleaners. For its summaries \eqref{x:eq:summaries}, if $g\ge1$ then
+\begin{equation}\label{x:eq:rankidentities}
+u=\frac{1-f}{g+1},\qquad t=\frac{f-B}{g+1},\qquad z=0.
+\end{equation}
+If $g=0$, then $u=1-f$, $t=f-B$, and $z=1-2f+B$.
+\end{xlemma}
+\begin{proof}
+Use independent uniform positions for all local tests. Retain the positions of $v$ and the $g$ designated global cleaners. Let $J$ be the rank of $v$ among them, and let $L,R$ be the two neighboring window lengths. Let $T_L,T_R$ indicate an active polluter in the corresponding open window.
+
+Conditional on the positions of the retained points, every other test independently belongs to the left window, right window, or their complement with probabilities $L,R,1-L-R$. Conditional on membership, its location is uniform in that interval. Thus the joint law of $(T_L,T_R)$ depends only on $(L,R)$, not on the labels or the rank $J$. Lemma~\ref{x:lem:spacings} says that the joint law of $(L,R)$ is independent of $J$. After averaging these lengths, $(T_L,T_R)$ is independent of $J$.
+
+Put $e_L=\ind\{J=1\}$ and $e_R=\ind\{J=g+1\}$. A global cleaner blocks everything beyond its window, so
+\[
+\ind\{\Fail_L\}=T_L,\quad
+\ind\{\Und_L\}=e_L(1-T_L),
+\]
+and similarly on the right. If $g\ge1$, then $e_Le_R=0$ and $\EE e_L=1/(g+1)$. Independence from $(T_L,T_R)$ proves \eqref{x:eq:rankidentities}. If $g=0$, every nonfailing side is undecided, giving the remaining identities directly.
+\end{proof}
+\xcheck{For $P=\{1,2\}$, $G=\{3\}$, $C_1=\{3,4\}$, $C_2=\{3,5\}$ and $v=0$, enumeration of all $6!$ orders gives $(f,B,u,t,z)=(5/12,19/180,7/24,7/45,0)$. The checker also tests 387 local models, allowing any designated subset of the local common cleaners.}
+
+\begin{xtheorem}[S1 on the entire real line]\label{x:thm:S1}
+In Lemma~\ref{x:lem:rank}, set $d=f^2-B$ and $q=1-2f+B$. Then
+\begin{equation}\label{x:eq:S1}
+\boxed{\quad H(x)=
+\begin{cases}
+d(1-x)^2,&g=0,\\[2pt]
+\displaystyle d\left(1-\frac{x}{g+1}\right)^2+
+q\left(\frac{x}{g+1}\right)^2,&g\ge1.
+\end{cases}\quad}
+\end{equation}
+In particular $H(x)\ge0$ for every real $x$. The left--right cross-covariance matrix of $(\ind\{\Fail\},\ind\{\Und\})$ is negative semidefinite. Every real-valued score on $\{\Fail,\Clean,\Und\}$ has nonpositive left--right covariance.
+\end{xtheorem}
+\begin{proof}
+Corollary~\ref{x:cor:flat} gives $d\ge0$, and $q$ is the probability that neither side fails, hence is nonnegative. Substitute Lemma~\ref{x:lem:rank} into \eqref{x:eq:H}. For $g\ge1$, use
+\[
+fu-t=-\frac{d}{g+1},\qquad
+u^2=\frac{(1-f)^2}{(g+1)^2}=\frac{d+q}{(g+1)^2}.
+\]
+This gives \eqref{x:eq:S1}; the $g=0$ substitution gives its first line.
+
+For $g\ge1$, writing $r=1/(g+1)$, the negative of the cross-covariance matrix is
+\begin{equation}\label{x:eq:matrix}
+-\Sigma=d\begin{pmatrix}1&-r\\-r&r^2\end{pmatrix}
++q\begin{pmatrix}0&0\\0&r^2\end{pmatrix}.
+\end{equation}
+Both summands are positive semidefinite. If $g=0$, the matrix is $d\left(\begin{smallmatrix}1&-1\\-1&1\end{smallmatrix}\right)$. Finally any three-state score is a constant plus a linear combination of $\ind\{\Fail\}$ and $\ind\{\Und\}$, so its covariance has the asserted sign.
+\end{proof}
+\xcheck{Compute the three coefficients of $H$ from exact summaries and compare them with \eqref{x:eq:S1}. This verifies an identity, not just a grid of values. The checker performs this comparison for all 387 local models.}
+
+\subsection{Transparent items and an invariant that composes}
+
+\begin{xlemma}[Independent decisive and optional-polluter items]\label{x:lem:items}
+Uniformly permute a marker, $r$ decisive items, and $s$ optional-polluter items. All random item labels are independent of each other and of the permutation. Decisive item $i$ is $\Fail$ with probability $\alpha_i$ and $\Clean$ otherwise. Optional item $j$ is $\Fail$ with probability $\theta_j$ and $\Und$ otherwise. On a side of the marker, skip $\Und$ and use the first other label, returning $\Und$ if none exists. The resulting three-state pair has $H_E(x)\ge0$ on all of $\mathbb R$.
+
+More precisely, let $(f_*,B_*,u_*,t_*,z_*)$ and $H_*$ be the summaries and polynomial with only the decisive items present. Let $T_L,T_R$ indicate the absence of an active optional item between the marker and its nearest decisive item or boundary. Put $a_0=\EE T_L$ and $b_0=\EE[T_LT_R]$. Then $b_0\le a_0^2$ and
+\begin{equation}\label{x:eq:items}
+\boxed{H_E(x)=b_0H_*(x)+(a_0^2-b_0)(1-f_*-u_*x)^2.}
+\end{equation}
+\end{xlemma}
+\begin{proof}
+First suppose $r\ge1$. Put $k=r+1$, $S=\sum_i\alpha_i$, $Q=\sum_i\alpha_i^2$. Each particular decisive item is immediately to the left of the marker with probability $1/k$, and a prescribed ordered pair is on its two sides with probability $1/[k(k-1)]$. Distinct labels are independent. Thus
+\[
+f_*=\frac S k,\quad B_*=\frac{S^2-Q}{k(k-1)},\quad
+u_*=\frac1k,\quad t_*=\frac{S}{k(k-1)},\quad z_*=0,
+\]
+where the expression for $t_*$ also follows by requiring the marker to be first and the right neighbor to have label $\Fail$. Expansion gives
+\begin{equation}\label{x:eq:baseline}
+H_*(x)=\frac{(x-S/r)^2}{k^2}+\frac{Q-S^2/r}{kr}\ge0.
+\end{equation}
+Indeed $rQ-S^2=\sum_{i<j}(\alpha_i-\alpha_j)^2\ge0$. For $r=0$ both baseline states are $\Und$ and $H_*=0$.
+
+Represent item positions by independent uniforms. Conditional on the marker and decisive positions, let their two neighboring window lengths be $L,R$. Optional item $j$ is active in the left window with probability $\theta_jL$, in the right window with probability $\theta_jR$, and cannot be in both. Therefore, for $h(a)=\prod_j(1-\theta_j a)$,
+\[
+\EE[T_L\mid L,R]=h(L),\qquad
+\EE[T_R\mid L,R]=h(R),
+\]
+\[
+\EE[T_LT_R\mid L,R]=\prod_j(1-\theta_j(L+R))
+\le h(L)h(R).
+\]
+The factors are nonnegative because $L+R\le1$. The function $h$ is decreasing. Lemma~\ref{x:lem:spacings} now gives
+\[
+b_0\le\EE[h(L)h(R)]\le\EE h(L)\,\EE h(R)=a_0^2.
+\]
+This argument includes $r=0$, using complementary windows rather than an undefined beta distribution.
+
+The baseline outcome pair is a function of the marker's rank among the decisive items, the order of their labels, and their independent random marks. The law of $(L,R)$ is independent of all those data. Conditional on the windows, the law of $(T_L,T_R)$ depends only on their lengths. Hence the pair $(T_L,T_R)$ is independent of the baseline outcome pair. This is an averaged independence statement; it does not condition on a full asymmetric arrangement in a victim class.
+
+Let $s_{*,x}$ be the baseline score. An active optional item in a window overrides the baseline state by $\Fail$. Consequently
+\[
+1-s_{x,L}=T_L(1-s_{*,x,L}),\qquad
+1-s_{x,R}=T_R(1-s_{*,x,R}).
+\]
+Let $\mu_x=\EE s_{*,x,L}=f_*+u_*x$. Independence gives
+\[
+\Cov(s_{x,L},s_{x,R})
+=b_0\Cov(s_{*,x,L},s_{*,x,R})+(b_0-a_0^2)(1-\mu_x)^2.
+\]
+Negating this equality proves \eqref{x:eq:items}. Its two terms are nonnegative for all real $x$ by \eqref{x:eq:baseline} and $b_0\le a_0^2$.
+\end{proof}
+\xcheck{Use at most three decisive and three optional items, at most five in total, with independent label probabilities in $\{0,1/3,2/3,1\}$. Enumerate permutations and marks. Verify that the full joint distribution of the baseline states and $(T_L,T_R)$ factors, and compare all three coefficients in \eqref{x:eq:items}. The checker tests 80 such models.}
+
+\begin{xlemma}[Exact composition identity]\label{x:lem:composition}
+Let an independent local pair and external pair have summaries
+\[
+(f,B,u,t,z),\qquad (h,b,a,\tau,\zeta),
+\]
+respectively. Keep a local state unless it is $\Und$; in that case use the external state on the same side. The new summaries are
+\begin{align*}
+f'&=f+uh,& B'&=B+2th+zb,& u'&=ua,\\
+t'&=ta+z\tau,& z'&=z\zeta.
+\end{align*}
+Their polynomials satisfy, identically for all real $x$,
+\begin{equation}\label{x:eq:composition}
+\boxed{H_{\rm new}(x)=H_{\rm local}(h+ax)+zH_E(x).}
+\end{equation}
+Hence two all-real nonnegative invariants compose to another one.
+\end{xlemma}
+\begin{proof}
+Write the state indicators as $F_L,U_L$ and $E_L,V_L$ for local and external failure and undecided states. The new indicators are $F'_L=F_L+U_LE_L$ and $U'_L=U_LV_L$, with disjoint terms in the first sum, and similarly on the right. Expand each expectation and use independence of the two pairs. Reversal symmetry identifies the two mixed failure terms. This gives the displayed summaries. Substitution into \eqref{x:eq:H} gives
+\begin{align*}
+H_{\rm new}(x)
+&=(f+u(h+ax))^2-B-2t(h+ax)-z(b+2\tau x+\zeta x^2)\\
+&=H_{\rm local}(h+ax)+z\bigl((h+ax)^2-b-2\tau x-\zeta x^2\bigr),
+\end{align*}
+which is \eqref{x:eq:composition}. Since $z$ is a probability, it is nonnegative.
+\end{proof}
+\xcheck{Enumerate the nine states of each symmetric three-state pair, compose the resulting 81 pairs of states, and compare coefficients. The checker verifies 300 independent rational joint-distribution pairs, without assuming their input polynomials are nonnegative.}
+
+\subsection{A strictly larger two-level region, and deeper hierarchies}
+
+\begin{xtheorem}[Global plus class-local cleaners, allowing transparent classes]\label{x:thm:main}
+Let orders be uniformly class-contiguous and roles disjoint. Suppose a designated common set $G\subseteq\bigcap_{p\in P} C_p$ satisfies
+\begin{equation}\label{x:eq:locality}
+C_p\setminus G\subseteq\cl(p)\qquad(p\in P).
+\end{equation}
+There is no other condition on classes containing polluters. Then $B\le f^2$. In fact, the full suite's three-state polynomial relative to $G$ satisfies $H(x)\ge0$ for every real $x$.
+\end{xtheorem}
+\begin{proof}
+Let $K$ be the victim's class. Its local three-state pair has the all-real invariant by Theorem~\ref{x:thm:S1}, with $g=|G\cap K|$.
+
+Consider another class $X$ when reached by a side scan. An undecided scan has not encountered a member of $G$. By \eqref{x:eq:locality}, cleaners from previously scanned classes cannot clean a polluter of $X$ except via $G$, which has not occurred. Also a non-global cleaner in $X$ cleans no polluter outside $X$. Thus the behavior of $X$ on entry depends only on its own internal scan order.
+
+If $X$ contains a global cleaner, its first global cleaner or first active polluter always decides: $X$ is a decisive $\Fail/\Clean$ item. If $X$ has no global cleaner, it either exposes an active polluter, giving $\Fail$, or exposes none, giving a transparent $\Und$ item. A transparent class has no effect on any farther class. This includes irrelevant classes, which have failure probability zero.
+
+Uniform internal orders are invariant under reversal. Hence the distribution of a class's state from its end facing $v$ is the same whether that class is on the left or right. Only one endpoint of each outside class is used in the pair of side scans: the class belongs to only one side of $v$. It is therefore valid to sample one independent mark for that class with this common marginal law. No assertion about independence of the two endpoints of a single class is needed. Conditional on the entire class permutation, these marks are independent across classes and have laws not depending on the permutation. They are also independent of $K$'s internal order.
+
+The external class ensemble is exactly that of Lemma~\ref{x:lem:items}, and its pair is independent of the local pair in $K$. Apply Lemma~\ref{x:lem:composition}. Both terms in \eqref{x:eq:composition} are nonnegative for all real $x$. Setting $x=0$ proves $B\le f^2$.
+\end{proof}
+\xcheck{Generate disjoint roles and cleaners of the form $G$ plus a subset of the polluter's own class. Enumerate all legal orders and test the quadratic coefficient criterion. The checker verifies 219 two-level models and the strict example below.}
+
+\begin{xexample}[Strict extension of the union of the old regions]\label{x:ex:strict}
+Take classes $\{v\}$, $\{p_1,g\}$, $\{p_2,e\}$, with
+\[
+P=\{p_1,p_2\},\qquad C_{p_1}=\{g\},\qquad C_{p_2}=\{g,e\}.
+\]
+This is not a common-cleaner instance. It violates Theorem~\ref{thm:onesided}, since the polluter-containing class $\{p_1,g\}$ cleans $p_2$ outside itself. It also violates Theorem~\ref{thm:globallocal}'s extra nontransparency condition: $\{p_2,e\}$ has no global cleaner and no polluter without an extra cleaner. It satisfies Theorem~\ref{x:thm:main}.
+
+For an exact hand calculation, let $A=\{p_1,g\}$ and $D=\{p_2,e\}$. Each is $\Fail$ with probability $1/2$ from its facing end. Otherwise $A$ is $\Clean$ and $D$ is transparent. Among the six class permutations, the victim is first twice and has failure probability zero; last twice and has failure probabilities $1/2$ and $3/4$ depending on which class is nearer; and in the middle twice and has failure probability $1/2$. Thus
+\[
+f=\frac{0+0+1/2+3/4+1/2+1/2}{6}=\frac38.
+\]
+Both sides fail only if the victim class is in the middle and both other facing ends fail, so $B=(1/3)(1/4)=1/12$. Therefore
+\[
+\boxed{f=\frac38,\quad B=\frac1{12},\quad d=\frac{11}{192}.}
+\]
+The 24 legal orders give the same counts.
+\end{xexample}
+
+\begin{xtheorem}[A victim-path locality extension to deeper trees]\label{x:thm:spine}
+Choose a flat subtree $K$ containing $v$, allowing $K=\{v\}$. Partition the other leaves into the sibling subtrees attached to the path from $K$ to the root. Together with $K$, call these the regions. The off-path regions may have arbitrary internal hierarchy. Assume disjoint roles and a common set $G$ such that every non-global cleaner of a polluter lies in that polluter's region. Then the root has $H(x)\ge0$ for all real $x$, and in particular $B\le f^2$.
+\end{xtheorem}
+\begin{proof}
+The base region $K$ satisfies Theorem~\ref{x:thm:S1}. Each off-path region containing $G$ is decisive; each not containing $G$ is $\Fail$ or transparent. Region locality gives precisely the entry-state independence and absence of effects on other regions used in Theorem~\ref{x:thm:main}. An arbitrary hierarchical internal order is reversal-invariant, since reversal reverses every independent child permutation; hence its facing-end mark has the same law from either side. Marks of distinct regions are independent.
+
+At each successive ancestor, its sibling regions form a uniformly ordered ensemble of the kind in Lemma~\ref{x:lem:items}, independent of the current victim-containing subtree. Apply Lemma~\ref{x:lem:composition} at that ancestor. Induction up the path proves the result. The restriction on regions is substantive; it need not hold for an arbitrary hierarchical instance with polluter-specific cleaners.
+\end{proof}
+\xcheck{The checker verifies 195 deeper models with nontrivial internal hierarchies in the off-path regions. As a guardrail, it also reproduces Section~\ref{sec:boundary}'s violating tree with $f=11/16$, $B=1/2$: its non-global cleaners cross the required region boundaries.}
+
+\subsection{Flat overlapping roles: sharp-gap regions}
+
+\begin{xtheorem}[At most two polluters; sharp $1/m^2$ bound]\label{x:thm:two}
+For flat orders with $1\le|P|\le2$, arbitrary cleaner sets and arbitrary role overlap,
+\[
+f^2-B\ge\frac1{m^2}.
+\]
+\end{xtheorem}
+\begin{proof}
+With one polluter, every other relevant nonvictim test is its cleaner. Failure occurs exactly when that polluter is immediately before $v$ in the relevant order. Thus $f=1/m$, $B=0$.
+
+Now let $P=\{p,q\}$ and put $D_p=C_p\setminus P$, $D_q=C_q\setminus P$. Set
+\[
+a=|D_p\setminus D_q|,\quad b=|D_q\setminus D_p|,\quad
+g=|D_p\cap D_q|,\quad m=a+b+g+3,
+\]
+and abbreviate $k=g+3$, $r=k+a$, $s=k+b$. Add both possible mutual cleaner edges, $q\in C_p$ and $p\in C_q$. Adding cleaners cannot increase $f$. It leaves $B$ unchanged: joint failure with only two polluters requires one on each side of $v$, where neither is between the other and $v$. If they are on the same side, joint failure is impossible before and after the addition. Consequently the original gap is at least the gap after both edges are added.
+
+In the cyclic-cut representation, the two upper-extremum events in the augmented model are disjoint: one requires $Z_p>Z_q$, the other $Z_q>Z_p$. Their probabilities are $1/r$ and $1/s$, respectively, so
+\[
+f_{\rm aug}=\frac1r+\frac1s.
+\]
+For joint failure with $p$ the upper and $q$ the lower extremum, consider the $k$-point skeleton $\{p,q,v\}\cup(D_p\cap D_q)$. It requires $p$ to be the maximum and $q$ the minimum, an event of probability $1/[k(k-1)]$. Conditional on these labels being extreme, the maximum $X$ and minimum $Y$ retain the order-statistic distribution of $k$ independent uniforms. Each $p$-private cleaner must be below $X$; each $q$-private cleaner must be above $Y$. The opposite orientation gives the same probability by complementing every height. Therefore
+\begin{equation}\label{x:eq:twoB}
+B=\frac{2}{k(k-1)}\EE[X^a(1-Y)^b].
+\end{equation}
+
+Given $X=x$, the other $k-1$ heights are independent uniforms on $(0,x)$, so $Y=xZ$ with $Z\sim\operatorname{Beta}(1,k-1)$. Thus $\EE[(1-Y)^b\mid X=x]$ is nonincreasing in $x$. Lemma~\ref{x:lem:association}, applied to the increasing function $x^a$, yields
+\[
+\EE[X^a(1-Y)^b]\le\EE X^a\,\EE(1-Y)^b
+=\frac{k}{r}\frac{k}{s}.
+\]
+The last equality follows by integrating the density $kx^{k-1}$ of $X$ and using the identical marginal law of $1-Y$. Hence
+\[
+B\le\frac{2k}{(k-1)rs}.
+\]
+Since $k\ge3$ and $r,s\le m$,
+\begin{align*}
+f^2-B
+&\ge\left(\frac1r+\frac1s\right)^2-\frac{2k}{(k-1)rs}\\
+&=\left(\frac1r-\frac1s\right)^2+\frac{2(k-2)}{(k-1)rs}
+\ge\frac1{rs}\ge\frac1{m^2}.
+\end{align*}
+\end{proof}
+\xcheck{For all $a,b,g\ge0$ with $a+b+g\le4$, enumerate the four choices of mutual edges and verify that $B$ is identical in all four cases, while the augmented $f$ is $1/r+1/s$. The checker tests 140 such models and 4,060 exact parameter triples up to $m=30$.}
+
+For reproducing the two-polluter check without enumerating permutations, an exact expression is
+\begin{equation}\label{x:eq:twoexact}
+B=\frac{2a!b!}{m!}\sum_{i=0}^a\sum_{j=0}^b
+\frac{(g+1+i+j)!}{i!j!}.
+\end{equation}
+Indeed the upper/lower orientation probability is
+$\int_{0<y<x<1}x^a(1-y)^b(x-y)^{g+1}\,dy\,dx$.
+Put $w=x-y$ and $z=1-x$, expand $(y+w)^a(w+z)^b$, and integrate each monomial on $y+w+z=1$. The monomial integral is $A!B!C!/(A+B+C+2)!$, obtained by two elementary beta integrals. This gives \eqref{x:eq:twoexact}. For $a=b=1,g=0$, it gives $B=11/60$; with mutual edges, $f=1/2$ and $d=1/15$.
+
+\begin{xtheorem}[At most one pure cleaner; arbitrary overlap]\label{x:thm:onecleaner}
+For flat orders with $P\ne\varnothing$ and
+$|\bigcup_p C_p\setminus P|\le1$, the sharp conjectured bound holds:
+\[
+f^2-B\ge\frac1{m^2}.
+\]
+\end{xtheorem}
+\begin{proof}
+If there is no pure cleaner, every nonempty side starts with a polluter, which is active. Thus $f=(m-1)/m$, $B=(m-2)/m$, and $d=1/m^2$.
+
+Otherwise the only pure cleaner is $c$, and all other nonvictim relevant tests are polluters. Then $m\ge3$. Let $p_j$ be the probability that the first $j$ tests of a uniform permutation of the $m-1$ nonvictim tests form a passing scan. A passing nonempty scan must start with $c$, so $p_1=1/(m-1)$. Passing is hereditary under removing a farthest scan element: that element is encountered last and cannot affect the previously encountered polluters. Hence
+\[
+p_1\ge p_2\ge\cdots\ge p_{m-1}=\rho\ge0.
+\]
+Put $S=\sum_{j=1}^{m-1}p_j$. The victim's position is uniform and, conditional on a side size, its scan is a uniform ordered subset. Therefore the marginal pass probability is $(1+S)/m$.
+
+Both sides cannot pass when both are nonempty, since one side lacks $c$ and starts with a polluter. Both-pass probability is consequently $2\rho/m$, contributed by the two endpoint positions of $v$. Covariance is unchanged by complementing both failure indicators, so
+\[
+d=\frac{(1+S)^2}{m^2}-\frac{2\rho}{m}.
+\]
+Let $t=(m-1)\rho\in[0,1]$. Monotonicity gives
+\[
+S\ge\frac1{m-1}+(m-2)\rho=\frac{1+(m-2)t}{m-1}.
+\]
+Since $S^2+2S$ is increasing for $S\ge0$, it follows that
+\[
+m^2\left(d-\frac1{m^2}\right)
+=S^2+2S-2m\rho
+\ge\frac{(m-2)^2t^2-2mt+2m-1}{(m-1)^2}.
+\]
+For $m=3$ the numerator is $(1-t)(5-t)\ge0$. For $m\ge4$ it equals
+\[
+(m-1)(m-4)t^2+m(t-1)^2+(m-1)\ge0.
+\]
+This proves the claim with no restriction on polluter-as-cleaner edges.
+\end{proof}
+\xcheck{The full enumeration of 4,771 cleaner configurations up to five tests checks this theorem whenever applicable. The checker also tests 240 further one-pure-cleaner models on six and seven tests by exact order enumeration.}
+
+\subsection{Removing some overlapping roles, and a general weaker gap}
+
+\begin{xlemma}[Pointwise overlap pruning]\label{x:lem:prune}
+Let $D_p=C_p\setminus P$ be the pure-cleaner set of $p$. Suppose every overlap edge satisfies
+\begin{equation}\label{x:eq:pruning}
+q\in C_p\cap P\quad\Longrightarrow\quad D_q\subseteq D_p.
+\end{equation}
+Replacing all $C_p$ by $D_p$ preserves the failure indicator for every individual order. Hence it preserves $(f,B)$ for every distribution of orders, including arbitrary hierarchies.
+\end{xlemma}
+\begin{proof}
+Deleting cleaners cannot destroy a failure, so only the reverse implication needs proof. Suppose $p$ is active in the reduced model, but the original order has no active polluter. There is no member of $D_p$ between $p$ and $v$. Since $p$ is not originally active, some original cleaner $q$ is strictly between them; it must be a polluter. Condition \eqref{x:eq:pruning} gives $D_q\subseteq D_p$, so no member of $D_q$ can be between $q$ and $v$. Since $q$ is also not originally active, repeat with a polluter cleaner strictly closer to $v$.
+
+At every step the pure-cleaner set is contained in $D_p$ and the new polluter is strictly closer to $v$. A pure cleaner therefore cannot terminate this process, while a finite order forbids an infinite strictly closer sequence. The final polluter must be originally active, contradicting the assumption. Thus every reduced failure was already an original failure.
+\end{proof}
+\xcheck{Compare the original and pruned indicators on every order, rather than only their averages. Of the 4,771 small configurations checked, 4,453 satisfy \eqref{x:eq:pruning}; all are verified pointwise. The condition is sufficient, not asserted necessary.}
+
+\begin{xcorollary}[Two consequences for S3 and S2]\label{x:cor:prune}
+All flat models satisfying \eqref{x:eq:pruning} satisfy S3. If all $D_p$ are one common set $D$, arbitrary overlap edges are allowed, and, with $a=|P|$, $b=|D|$, $m=a+b+1$,
+\[
+d=\frac{a(b+1)}{(m-1)m^2}\ge\frac1{m^2}.
+\]
+\end{xcorollary}
+\begin{proof}
+Lemma~\ref{x:lem:prune} reduces the first assertion to the disjoint-role flat Corollary~\ref{x:cor:flat}. When all $D_p=D$, condition \eqref{x:eq:pruning} always holds and the reduced model has common cleaners. Its nearest predecessor is a polluter with probability $a/m$, and both neighbors are polluters with probability $a(a-1)/[m(m-1)]$. Subtraction gives the formula. Finally $a(b+1)\ge a+b=m-1$ because $b(a-1)\ge0$.
+\end{proof}
+\xcheck{Take three polluters, two common pure cleaners, and arbitrary directed cleaner edges among the polluters. All such models must give $f=1/2$, $B=1/5$, and $d=1/20$. Pointwise pruning is the stronger check.}
+
+\begin{xproposition}[An explicit weaker gap for every flat disjoint model]\label{x:prop:weak}
+Let roles be disjoint, $a=|P|\ge1$, and $m$ be the relevant size. Then
+\begin{equation}\label{x:eq:weak}
+\boxed{d\ge\frac{a^2}{(m-1)^2}
+\left(\frac1{m^2}-\frac{((m-1)!)^2}{(2m-1)!}\right)>0.}
+\end{equation}
+This is not the conjectured sharp $1/m^2$ bound.
+\end{xproposition}
+\begin{proof}
+Use the cyclic-cut representation and condition on the victim height $V=u$. The remaining coordinates still have a product law and opposite event monotonicities, so Lemma~\ref{x:lem:association} gives
+\[
+B\le\int_0^1 A(u)A(1-u)\,du,
+\]
+where $A(u)=\PP(M_+\mid V=u)$ and $f=\int_0^1A(u)\,du$.
+
+Define $T$ to be the largest height of any polluter that is higher than all its cleaners, taking $T=0$ if there is none. This definition uses only the nonvictim heights, and $A(u)=\PP(T>u)$. Let $E$ be the event that the largest nonvictim height belongs to a polluter. Then $\PP(E)=c=a/(m-1)$; the largest value $M$ is independent of its label and has distribution $\PP(M\le u)=u^{m-1}$. On $E$, $T=M$. Consequently
+\[
+A(u)=c(1-u^{m-1})+R(u),\qquad R(u)=\PP(T>u,E^c),
+\]
+where $R$ is nonincreasing. In expanding $\Cov(A(U),A(1-U))$, all three terms involving $R$ are nonpositive by scalar opposite monotonicity. Therefore
+\[
+d\ge-\Cov(A(U),A(1-U))
+\ge c^2\left(\frac1{m^2}-\int_0^1u^{m-1}(1-u)^{m-1}\,du\right).
+\]
+Repeated integration by parts gives the beta integral in \eqref{x:eq:weak}. The bracket is strictly positive because $u^{m-1}$ and $(1-u)^{m-1}$ are nonconstant with strictly opposite monotonicity on $(0,1)$; the scalar covariance identity in Lemma~\ref{x:lem:association} is then strictly negative.
+\end{proof}
+\xcheck{Enumerate disjoint cleaner families, remove irrelevant labels when determining $m$, and compare the rational bound with $f^2-B$. The checker tests 207 such models up to six ambient tests.}
+
+\subsection{Exactly what remains, and what was checked}
+
+\subsubsection{The two-level conjecture}
+Theorem~\ref{x:thm:main} removes the entire additional condition in Theorem~\ref{thm:globallocal} that each outside polluter class must contain a global cleaner or a polluter having no extras. Example~\ref{x:ex:strict} lies outside the union of the old common-cleaner, one-sided, and global-plus-local regions. Thus the proof establishes the requested strictly larger region, not merely a different proof of a special case already covered.
+
+For an exact description of the remaining two-level disjoint gap relative to these results, set $G=\bigcap_p C_p$. Define
+\[
+\mathcal L:\quad \forall p\in P,\ C_p\setminus G\subseteq\cl(p),
+\]
+and let $\mathcal O$ be the one-sided hypothesis from Theorem~\ref{thm:onesided}: each class containing a polluter has no cleaner of any polluter outside that class. The proven region includes $\mathcal O\cup\mathcal L$. The unclosed portion is the simultaneous failure of these two hypotheses. Equivalently, it has both a non-global cleaner outside the class of a polluter it cleans and a polluter-containing class with a cleaner of an outside polluter. The two witnesses need not be the same cleaner. No claim that every such remaining model is problematic is made.
+
+The all-real scalar invariant does not record which outside polluters have been cleaned. Therefore the composition proof must not be applied when non-global cleaners cross its region boundaries. It does not establish the proposed arbitrary decreasing tail-function statement or either pointwise conditional-covariance observation from the paper. These remain numerical observations, not premises of the proofs here.
+
+\subsubsection{S1--S3}
+S1 is completely proved, including an exact certificate and propagation under Lemma~\ref{x:lem:composition}. S2 is proved for at most two polluters, at most one pure cleaner, and the common-pure-cleaner overlap-prunable region. Proposition~\ref{x:prop:weak} gives a weaker positive bound for every disjoint flat model. S3 is proved in all those sharp-gap regions and in the whole overlap-prunable region of Lemma~\ref{x:lem:prune}. Models outside these sufficient conditions are not settled by this note. In particular, the cyclic-cut representation alone does not restore product monotonicity for unrestricted overlapping roles.
+
+No counterexample to the unresolved statements is claimed. The hierarchical and two-level-overlap counterexamples are reproduced as negative controls, not as counterexamples to Conjecture 1.
+
+
+\subsubsection*{Independent re-verification}
+Independently of the checker distributed with these arguments (\texttt{theory/extensions/verify.py}, status PASS), \texttt{theory/crosscheck/crosscheck\_appendix.py} re-checks the claims with separate code:
+\begin{itemize}
+\item the cyclic-cut equivalence on 74{,}106 orders with overlapping roles;
+\item the coefficients of the window identity on 230 local models;
+\item the extended theorem on 250 two-level instances with up to nine tests, 37 of them outside Theorem~\ref{thm:globallocal}'s decisiveness condition;
+\item the sharp flat gap on 600 instances in its proved regions;
+\item overlap pruning pointwise on 298 instances;
+\item the strict example: $f=3/8$, $B=1/12$.
+\end{itemize}
+
+\section{Limits of scheduling}\label{sec:limits}
+Let $T$ be the number of runs until a fixed target first fails, and write $f$, $B$ and $q=1-2f+B$ as in the paper.
+
+\begin{theorem}[Block limit]
+Suppose a schedule consists of independent identically distributed blocks of $k$ runs, each run uniformly distributed, with arbitrary dependence inside a block, and $0<f<1$, $kf\le1$. Then $\E T\ge1/f-(k-1)/2$, with equality iff the failure events of a block are pairwise disjoint.
+\end{theorem}
+\begin{proof}
+Let $d_i$ be the probability that the first failure in a block occurs at its $(i{+}1)$-st run, $i=0,\dots,k-1$. Then $0\le d_i\le f$, because that run fails with probability $f$. Let $h=\sum_i d_i$ and let $s_i=1-\sum_{l<i}d_l$ be the probability of no failure in the first $i$ runs of a block. Summing the survival function over blocks gives $\E T=\sum_{j\ge0}(1-h)^j\sum_{i<k}s_i=[k(1-h)+\sum_i(i+1)d_i]/h$.
+
+Fix $h=\rho f$ and write $\rho=a+b$ with $a\in\mathbb N$ and $b\in[0,1)$. The linear form $\sum_i(i+1)d_i$ with increasing weights is minimised by putting mass $f$ on the first $a$ runs and $bf$ on the next. The minimum is $f[a(a+1)/2+(a+1)b]$, which exceeds $f\rho(\rho+1)/2$ by $fb(1-b)/2\ge0$. Hence $\E T\ge\varphi(\rho)=k/(\rho f)-k+(\rho+1)/2$. Moreover $\varphi'(\rho)=-k/(\rho^2f)+1/2<0$ because $\rho^2\le k^2\le k/f$. So the minimum over $\rho\le k$ is at $\rho=k$, where $\varphi(k)=1/f-(k-1)/2$. Equality requires $\rho=k$ and $d_i=f$ for all $i$, i.e., $\Prb(\bigcup\text{failures})=kf=\sum\Prb(\text{failures})$, which holds iff the failure events are pairwise disjoint up to null sets. Conversely, disjoint events give $d_i=f$.
+\end{proof}
+
+The same bound holds for independent blocks with different laws, provided each position still has failure marginal $f$. For block $j$, let $h_j$ be its success probability and $C_j$ its expected number of runs spent before failure or block end. The argument above gives $C_j\ge L_k h_j$, where $L_k=1/f-(k-1)/2$. With $S_j$ the probability of reaching block $j$, independence gives $\E T=\sum_j S_jC_j\ge L_k\sum_j S_jh_j=L_k$. Detection occurs almost surely because $h_j\ge f>0$. Equality requires disjoint failure events in every block reached with positive probability.
+
+\begin{theorem}[Uniform-marginal limit]
+For any schedule, possibly dependent or adaptive, whose runs are each uniformly distributed, $\E T\ge\sum_{t\ge0}(1-tf)^+=(N+1)(1-Nf/2)$, where $N=\lfloor1/f\rfloor$.
+\end{theorem}
+\begin{proof}
+$\Prb(T>t)\ge1-\sum_{s\le t}\Prb(F(\sigma_s))=1-tf$, and $\E T=\sum_{t\ge0}\Prb(T>t)$. For one polluter without cleaners, $f=1/2$ and $B=0$, and the pair $\sigma,R\sigma$ attains $3/2$.
+\end{proof}
+
+\begin{theorem}[Oracle limit]
+Let fresh orders $\sigma_1,\sigma_2,\dots$ be i.i.d.\ uniform. Consider any policy that issues them in sequence, may also run $R\sigma_i$ for issued $i$, and may choose its actions using any information whatsoever. For such a policy, $\E T\ge(1+f-B)/(2f-B)$, and the bound is attained.
+\end{theorem}
+\begin{proof}
+Let $i^\ast=\min\{i:F(\sigma_i)\vee F(R\sigma_i)\}$. Orbits before $i^\ast$ contain no failing order. A failing run in orbit $i\ge i^\ast$ requires $\sigma_1,\dots,\sigma_i$ to have been issued, and also $\sigma_i$ itself if the failing run is $R\sigma_i$. Hence $T\ge i^\ast+\mathbf 1\{\neg F(\sigma_{i^\ast})\}$. Because orbits are i.i.d., $\E i^\ast=1/(2f-B)$ and $\Prb(\neg F(\sigma_{i^\ast}))=\Prb(\neg F(\sigma)\mid F(\sigma)\vee F(R\sigma))=(f-B)/(2f-B)$. The oracle that runs $R\sigma_i$ exactly when it fails attains equality.
+\end{proof}
+
+\subsection{Attainment of the uniform-marginal bound for one known target}
+The uniform-marginal lower bound is attainable for every $0<f<1$ when the failure set $F$ is known and sampling from $\mu(\cdot\mid F)$ and $\mu(\cdot\mid F^c)$ is allowed. This is a target-aware construction, not a practical unknown-failure detector or a simultaneous optimum for a suite.
+
+Draw $U$ uniformly on $[0,1)$. On run $t\ge1$, declare a failure slot if $(U+(t-1)f)\bmod1\in[0,f)$. In such a slot draw an order from $\mu(\cdot\mid F)$, otherwise from $\mu(\cdot\mid F^c)$. Each slot has failure probability $f$, so every order marginal is exactly $\mu$. The first $t$ failure-slot intervals cover a contiguous arc of length $tf$ on the circle until they cover it completely. Therefore $\Prb(T>t)=(1-tf)^+$ at every integer $t\ge0$, attaining the bound. If $N=\lfloor1/f\rfloor$, then
+\[
+ L(f)=(N+1)(1-Nf/2)=\frac{1/f+1}{2}+\frac{\delta(1-\delta)}{2/f},
+ \qquad \delta=1/f-N.
+\]
+In particular the approximation differs by at most $f/8$. The construction requires target-specific failure knowledge; separate constructions for different targets need not agree. Averaging these bounds does not produce an achievable suite-level schedule.
+
+\subsection{An imperfect reversal predictor: exact value and break-even cost}\label{sec:predictor}
+Fix one target with $0<f<1$. Each cycle starts with a fresh uniform order. If it fails, detection stops immediately. If it passes, a fixed predictor either requests its reversal or begins the next fresh cycle. The predictor uses only the current order and independent cycle-local randomness; any training is fixed before scheduling. Thus cycles are i.i.d.\ and this is not a formula for arbitrary adaptive suite-level gates.
+
+Write $J=f-B$ and $q=1-2f+B$. Define $s$ as the probability of requesting reversal conditional on a passing fresh order whose reversal fails, and $a$ as the same probability conditional on both directions passing. If a conditioning cell has zero mass, its rate can be assigned arbitrarily since the corresponding product vanishes. A cycle has the following terminal or renewal branches:
+\begin{center}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+Branch & Probability & Runs spent\\
+\midrule
+Fresh order fails & $f$ & 1 (stop)\\
+Pass/fail, reversal requested & $sJ$ & 2 (stop)\\
+Pass/pass, reversal requested & $aq$ & 2 (renew)\\
+Passing fresh order, reversal skipped & $(1-s)J+(1-a)q$ & 1 (renew)\\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{proposition}[Predictor tradeoff]
+For this policy,
+\[
+ \E T_{s,a}=\frac{1+sJ+aq}{f+sJ}.
+\]
+If a nonnegative prediction overhead of $c$ suite-run equivalents is charged per fresh cycle, the expected normalised cost is
+\[
+ C_{s,a,c}=\frac{1+c+sJ+aq}{f+sJ}.
+\]
+It beats independent sampling, whose expected cost is $1/f$, exactly when
+\[
+ sJ(1-f)>f(c+aq).
+\]
+Here $c$ is the unconditional mean overhead per cycle. If the predictor is invoked only after a passing fresh order and costs $c_p$ each time, use $c=(1-f)c_p$. A model-training cost paid once must be added separately.
+\end{proposition}
+\begin{proof}
+The probability of detection in a cycle is $h=f+sJ>0$, and its expected number of runs, including both successful and unsuccessful branches, is $1+sJ+aq$. The renewal equation is $\E T=1+sJ+aq+(1-h)\E T$. Adding the mean cycle overhead proves the cost formula. Comparing with $1/f$ and multiplying by positive denominators gives the stated strict inequality. No independence of cost and cycle outcome is required for this expectation calculation.
+\end{proof}
+For $c=0$, the endpoints $s=a=0$, $s=a=1$, and $(s,a)=(1,0)$ reproduce independent sampling, independent pairing until first failure, and the per-target oracle respectively. The exact excess over the oracle is
+\[
+ \E T_{s,a}-O(f,B)
+ =\frac{J(1-f)(1-s)+aq(f+J)}{(f+sJ)(f+J)}\ge0.
+\]
+For $B=0$ and fixed $s,a$ as $f\to0$, the ratio to independent sampling tends to $(1+a)/(1+s)$. A constant-factor improvement therefore requires discrimination ($s>a$) in this fixed-rate rare-event limit. This does not guarantee that a learnable predictor with these rates exists. To beat pairing rather than independent sampling, the exact criterion is
+\[
+ (1+c+sJ+aq)(2f-B)<(2-f)(f+sJ).
+\]
+The illustrative point $f=1/100$, $B=0$, $s=4/5$, $a=1/10$, $c=0$ yields $\E T=553/9\approx61.44$ runs. It is an analytic operating point, not an empirical finding.
+
+\section{Mechanical verification}
+The predictor renewal equation, cost thresholds, oracle gap, and uniform-marginal attainment construction are checked by \texttt{theory/src/verify\_predictor.py}, which is included in the main runner. These checks are independent finite-state and exact-rational calculations, not real project executions.
+The replication package checks finite instances and algebraic identities in exact rational arithmetic (\texttt{theory/run\_all.sh}). It verifies the hierarchy summary algorithm and Theorem~\ref{thm:cov} against direct execution of the bit semantics on all 14{,}791 canonical hierarchy/polluter models with 2--6 leaves (731{,}630 legal orders) and 236 models with neutral branches. It checks the corrected two-level formulas on 6{,}542 models (2{,}058{,}868 orders), of which 2{,}410 disagree with the printed expression of~\cite{wei}. It checks the budget, gain, and hitting-time identities on 1{,}546 admissible rational $(f,B)$ profiles at 12 budgets (18{,}552 cases), including 49 instances attaining the half-run limit. It checks the without-replacement proposition on 10{,}415 configurations, and it enumerates every example exhaustively. The additional checks in \texttt{theory/strengthen/} verify Theorem~2 and Lemma~\ref{lem:pos} on all 2{,}897 interleaved configurations with at most six tests. They also run the exhaustive frontier searches of Section~\ref{sec:frontier} and test the block limit on 2{,}000 random block distributions. These checks supplement the proofs; they are not a proof-assistant formalisation.
+
+\section{Empirical computation details}
+\textbf{Semantics and data.} Targets, polluters, cleaners, and state-setters come from the public dataset of Li et al.~\cite{li} (\texttt{all-polluter-cleaner-info-combined.csv}; 289 OD tests, 47 modules). Semantics S1 splits cleaner groups \texttt{a|b} into single cleaners, exactly as the authors' simulator does; S2 requires all members of a group to lie between the polluter and the victim. The class of a test is the prefix before its last dot, as in iDFlakies.
+
+\textbf{Exact statistics.} For a brittle with $s$ state-setters in its own class and $k$ relevant classes, $f=1/[k(s+1)]$ and $B=0$. For a victim with common cleaners, the two-level formulas of Section~\ref{sec:twolevel} apply. Each closed form was cross-checked by $2\times10^5$ sampled orders.
+
+\textbf{Estimated statistics.} For the 31 victims without the common-cleaner closed form, the four cells (fail/fail, fail/pass, pass/fail, pass/pass) of $2\times10^6$ sampled orders and their reversals give symmetrised estimates $\hat f=(2n_{11}+n_{10}+n_{01})/(2N)$ and $\hat B=n_{11}/N$. Uncertainty is propagated by a parametric bootstrap of the cells (2{,}000 replicates).
+
+\textbf{Suite simulation.} Each module is simulated jointly: $10^5$ detector runs of 40 rounds per policy, where every run draws its own stream of fresh uniform orders and all policies consume the same stream. The \textsc{Gate} state consists of the previous order, whether it was a reversal, and the set of targets detected so far, which is sufficient for the rule at the pinned commit when reversed orders cannot recur. Standard errors come from the per-run variance; policy contrasts use per-run paired differences. Validation compares \textsc{IID} and \textsc{Pair} means with the sums of per-target closed forms, and compares the outcome evaluator with the unmodified simulator of Li et al.\ on 150 sampled orders per module.
+
+\section{Bounded real-execution validation}
+This study is distinct from the suite-policy simulation. Before building any subject,
+the execution protocol (\texttt{PLAN.md}) froze the primary candidates, fallback order,
+seeds, sample size, and stopping rules. The reference-consistent primary was
+\texttt{tbsalling/aismessages} (root, revision \texttt{7b0c4c7}); the
+contains-inconsistent primary was \texttt{kevinsawicki/http-request}
+(\texttt{lib}, revision \texttt{2d62a3e}). The unused fallbacks were
+\texttt{ktuukkan/marine-api} and \texttt{wro4j/wro4j}. Selection favoured small
+standalone or shallow modules, not a random sample of projects. Both primaries
+built without changes to production code, tests, or dependency versions; no fallback was attempted.
+
+\textbf{Execution environment and inventory.} We used Linux x86-64, Temurin
+8u504-b01 and Maven 3.9.9. The project JUnit versions were 4.12 and 4.10.
+Native baselines used Surefire 2.22.0 and 3.2.5, respectively, and passed all 44
+and 163 tests. Their test inventories exactly matched JUnit discovery and the
+dataset orders; all model-relevant tests were present. Ordered executions used
+\texttt{Request.classes(...).sortWith(...)} with the project's JUnit, preserving
+whole-class fixtures rather than invoking one request per method. A listener
+verified the complete actual start/finish sequence on every run. The runner's
+regression covers class/method setup and teardown, reversal, expected exceptions,
+assertion failures, fresh-process reset, and initialization failures.
+
+Each complete suite ran in a new JVM with assertions enabled, an isolated temporary
+directory, and the unchanged module as its working directory. The aismessages
+logging configuration was preserved; http-request's normal fixtures created and
+stopped local Jetty servers/proxies on ephemeral ports. We did not reset state
+between methods. Test failures were recorded, not turned into process failures.
+Initialization faults, missing tests, timeouts, skips/assumptions and order
+mismatches were distinct non-evaluable outcomes; none occurred in formal sampling.
+
+\textbf{Sampling and denominator.} NumPy's default generator used pilot seed
+2026092801 and formal seed 2026092802. For each module the pilot repeated the
+recorded original order three times and five random orders twice each. All six
+orders had repeatable failure sets, and the 13 runs were excluded from estimation.
+Formal sampling used exactly 300 independent class-contiguous anchors and their
+reversals, in 600 separate full-suite JVM executions per module. Random class and
+within-class permutations included every test, not only model-relevant tests.
+Both modules completed within the frozen two-hour sampling cap. Each target has
+300 paired observations. Pair outcomes, failure details and verified actual orders
+are in \texttt{empirical/execution/results/}; predictions were also cross-checked
+against the independent scalar evaluator on every actual order.
+
+\textbf{Inference unit.} Estimate $f$ from anchor outcomes, the reversal marginal
+separately, and $B$ from joint failures. Each uses 300 independent pairs. Table~\ref{tab:exec-targets}
+gives pointwise Wilson intervals; the machine-readable table additionally gives
+the reversal marginal, all four joint cells and directional disagreement counts.
+Tests in the same module and the two directions of a pair are not independent
+replicates. For both S1 and S2, all 1,200 target outcomes in aismessages and 15,000
+in http-request matched their predictions. At module level, zero pairs containing
+any target mismatch gives the exact one-sided 95\% upper bound
+$1-0.05^{1/300}=0.009936\ldots$ on that event's probability. The same bound applies
+to $B$ for each target with no observed double failure; an observed zero is not
+an exact zero probability. These bounds are pointwise, not simultaneous over
+modules/targets, and do not quantify subject-selection or environment uncertainty.
+
+\textbf{Marginal deviations.} The theoretical $f=1/3$ falls outside the pointwise
+anchor-rate intervals for \texttt{getUrlEncodedWithPercent} and
+\texttt{putWithEscapedMappedQueryParams}. The model evaluated on the actual
+sample has precisely the same rates as execution, with no outcome mismatches.
+Thus we do not reinterpret those marginal deviations as observed model errors,
+nor silently remove them. All $B$ intervals contain their model values. These
+selected cases have model $f\ge1/3$; they do not validate rare-event behaviour.
+
+\textbf{Recorded reference and additional failures.} In all three repetitions,
+the recorded http-request original order failed six known targets and three other
+tests, while the native Maven baseline passed all 163. S1/S2 correctly predicted
+the six known failures. This establishes non-reproduction of the historical
+passing-reference assumption in our environment, not the historical cause of the
+discrepancy. The other failures were \texttt{postWithNumericQueryParams},
+\texttt{postWithEscapedVarargsQueryParams}, and \texttt{putWithVarargsQueryParams};
+they also appeared in formal sampling. They were retained in the complete-suite
+runs but not added post hoc to the 25-target denominator, and are not claimed as
+new defects. The experiment neither runs the deployed gate nor measures detector
+wall-clock speedups.
+
+\clearpage
+\begingroup\footnotesize
+\begin{longtable}{@{}p{0.44\textwidth}rr@{}}
+\caption{Per-target real-execution estimates with pointwise 95\% Wilson intervals; 300 independent pairs per target. Model values appear in the group headings.}\label{tab:exec-targets}\\
+\toprule
+Target method & Anchor $\hat f$ [95\% CI] & $\hat B$ [95\% CI]\\
+\midrule\endfirsthead
+\toprule
+Target method & Anchor $\hat f$ [95\% CI] & $\hat B$ [95\% CI]\\
+\midrule\endhead
+\csname @@input\endcsname generated/table_execution_targets.tex 
+\bottomrule
+\end{longtable}
+\endgroup
+
+\begin{thebibliography}{9}
+\bibitem{wei} Anjiang Wei, Pu Yi, Tao Xie, Darko Marinov, and Wing Lam.
+\emph{Probabilistic and Systematic Coverage of Consecutive Test-Method Pairs for Detecting Order-Dependent Flaky Tests}. TACAS 2021.
+\url{https://taoxie.cs.illinois.edu/publications/tacas21-flakytests.pdf}.
+\bibitem{li} Chengpeng Li, M. Mahdi Khosravi, Wing Lam, and August Shi.
+\emph{Systematically Producing Test Orders to Detect Order-Dependent Flaky Tests}. ISSTA 2023. DOI: 10.1145/3597926.3598083.
+\url{https://people.cs.gmu.edu/~winglam/publications/2023/LiETAL23Tuscan.pdf}.
+\bibitem{idflakies} UT-SE-Research. \emph{iDFlakies}, commit
+\texttt{f54b3f0\ldots} (full SHA in the source manifest).
+\texttt{RandomDetector.java} and \texttt{TestShuffler.java}.
+\url{https://github.com/UT-SE-Research/iDFlakies}.
+\bibitem{owen} Art B. Owen. \emph{Monte Carlo theory, methods and examples}, Chapter 8, Section 8.2, Antithetics. Author-hosted text.
+\url{https://artowen.su.domains/mc/Ch-var-basic.pdf}.
+\bibitem{harris} T.~E. Harris. A lower bound for the critical probability in a certain percolation process. \emph{Proc.\ Cambridge Philos.\ Soc.} 56(1):13--20, 1960.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,48 @@
+{
+  "check_cut_and_small_overlap": {
+    "configurations": 4771,
+    "order_checks": 563654,
+    "pruning_configurations": 4453,
+    "sharp_gap_configurations": 4771
+  },
+  "check_s1": {
+    "local_models": 387,
+    "example_summaries": [
+      "5/12",
+      "19/180",
+      "7/24",
+      "7/45",
+      "0"
+    ]
+  },
+  "check_marked_items": {
+    "marked_item_models": 80
+  },
+  "check_composition": {
+    "compositions": 300,
+    "both_inputs_psd": 10
+  },
+  "check_extended_theorem": {
+    "two_level_models": 219,
+    "deeper_models": 195,
+    "strict_extension_example": {
+      "f": "3/8",
+      "B": "1/12",
+      "d": "11/192",
+      "orders": 24
+    },
+    "guardrail_counterexamples": 2
+  },
+  "check_two_polluters": {
+    "enumerated_two_polluter_models": 140,
+    "exact_parameter_models": 4060
+  },
+  "check_one_pure_cleaner": {
+    "additional_one_pure_cleaner_models": 240
+  },
+  "check_weak_bound": {
+    "disjoint_models_for_weak_gap": 207
+  },
+  "status": "PASS",
+  "note": "Finite exact sanity checks, not a proof-assistant formalization or exhaustive search of the open conjectures."
+}

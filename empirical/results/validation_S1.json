@@ -1,0 +1,16 @@
+{
+  "semantics": "S1",
+  "suite_vs_closed_form": {
+    "comparisons": 6272,
+    "max_abs_z": 3.2605905006418316,
+    "share_abs_z_gt_3": 0.001913265306122449,
+    "note": "z uses max(sample SE, conservative Bernoulli-sum SE)"
+  },
+  "evaluator_vs_issta23_reference_simulator": {
+    "orders_per_module": 150,
+    "targets": 289,
+    "targets_reported_by_reference": 289,
+    "agreeing_targets": 289,
+    "disagreements": []
+  }
+}

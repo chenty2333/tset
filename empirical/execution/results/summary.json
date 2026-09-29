@@ -1,0 +1,1963 @@
+[
+  {
+    "subject": "aismessages",
+    "repository": "https://github.com/tbsalling/aismessages",
+    "revision": "7b0c4c708b6bb9a6da3d5737bcad1857ade8a931",
+    "tests": 44,
+    "targets": 2,
+    "planned_pairs": 300,
+    "completed_valid_pairs": 300,
+    "invalid_or_incomplete_pairs": [],
+    "attempted_runs": 600,
+    "valid_runs": 600,
+    "pilot_runs": 13,
+    "unstable_repeated_pilot_orders": [],
+    "native_baseline": {
+      "tests": 44,
+      "failure": 0,
+      "error": 0,
+      "skipped": 0
+    },
+    "original_target_failures": 0,
+    "original_all_failures": 0,
+    "original_target_predictions_match": true,
+    "formal_seconds": 204.284025025132,
+    "per_target": [
+      {
+        "test": "dk.tbsalling.aismessages.nmea.NMEAMessageHandlerTest.canHandleFragmentedMessageReceived",
+        "reference_consistent": true,
+        "n": 300,
+        "n00": 0,
+        "n01": 98,
+        "n10": 110,
+        "n11": 92,
+        "f_anchor": 0.6733333333333333,
+        "f_anchor_ci95": [
+          0.6183622089237593,
+          0.7239215610517313
+        ],
+        "f_reverse": 0.6333333333333333,
+        "f_reverse_ci95": [
+          0.5774367141816825,
+          0.6858584934917717
+        ],
+        "B": 0.30666666666666664,
+        "B_ci95": [
+          0.2572057600770161,
+          0.3610161887964749
+        ],
+        "B_zero_one_sided95_upper": null,
+        "model_f": 0.6666666666666666,
+        "model_B": 0.3333333333333333,
+        "semantics": {
+          "S1": {
+            "predicted_pair_cells": {
+              "00": 0,
+              "01": 98,
+              "10": 110,
+              "11": 92
+            },
+            "confusion": {
+              "pred0_actual0": 208,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 392
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          },
+          "S2": {
+            "predicted_pair_cells": {
+              "00": 0,
+              "01": 98,
+              "10": 110,
+              "11": 92
+            },
+            "confusion": {
+              "pred0_actual0": 208,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 392
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          }
+        }
+      },
+      {
+        "test": "dk.tbsalling.aismessages.nmea.NMEAMessageHandlerTest.canHandleUnfragmentedMessageReceived",
+        "reference_consistent": true,
+        "n": 300,
+        "n00": 0,
+        "n01": 98,
+        "n10": 114,
+        "n11": 88,
+        "f_anchor": 0.6733333333333333,
+        "f_anchor_ci95": [
+          0.6183622089237593,
+          0.7239215610517313
+        ],
+        "f_reverse": 0.62,
+        "f_reverse_ci95": [
+          0.5638844388564824,
+          0.6730812480496265
+        ],
+        "B": 0.29333333333333333,
+        "B_ci95": [
+          0.24468634082804494,
+          0.34720608727810065
+        ],
+        "B_zero_one_sided95_upper": null,
+        "model_f": 0.6666666666666666,
+        "model_B": 0.3333333333333333,
+        "semantics": {
+          "S1": {
+            "predicted_pair_cells": {
+              "00": 0,
+              "01": 98,
+              "10": 114,
+              "11": 88
+            },
+            "confusion": {
+              "pred0_actual0": 212,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 388
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          },
+          "S2": {
+            "predicted_pair_cells": {
+              "00": 0,
+              "01": 98,
+              "10": 114,
+              "11": 88
+            },
+            "confusion": {
+              "pred0_actual0": 212,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 388
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          }
+        }
+      }
+    ],
+    "S1": {
+      "disagreeing_target_outcomes": 0,
+      "target_outcome_comparisons": 1200,
+      "pairs_with_any_target_disagreement": 0,
+      "pair_disagreement_ci95": [
+        0.0,
+        0.012642971224546034
+      ],
+      "zero_pair_disagreement_one_sided95_upper": 0.00993608194445772
+    },
+    "S2": {
+      "disagreeing_target_outcomes": 0,
+      "target_outcome_comparisons": 1200,
+      "pairs_with_any_target_disagreement": 0,
+      "pair_disagreement_ci95": [
+        0.0,
+        0.012642971224546034
+      ],
+      "zero_pair_disagreement_one_sided95_upper": 0.00993608194445772
+    },
+    "non_target_failures": {}
+  },
+  {
+    "subject": "http-request",
+    "repository": "https://github.com/kevinsawicki/http-request",
+    "revision": "2d62a3e9da726942a93cf16b6e91c0187e6c0136",
+    "tests": 163,
+    "targets": 25,
+    "planned_pairs": 300,
+    "completed_valid_pairs": 300,
+    "invalid_or_incomplete_pairs": [],
+    "attempted_runs": 600,
+    "valid_runs": 600,
+    "pilot_runs": 13,
+    "unstable_repeated_pilot_orders": [],
+    "native_baseline": {
+      "tests": 163,
+      "failure": 0,
+      "error": 0,
+      "skipped": 0
+    },
+    "original_target_failures": 6,
+    "original_all_failures": 9,
+    "original_target_predictions_match": true,
+    "formal_seconds": 470.68692728520546,
+    "per_target": [
+      {
+        "test": "com.github.kevinsawicki.http.HttpRequestTest.basicProxyAuthentication",
+        "reference_consistent": true,
+        "n": 300,
+        "n00": 92,
+        "n01": 108,
+        "n10": 100,
+        "n11": 0,
+        "f_anchor": 0.3333333333333333,
+        "f_anchor_ci95": [
+          0.2823934472922627,
+          0.38848754311591926
+        ],
+        "f_reverse": 0.36,
+        "f_reverse_ci95": [
+          0.30776933517318583,
+          0.4157706967696869
+        ],
+        "B": 0.0,
+        "B_ci95": [
+          0.0,
+          0.012642971224546034
+        ],
+        "B_zero_one_sided95_upper": 0.00993608194445772,
+        "model_f": 0.3333333333333333,
+        "model_B": 0.0,
+        "semantics": {
+          "S1": {
+            "predicted_pair_cells": {
+              "00": 92,
+              "01": 108,
+              "10": 100,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 392,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 208
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          },
+          "S2": {
+            "predicted_pair_cells": {
+              "00": 92,
+              "01": 108,
+              "10": 100,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 392,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 208
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          }
+        }
+      },
+      {
+        "test": "com.github.kevinsawicki.http.HttpRequestTest.deleteWithEscapedMappedQueryParams",
+        "reference_consistent": false,
+        "n": 300,
+        "n00": 93,
+        "n01": 102,
+        "n10": 105,
+        "n11": 0,
+        "f_anchor": 0.35,
+        "f_anchor_ci95": [
+          0.29823200252235404,
+          0.4055608888450096
+        ],
+        "f_reverse": 0.34,
+        "f_reverse_ci95": [
+          0.2887202040964927,
+          0.395325546695362
+        ],
+        "B": 0.0,
+        "B_ci95": [
+          0.0,
+          0.012642971224546034
+        ],
+        "B_zero_one_sided95_upper": 0.00993608194445772,
+        "model_f": 0.3333333333333333,
+        "model_B": 0.0,
+        "semantics": {
+          "S1": {
+            "predicted_pair_cells": {
+              "00": 93,
+              "01": 102,
+              "10": 105,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 393,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 207
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          },
+          "S2": {
+            "predicted_pair_cells": {
+              "00": 93,
+              "01": 102,
+              "10": 105,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 393,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 207
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          }
+        }
+      },
+      {
+        "test": "com.github.kevinsawicki.http.HttpRequestTest.deleteWithEscapedVarargsQueryParams",
+        "reference_consistent": false,
+        "n": 300,
+        "n00": 97,
+        "n01": 109,
+        "n10": 94,
+        "n11": 0,
+        "f_anchor": 0.31333333333333335,
+        "f_anchor_ci95": [
+          0.2634843975598553,
+          0.36790231169730847
+        ],
+        "f_reverse": 0.36333333333333334,
+        "f_reverse_ci95": [
+          0.3109540370105783,
+          0.4191683751241309
+        ],
+        "B": 0.0,
+        "B_ci95": [
+          0.0,
+          0.012642971224546034
+        ],
+        "B_zero_one_sided95_upper": 0.00993608194445772,
+        "model_f": 0.3333333333333333,
+        "model_B": 0.0,
+        "semantics": {
+          "S1": {
+            "predicted_pair_cells": {
+              "00": 97,
+              "01": 109,
+              "10": 94,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 397,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 203
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          },
+          "S2": {
+            "predicted_pair_cells": {
+              "00": 97,
+              "01": 109,
+              "10": 94,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 397,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 203
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          }
+        }
+      },
+      {
+        "test": "com.github.kevinsawicki.http.HttpRequestTest.deleteWithMappedQueryParams",
+        "reference_consistent": true,
+        "n": 300,
+        "n00": 92,
+        "n01": 111,
+        "n10": 97,
+        "n11": 0,
+        "f_anchor": 0.3233333333333333,
+        "f_anchor_ci95": [
+          0.2729253960837475,
+          0.37820845374892526
+        ],
+        "f_reverse": 0.37,
+        "f_reverse_ci95": [
+          0.317331727809741,
+          0.42595544470864083
+        ],
+        "B": 0.0,
+        "B_ci95": [
+          0.0,
+          0.012642971224546034
+        ],
+        "B_zero_one_sided95_upper": 0.00993608194445772,
+        "model_f": 0.3333333333333333,
+        "model_B": 0.0,
+        "semantics": {
+          "S1": {
+            "predicted_pair_cells": {
+              "00": 92,
+              "01": 111,
+              "10": 97,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 392,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 208
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          },
+          "S2": {
+            "predicted_pair_cells": {
+              "00": 92,
+              "01": 111,
+              "10": 97,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 392,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 208
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          }
+        }
+      },
+      {
+        "test": "com.github.kevinsawicki.http.HttpRequestTest.deleteWithVarargsQueryParams",
+        "reference_consistent": true,
+        "n": 300,
+        "n00": 88,
+        "n01": 105,
+        "n10": 107,
+        "n11": 0,
+        "f_anchor": 0.3566666666666667,
+        "f_anchor_ci95": [
+          0.30458741740255907,
+          0.41237023434847747
+        ],
+        "f_reverse": 0.35,
+        "f_reverse_ci95": [
+          0.29823200252235404,
+          0.4055608888450096
+        ],
+        "B": 0.0,
+        "B_ci95": [
+          0.0,
+          0.012642971224546034
+        ],
+        "B_zero_one_sided95_upper": 0.00993608194445772,
+        "model_f": 0.3333333333333333,
+        "model_B": 0.0,
+        "semantics": {
+          "S1": {
+            "predicted_pair_cells": {
+              "00": 88,
+              "01": 105,
+              "10": 107,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 388,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 212
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          },
+          "S2": {
+            "predicted_pair_cells": {
+              "00": 88,
+              "01": 105,
+              "10": 107,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 388,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 212
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          }
+        }
+      },
+      {
+        "test": "com.github.kevinsawicki.http.HttpRequestTest.getUrlEncodedWithPercent",
+        "reference_consistent": false,
+        "n": 300,
+        "n00": 90,
+        "n01": 88,
+        "n10": 122,
+        "n11": 0,
+        "f_anchor": 0.4066666666666667,
+        "f_anchor_ci95": [
+          0.3526017598634212,
+          0.46309159476516065
+        ],
+        "f_reverse": 0.29333333333333333,
+        "f_reverse_ci95": [
+          0.24468634082804494,
+          0.34720608727810065
+        ],
+        "B": 0.0,
+        "B_ci95": [
+          0.0,
+          0.012642971224546034
+        ],
+        "B_zero_one_sided95_upper": 0.00993608194445772,
+        "model_f": 0.3333333333333333,
+        "model_B": 0.0,
+        "semantics": {
+          "S1": {
+            "predicted_pair_cells": {
+              "00": 90,
+              "01": 88,
+              "10": 122,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 390,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 210
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          },
+          "S2": {
+            "predicted_pair_cells": {
+              "00": 90,
+              "01": 88,
+              "10": 122,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 390,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 210
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          }
+        }
+      },
+      {
+        "test": "com.github.kevinsawicki.http.HttpRequestTest.getUrlEncodedWithSpace",
+        "reference_consistent": true,
+        "n": 300,
+        "n00": 102,
+        "n01": 92,
+        "n10": 106,
+        "n11": 0,
+        "f_anchor": 0.35333333333333333,
+        "f_anchor_ci95": [
+          0.30140830066923496,
+          0.40896697088996514
+        ],
+        "f_reverse": 0.30666666666666664,
+        "f_reverse_ci95": [
+          0.2572057600770161,
+          0.3610161887964749
+        ],
+        "B": 0.0,
+        "B_ci95": [
+          0.0,
+          0.012642971224546034
+        ],
+        "B_zero_one_sided95_upper": 0.00993608194445772,
+        "model_f": 0.3333333333333333,
+        "model_B": 0.0,
+        "semantics": {
+          "S1": {
+            "predicted_pair_cells": {
+              "00": 102,
+              "01": 92,
+              "10": 106,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 402,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 198
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          },
+          "S2": {
+            "predicted_pair_cells": {
+              "00": 102,
+              "01": 92,
+              "10": 106,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 402,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 198
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          }
+        }
+      },
+      {
+        "test": "com.github.kevinsawicki.http.HttpRequestTest.getUrlEncodedWithUnicode",
+        "reference_consistent": true,
+        "n": 300,
+        "n00": 99,
+        "n01": 94,
+        "n10": 107,
+        "n11": 0,
+        "f_anchor": 0.3566666666666667,
+        "f_anchor_ci95": [
+          0.30458741740255907,
+          0.41237023434847747
+        ],
+        "f_reverse": 0.31333333333333335,
+        "f_reverse_ci95": [
+          0.2634843975598553,
+          0.36790231169730847
+        ],
+        "B": 0.0,
+        "B_ci95": [
+          0.0,
+          0.012642971224546034
+        ],
+        "B_zero_one_sided95_upper": 0.00993608194445772,
+        "model_f": 0.3333333333333333,
+        "model_B": 0.0,
+        "semantics": {
+          "S1": {
+            "predicted_pair_cells": {
+              "00": 99,
+              "01": 94,
+              "10": 107,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 399,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 201
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          },
+          "S2": {
+            "predicted_pair_cells": {
+              "00": 99,
+              "01": 94,
+              "10": 107,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 399,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 201
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          }
+        }
+      },
+      {
+        "test": "com.github.kevinsawicki.http.HttpRequestTest.getWithEscapedMappedQueryParams",
+        "reference_consistent": true,
+        "n": 300,
+        "n00": 96,
+        "n01": 100,
+        "n10": 104,
+        "n11": 0,
+        "f_anchor": 0.3466666666666667,
+        "f_anchor_ci95": [
+          0.2950585411049252,
+          0.40215197007060216
+        ],
+        "f_reverse": 0.3333333333333333,
+        "f_reverse_ci95": [
+          0.2823934472922627,
+          0.38848754311591926
+        ],
+        "B": 0.0,
+        "B_ci95": [
+          0.0,
+          0.012642971224546034
+        ],
+        "B_zero_one_sided95_upper": 0.00993608194445772,
+        "model_f": 0.3333333333333333,
+        "model_B": 0.0,
+        "semantics": {
+          "S1": {
+            "predicted_pair_cells": {
+              "00": 96,
+              "01": 100,
+              "10": 104,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 396,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 204
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          },
+          "S2": {
+            "predicted_pair_cells": {
+              "00": 96,
+              "01": 100,
+              "10": 104,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 396,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 204
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          }
+        }
+      },
+      {
+        "test": "com.github.kevinsawicki.http.HttpRequestTest.getWithEscapedVarargsQueryParams",
+        "reference_consistent": true,
+        "n": 300,
+        "n00": 104,
+        "n01": 99,
+        "n10": 97,
+        "n11": 0,
+        "f_anchor": 0.3233333333333333,
+        "f_anchor_ci95": [
+          0.2729253960837475,
+          0.37820845374892526
+        ],
+        "f_reverse": 0.33,
+        "f_reverse_ci95": [
+          0.2792344636154957,
+          0.3850641466008499
+        ],
+        "B": 0.0,
+        "B_ci95": [
+          0.0,
+          0.012642971224546034
+        ],
+        "B_zero_one_sided95_upper": 0.00993608194445772,
+        "model_f": 0.3333333333333333,
+        "model_B": 0.0,
+        "semantics": {
+          "S1": {
+            "predicted_pair_cells": {
+              "00": 104,
+              "01": 99,
+              "10": 97,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 404,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 196
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          },
+          "S2": {
+            "predicted_pair_cells": {
+              "00": 104,
+              "01": 99,
+              "10": 97,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 404,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 196
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          }
+        }
+      },
+      {
+        "test": "com.github.kevinsawicki.http.HttpRequestTest.getWithMappedQueryParams",
+        "reference_consistent": true,
+        "n": 300,
+        "n00": 107,
+        "n01": 91,
+        "n10": 102,
+        "n11": 0,
+        "f_anchor": 0.34,
+        "f_anchor_ci95": [
+          0.2887202040964927,
+          0.395325546695362
+        ],
+        "f_reverse": 0.30333333333333334,
+        "f_reverse_ci95": [
+          0.2540711301237818,
+          0.3575684385578729
+        ],
+        "B": 0.0,
+        "B_ci95": [
+          0.0,
+          0.012642971224546034
+        ],
+        "B_zero_one_sided95_upper": 0.00993608194445772,
+        "model_f": 0.3333333333333333,
+        "model_B": 0.0,
+        "semantics": {
+          "S1": {
+            "predicted_pair_cells": {
+              "00": 107,
+              "01": 91,
+              "10": 102,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 407,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 193
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          },
+          "S2": {
+            "predicted_pair_cells": {
+              "00": 107,
+              "01": 91,
+              "10": 102,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 407,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 193
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          }
+        }
+      },
+      {
+        "test": "com.github.kevinsawicki.http.HttpRequestTest.getWithVarargsQueryParams",
+        "reference_consistent": true,
+        "n": 300,
+        "n00": 111,
+        "n01": 92,
+        "n10": 97,
+        "n11": 0,
+        "f_anchor": 0.3233333333333333,
+        "f_anchor_ci95": [
+          0.2729253960837475,
+          0.37820845374892526
+        ],
+        "f_reverse": 0.30666666666666664,
+        "f_reverse_ci95": [
+          0.2572057600770161,
+          0.3610161887964749
+        ],
+        "B": 0.0,
+        "B_ci95": [
+          0.0,
+          0.012642971224546034
+        ],
+        "B_zero_one_sided95_upper": 0.00993608194445772,
+        "model_f": 0.3333333333333333,
+        "model_B": 0.0,
+        "semantics": {
+          "S1": {
+            "predicted_pair_cells": {
+              "00": 111,
+              "01": 92,
+              "10": 97,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 411,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 189
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          },
+          "S2": {
+            "predicted_pair_cells": {
+              "00": 111,
+              "01": 92,
+              "10": 97,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 411,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 189
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          }
+        }
+      },
+      {
+        "test": "com.github.kevinsawicki.http.HttpRequestTest.headWithEscapedMappedQueryParams",
+        "reference_consistent": false,
+        "n": 300,
+        "n00": 95,
+        "n01": 99,
+        "n10": 106,
+        "n11": 0,
+        "f_anchor": 0.35333333333333333,
+        "f_anchor_ci95": [
+          0.30140830066923496,
+          0.40896697088996514
+        ],
+        "f_reverse": 0.33,
+        "f_reverse_ci95": [
+          0.2792344636154957,
+          0.3850641466008499
+        ],
+        "B": 0.0,
+        "B_ci95": [
+          0.0,
+          0.012642971224546034
+        ],
+        "B_zero_one_sided95_upper": 0.00993608194445772,
+        "model_f": 0.3333333333333333,
+        "model_B": 0.0,
+        "semantics": {
+          "S1": {
+            "predicted_pair_cells": {
+              "00": 95,
+              "01": 99,
+              "10": 106,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 395,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 205
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          },
+          "S2": {
+            "predicted_pair_cells": {
+              "00": 95,
+              "01": 99,
+              "10": 106,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 395,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 205
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          }
+        }
+      },
+      {
+        "test": "com.github.kevinsawicki.http.HttpRequestTest.headWithEscapedVarargsQueryParams",
+        "reference_consistent": true,
+        "n": 300,
+        "n00": 90,
+        "n01": 101,
+        "n10": 109,
+        "n11": 0,
+        "f_anchor": 0.36333333333333334,
+        "f_anchor_ci95": [
+          0.3109540370105783,
+          0.4191683751241309
+        ],
+        "f_reverse": 0.33666666666666667,
+        "f_reverse_ci95": [
+          0.2855553679085868,
+          0.39190800269143145
+        ],
+        "B": 0.0,
+        "B_ci95": [
+          0.0,
+          0.012642971224546034
+        ],
+        "B_zero_one_sided95_upper": 0.00993608194445772,
+        "model_f": 0.3333333333333333,
+        "model_B": 0.0,
+        "semantics": {
+          "S1": {
+            "predicted_pair_cells": {
+              "00": 90,
+              "01": 101,
+              "10": 109,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 390,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 210
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          },
+          "S2": {
+            "predicted_pair_cells": {
+              "00": 90,
+              "01": 101,
+              "10": 109,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 390,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 210
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          }
+        }
+      },
+      {
+        "test": "com.github.kevinsawicki.http.HttpRequestTest.headWithMappedQueryParams",
+        "reference_consistent": false,
+        "n": 300,
+        "n00": 99,
+        "n01": 85,
+        "n10": 116,
+        "n11": 0,
+        "f_anchor": 0.38666666666666666,
+        "f_anchor_ci95": [
+          0.3333235932848012,
+          0.44287548019276246
+        ],
+        "f_reverse": 0.2833333333333333,
+        "f_reverse_ci95": [
+          0.2353308526310286,
+          0.33681443489960794
+        ],
+        "B": 0.0,
+        "B_ci95": [
+          0.0,
+          0.012642971224546034
+        ],
+        "B_zero_one_sided95_upper": 0.00993608194445772,
+        "model_f": 0.3333333333333333,
+        "model_B": 0.0,
+        "semantics": {
+          "S1": {
+            "predicted_pair_cells": {
+              "00": 99,
+              "01": 85,
+              "10": 116,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 399,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 201
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          },
+          "S2": {
+            "predicted_pair_cells": {
+              "00": 99,
+              "01": 85,
+              "10": 116,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 399,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 201
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          }
+        }
+      },
+      {
+        "test": "com.github.kevinsawicki.http.HttpRequestTest.headWithVaragsQueryParams",
+        "reference_consistent": true,
+        "n": 300,
+        "n00": 99,
+        "n01": 102,
+        "n10": 99,
+        "n11": 0,
+        "f_anchor": 0.33,
+        "f_anchor_ci95": [
+          0.2792344636154957,
+          0.3850641466008499
+        ],
+        "f_reverse": 0.34,
+        "f_reverse_ci95": [
+          0.2887202040964927,
+          0.395325546695362
+        ],
+        "B": 0.0,
+        "B_ci95": [
+          0.0,
+          0.012642971224546034
+        ],
+        "B_zero_one_sided95_upper": 0.00993608194445772,
+        "model_f": 0.3333333333333333,
+        "model_B": 0.0,
+        "semantics": {
+          "S1": {
+            "predicted_pair_cells": {
+              "00": 99,
+              "01": 102,
+              "10": 99,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 399,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 201
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          },
+          "S2": {
+            "predicted_pair_cells": {
+              "00": 99,
+              "01": 102,
+              "10": 99,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 399,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 201
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          }
+        }
+      },
+      {
+        "test": "com.github.kevinsawicki.http.HttpRequestTest.postWithEscapedMappedQueryParams",
+        "reference_consistent": true,
+        "n": 300,
+        "n00": 99,
+        "n01": 86,
+        "n10": 115,
+        "n11": 0,
+        "f_anchor": 0.38333333333333336,
+        "f_anchor_ci95": [
+          0.330119832453064,
+          0.43949686083266337
+        ],
+        "f_reverse": 0.2866666666666667,
+        "f_reverse_ci95": [
+          0.23844603884969776,
+          0.3402816288727752
+        ],
+        "B": 0.0,
+        "B_ci95": [
+          0.0,
+          0.012642971224546034
+        ],
+        "B_zero_one_sided95_upper": 0.00993608194445772,
+        "model_f": 0.3333333333333333,
+        "model_B": 0.0,
+        "semantics": {
+          "S1": {
+            "predicted_pair_cells": {
+              "00": 99,
+              "01": 86,
+              "10": 115,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 399,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 201
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          },
+          "S2": {
+            "predicted_pair_cells": {
+              "00": 99,
+              "01": 86,
+              "10": 115,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 399,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 201
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          }
+        }
+      },
+      {
+        "test": "com.github.kevinsawicki.http.HttpRequestTest.postWithMappedQueryParams",
+        "reference_consistent": true,
+        "n": 300,
+        "n00": 105,
+        "n01": 95,
+        "n10": 100,
+        "n11": 0,
+        "f_anchor": 0.3333333333333333,
+        "f_anchor_ci95": [
+          0.2823934472922627,
+          0.38848754311591926
+        ],
+        "f_reverse": 0.31666666666666665,
+        "f_reverse_ci95": [
+          0.26662835068573615,
+          0.37134073876326396
+        ],
+        "B": 0.0,
+        "B_ci95": [
+          0.0,
+          0.012642971224546034
+        ],
+        "B_zero_one_sided95_upper": 0.00993608194445772,
+        "model_f": 0.3333333333333333,
+        "model_B": 0.0,
+        "semantics": {
+          "S1": {
+            "predicted_pair_cells": {
+              "00": 105,
+              "01": 95,
+              "10": 100,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 405,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 195
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          },
+          "S2": {
+            "predicted_pair_cells": {
+              "00": 105,
+              "01": 95,
+              "10": 100,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 405,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 195
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          }
+        }
+      },
+      {
+        "test": "com.github.kevinsawicki.http.HttpRequestTest.postWithVaragsQueryParams",
+        "reference_consistent": true,
+        "n": 300,
+        "n00": 94,
+        "n01": 105,
+        "n10": 101,
+        "n11": 0,
+        "f_anchor": 0.33666666666666667,
+        "f_anchor_ci95": [
+          0.2855553679085868,
+          0.39190800269143145
+        ],
+        "f_reverse": 0.35,
+        "f_reverse_ci95": [
+          0.29823200252235404,
+          0.4055608888450096
+        ],
+        "B": 0.0,
+        "B_ci95": [
+          0.0,
+          0.012642971224546034
+        ],
+        "B_zero_one_sided95_upper": 0.00993608194445772,
+        "model_f": 0.3333333333333333,
+        "model_B": 0.0,
+        "semantics": {
+          "S1": {
+            "predicted_pair_cells": {
+              "00": 94,
+              "01": 105,
+              "10": 101,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 394,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 206
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          },
+          "S2": {
+            "predicted_pair_cells": {
+              "00": 94,
+              "01": 105,
+              "10": 101,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 394,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 206
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          }
+        }
+      },
+      {
+        "test": "com.github.kevinsawicki.http.HttpRequestTest.putWithEscapedMappedQueryParams",
+        "reference_consistent": true,
+        "n": 300,
+        "n00": 75,
+        "n01": 108,
+        "n10": 117,
+        "n11": 0,
+        "f_anchor": 0.39,
+        "f_anchor_ci95": [
+          0.3365300216309911,
+          0.446251432038409
+        ],
+        "f_reverse": 0.36,
+        "f_reverse_ci95": [
+          0.30776933517318583,
+          0.4157706967696869
+        ],
+        "B": 0.0,
+        "B_ci95": [
+          0.0,
+          0.012642971224546034
+        ],
+        "B_zero_one_sided95_upper": 0.00993608194445772,
+        "model_f": 0.3333333333333333,
+        "model_B": 0.0,
+        "semantics": {
+          "S1": {
+            "predicted_pair_cells": {
+              "00": 75,
+              "01": 108,
+              "10": 117,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 375,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 225
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          },
+          "S2": {
+            "predicted_pair_cells": {
+              "00": 75,
+              "01": 108,
+              "10": 117,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 375,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 225
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          }
+        }
+      },
+      {
+        "test": "com.github.kevinsawicki.http.HttpRequestTest.putWithEscapedVarargsQueryParams",
+        "reference_consistent": true,
+        "n": 300,
+        "n00": 105,
+        "n01": 98,
+        "n10": 97,
+        "n11": 0,
+        "f_anchor": 0.3233333333333333,
+        "f_anchor_ci95": [
+          0.2729253960837475,
+          0.37820845374892526
+        ],
+        "f_reverse": 0.32666666666666666,
+        "f_reverse_ci95": [
+          0.2760784389482685,
+          0.3816377910762407
+        ],
+        "B": 0.0,
+        "B_ci95": [
+          0.0,
+          0.012642971224546034
+        ],
+        "B_zero_one_sided95_upper": 0.00993608194445772,
+        "model_f": 0.3333333333333333,
+        "model_B": 0.0,
+        "semantics": {
+          "S1": {
+            "predicted_pair_cells": {
+              "00": 105,
+              "01": 98,
+              "10": 97,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 405,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 195
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          },
+          "S2": {
+            "predicted_pair_cells": {
+              "00": 105,
+              "01": 98,
+              "10": 97,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 405,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 195
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          }
+        }
+      },
+      {
+        "test": "com.github.kevinsawicki.http.HttpRequestTest.putWithMappedQueryParams",
+        "reference_consistent": true,
+        "n": 300,
+        "n00": 85,
+        "n01": 105,
+        "n10": 110,
+        "n11": 0,
+        "f_anchor": 0.36666666666666664,
+        "f_anchor_ci95": [
+          0.3141415065082282,
+          0.4225632858183173
+        ],
+        "f_reverse": 0.35,
+        "f_reverse_ci95": [
+          0.29823200252235404,
+          0.4055608888450096
+        ],
+        "B": 0.0,
+        "B_ci95": [
+          0.0,
+          0.012642971224546034
+        ],
+        "B_zero_one_sided95_upper": 0.00993608194445772,
+        "model_f": 0.3333333333333333,
+        "model_B": 0.0,
+        "semantics": {
+          "S1": {
+            "predicted_pair_cells": {
+              "00": 85,
+              "01": 105,
+              "10": 110,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 385,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 215
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          },
+          "S2": {
+            "predicted_pair_cells": {
+              "00": 85,
+              "01": 105,
+              "10": 110,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 385,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 215
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          }
+        }
+      },
+      {
+        "test": "com.github.kevinsawicki.http.HttpRequestTest.singleSslSocketFactory",
+        "reference_consistent": true,
+        "n": 300,
+        "n00": 97,
+        "n01": 96,
+        "n10": 107,
+        "n11": 0,
+        "f_anchor": 0.3566666666666667,
+        "f_anchor_ci95": [
+          0.30458741740255907,
+          0.41237023434847747
+        ],
+        "f_reverse": 0.32,
+        "f_reverse_ci95": [
+          0.2697753585604896,
+          0.3747761110803469
+        ],
+        "B": 0.0,
+        "B_ci95": [
+          0.0,
+          0.012642971224546034
+        ],
+        "B_zero_one_sided95_upper": 0.00993608194445772,
+        "model_f": 0.3333333333333333,
+        "model_B": 0.0,
+        "semantics": {
+          "S1": {
+            "predicted_pair_cells": {
+              "00": 97,
+              "01": 96,
+              "10": 107,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 397,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 203
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          },
+          "S2": {
+            "predicted_pair_cells": {
+              "00": 97,
+              "01": 96,
+              "10": 107,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 397,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 203
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          }
+        }
+      },
+      {
+        "test": "com.github.kevinsawicki.http.HttpRequestTest.singleVerifier",
+        "reference_consistent": true,
+        "n": 300,
+        "n00": 91,
+        "n01": 103,
+        "n10": 106,
+        "n11": 0,
+        "f_anchor": 0.35333333333333333,
+        "f_anchor_ci95": [
+          0.30140830066923496,
+          0.40896697088996514
+        ],
+        "f_reverse": 0.3433333333333333,
+        "f_reverse_ci95": [
+          0.29188793516981404,
+          0.398740195813877
+        ],
+        "B": 0.0,
+        "B_ci95": [
+          0.0,
+          0.012642971224546034
+        ],
+        "B_zero_one_sided95_upper": 0.00993608194445772,
+        "model_f": 0.3333333333333333,
+        "model_B": 0.0,
+        "semantics": {
+          "S1": {
+            "predicted_pair_cells": {
+              "00": 91,
+              "01": 103,
+              "10": 106,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 391,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 209
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          },
+          "S2": {
+            "predicted_pair_cells": {
+              "00": 91,
+              "01": 103,
+              "10": 106,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 391,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 209
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          }
+        }
+      },
+      {
+        "test": "com.github.kevinsawicki.http.HttpRequestTest.verifierAccepts",
+        "reference_consistent": false,
+        "n": 300,
+        "n00": 98,
+        "n01": 104,
+        "n10": 98,
+        "n11": 0,
+        "f_anchor": 0.32666666666666666,
+        "f_anchor_ci95": [
+          0.2760784389482685,
+          0.3816377910762407
+        ],
+        "f_reverse": 0.3466666666666667,
+        "f_reverse_ci95": [
+          0.2950585411049252,
+          0.40215197007060216
+        ],
+        "B": 0.0,
+        "B_ci95": [
+          0.0,
+          0.012642971224546034
+        ],
+        "B_zero_one_sided95_upper": 0.00993608194445772,
+        "model_f": 0.3333333333333333,
+        "model_B": 0.0,
+        "semantics": {
+          "S1": {
+            "predicted_pair_cells": {
+              "00": 98,
+              "01": 104,
+              "10": 98,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 398,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 202
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          },
+          "S2": {
+            "predicted_pair_cells": {
+              "00": 98,
+              "01": 104,
+              "10": 98,
+              "11": 0
+            },
+            "confusion": {
+              "pred0_actual0": 398,
+              "pred0_actual1": 0,
+              "pred1_actual0": 0,
+              "pred1_actual1": 202
+            },
+            "disagreeing_directions": 0,
+            "disagreeing_pairs": 0,
+            "pair_disagreement_ci95": [
+              0.0,
+              0.012642971224546034
+            ]
+          }
+        }
+      }
+    ],
+    "S1": {
+      "disagreeing_target_outcomes": 0,
+      "target_outcome_comparisons": 15000,
+      "pairs_with_any_target_disagreement": 0,
+      "pair_disagreement_ci95": [
+        0.0,
+        0.012642971224546034
+      ],
+      "zero_pair_disagreement_one_sided95_upper": 0.00993608194445772
+    },
+    "S2": {
+      "disagreeing_target_outcomes": 0,
+      "target_outcome_comparisons": 15000,
+      "pairs_with_any_target_disagreement": 0,
+      "pair_disagreement_ci95": [
+        0.0,
+        0.012642971224546034
+      ],
+      "zero_pair_disagreement_one_sided95_upper": 0.00993608194445772
+    },
+    "non_target_failures": {
+      "com.github.kevinsawicki.http.HttpRequestTest.postWithNumericQueryParams": 199,
+      "com.github.kevinsawicki.http.HttpRequestTest.postWithEscapedVarargsQueryParams": 195,
+      "com.github.kevinsawicki.http.HttpRequestTest.putWithVarargsQueryParams": 216
+    }
+  }
+]

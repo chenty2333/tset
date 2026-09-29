@@ -1,0 +1,1743 @@
+{
+  "counts": {
+    "Thm4": 10,
+    "Thm1": 259,
+    "Thm3": 20
+  },
+  "tests": [
+    {
+      "module": "activiti-spring-boot-starter",
+      "test": "org.activiti.spring.boot.tasks.TaskRuntimeClaimReleaseTest.aCreateStandaloneTaskForGroup",
+      "covered_by": "Thm4",
+      "self_cleaner": false
+    },
+    {
+      "module": "activiti-spring-boot-starter",
+      "test": "org.activiti.spring.boot.tasks.TaskRuntimeClaimReleaseTest.bClaimAndRelease",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "activiti-spring-boot-starter",
+      "test": "org.activiti.spring.boot.tasks.TaskRuntimeClaimReleaseTest.eCreateStandaloneTaskAndClaimAndReleaseUnAuthorized",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "activiti-spring-boot-starter",
+      "test": "org.activiti.spring.boot.tasks.TaskRuntimeCompleteTaskTest.aCreateStandaloneTaskAndComplete",
+      "covered_by": "Thm4",
+      "self_cleaner": false
+    },
+    {
+      "module": "activiti-spring-boot-starter",
+      "test": "org.activiti.spring.boot.tasks.TaskRuntimeCompleteTaskTest.bCreateStandaloneTask",
+      "covered_by": "Thm4",
+      "self_cleaner": false
+    },
+    {
+      "module": "activiti-spring-boot-starter",
+      "test": "org.activiti.spring.boot.tasks.TaskRuntimeCompleteTaskTest.ctryCompletingWithUnauthorizedUser",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "activiti-spring-boot-starter",
+      "test": "org.activiti.spring.boot.tasks.TaskRuntimeDeleteTaskTest.aCreateStandaloneTaskAndDelete",
+      "covered_by": "Thm4",
+      "self_cleaner": false
+    },
+    {
+      "module": "activiti-spring-boot-starter",
+      "test": "org.activiti.spring.boot.tasks.TaskRuntimeDeleteTaskTest.cCreateStandaloneGroupTaskClaimAndDeleteFail",
+      "covered_by": "Thm4",
+      "self_cleaner": false
+    },
+    {
+      "module": "activiti-spring-boot-starter",
+      "test": "org.activiti.spring.boot.tasks.TaskRuntimeDeleteTaskTest.dClaimTaskCreatedForGroup",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "activiti-spring-boot-starter",
+      "test": "org.activiti.spring.boot.tasks.TaskRuntimeStandaloneTaskTest.aCreateStandaloneTaskForSalaboy",
+      "covered_by": "Thm4",
+      "self_cleaner": false
+    },
+    {
+      "module": "activiti-spring-boot-starter",
+      "test": "org.activiti.spring.boot.tasks.TaskRuntimeStandaloneTaskTest.bCreateStandaloneTaskForGroup",
+      "covered_by": "Thm4",
+      "self_cleaner": false
+    },
+    {
+      "module": "activiti-spring-boot-starter",
+      "test": "org.activiti.spring.boot.tasks.TaskRuntimeTaskAssigneeTest.aCreateStandaloneTaskForAnotherAssignee",
+      "covered_by": "Thm4",
+      "self_cleaner": false
+    },
+    {
+      "module": "activiti-spring-boot-starter",
+      "test": "org.activiti.spring.boot.tasks.TaskRuntimeTaskAssigneeTest.bCreateCheckTaskCreatedForSalaboyFromAnotherUser",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "activiti-spring-boot-starter",
+      "test": "org.activiti.spring.boot.tasks.TaskRuntimeTaskAssigneeTest.cCreateStandaloneTaskForGroupAndClaim",
+      "covered_by": "Thm4",
+      "self_cleaner": false
+    },
+    {
+      "module": "activiti-spring-boot-starter",
+      "test": "org.activiti.spring.boot.tasks.TaskRuntimeTaskForOtherTest.aCreateStandaloneTaskWithNoCandidates",
+      "covered_by": "Thm4",
+      "self_cleaner": false
+    },
+    {
+      "module": "activiti-spring-boot-starter",
+      "test": "org.activiti.spring.boot.tasks.TaskRuntimeUnAuthorizedTest.bClaimNotFoundBecauseYouAreNotACandidate",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "portlet",
+      "test": "org.apache.struts2.portlet.dispatcher.Jsr168DispatcherTest.testProcessAction_ok",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "portlet",
+      "test": "org.apache.struts2.portlet.dispatcher.Jsr168DispatcherTest.testRender_ok",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "portlet",
+      "test": "org.apache.struts2.portlet.dispatcher.Jsr286DispatcherTest.testProcessAction_ok",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "portlet",
+      "test": "org.apache.struts2.portlet.dispatcher.Jsr286DispatcherTest.testRender_ok",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "fastjson",
+      "test": "com.alibaba.json.bvt.parser.DefaultExtJSONParser_parseArray.test_7",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "fastjson",
+      "test": "com.alibaba.json.bvt.parser.DefaultExtJSONParser_parseArray.test_8",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-cluster",
+      "test": "org.apache.dubbo.rpc.cluster.StickyTest.testStickyNoCheck",
+      "covered_by": "Thm1",
+      "self_cleaner": true
+    },
+    {
+      "module": "dubbo-cluster",
+      "test": "org.apache.dubbo.rpc.cluster.support.AbstractClusterInvokerTest.testBindingAttachment",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-cluster",
+      "test": "org.apache.dubbo.rpc.cluster.support.ForkingClusterInvokerTest.testClearRpcContext",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-common",
+      "test": "org.apache.dubbo.common.threadlocal.InternalThreadLocalTest.testSize",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.checkApplication2",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.checkInterfaceAndMethod3",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.checkInterfaceAndMethod4",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.checkInterfaceAndMethod5",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.checkInterfaceAndMethods1",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.checkInterfaceAndMethods2",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.checkStubAndMock1",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.checkStubAndMock2",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.checkStubAndMock3",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.checkStubAndMock4",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.checkStubAndMock5",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.checkStubAndMock6",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.checkStubAndMock7",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.checkStubAndMock8",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.checkStubAndMock9",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.testApplication",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.testCallbacks",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.testCheckRegistry1",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.testCheckRegistry2",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.testCluster",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.testConnections",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.testFilter",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.testLayer",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.testListener",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.testLoadMonitor",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.testLoadRegistries",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.testLocal",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.testModule",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.testMonitor",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.testOnconnect",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.testOndisconnect",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.testOwner",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.testProxy",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.testRegistries",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.testRegistry",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.testScope",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-config-api",
+      "test": "org.apache.dubbo.config.AbstractInterfaceConfigTest.testStub",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-filter-cache",
+      "test": "org.apache.dubbo.cache.support.jcache.JCacheFactoryTest.testJCacheGetExpired",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-rpc-api",
+      "test": "org.apache.dubbo.rpc.proxy.javassist.JavassistProxyFactoryTest.testGetInvoker",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-rpc-api",
+      "test": "org.apache.dubbo.rpc.proxy.jdk.JdkProxyFactoryTest.testGetInvoker",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-rpc-dubbo",
+      "test": "org.apache.dubbo.rpc.protocol.dubbo.DubboProtocolTest.testDubboProtocolWithMina",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-rpc-dubbo",
+      "test": "org.apache.dubbo.rpc.protocol.dubbo.telnet.ChangeTelnetHandlerTest.testChangeServiceNotExport",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dubbo-serialization-fst",
+      "test": "org.apache.dubbo.common.serialize.fst.FstObjectInputTest.testEmptyByteArrayForEmptyInput",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-auth",
+      "test": "org.apache.hadoop.security.authentication.util.TestKerberosName.testRules",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-hdfs-nfs",
+      "test": "org.apache.hadoop.hdfs.nfs.nfs3.TestRpcProgramNfs3.testAccess",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-hdfs-nfs",
+      "test": "org.apache.hadoop.hdfs.nfs.nfs3.TestRpcProgramNfs3.testCommit",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-hdfs-nfs",
+      "test": "org.apache.hadoop.hdfs.nfs.nfs3.TestRpcProgramNfs3.testCreate",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-hdfs-nfs",
+      "test": "org.apache.hadoop.hdfs.nfs.nfs3.TestRpcProgramNfs3.testFsinfo",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-hdfs-nfs",
+      "test": "org.apache.hadoop.hdfs.nfs.nfs3.TestRpcProgramNfs3.testFsstat",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-hdfs-nfs",
+      "test": "org.apache.hadoop.hdfs.nfs.nfs3.TestRpcProgramNfs3.testGetattr",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-hdfs-nfs",
+      "test": "org.apache.hadoop.hdfs.nfs.nfs3.TestRpcProgramNfs3.testLookup",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-hdfs-nfs",
+      "test": "org.apache.hadoop.hdfs.nfs.nfs3.TestRpcProgramNfs3.testMkdir",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-hdfs-nfs",
+      "test": "org.apache.hadoop.hdfs.nfs.nfs3.TestRpcProgramNfs3.testPathconf",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-hdfs-nfs",
+      "test": "org.apache.hadoop.hdfs.nfs.nfs3.TestRpcProgramNfs3.testReaddir",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-hdfs-nfs",
+      "test": "org.apache.hadoop.hdfs.nfs.nfs3.TestRpcProgramNfs3.testReaddirplus",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-hdfs-nfs",
+      "test": "org.apache.hadoop.hdfs.nfs.nfs3.TestRpcProgramNfs3.testReadlink",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-hdfs-nfs",
+      "test": "org.apache.hadoop.hdfs.nfs.nfs3.TestRpcProgramNfs3.testRead",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-hdfs-nfs",
+      "test": "org.apache.hadoop.hdfs.nfs.nfs3.TestRpcProgramNfs3.testRemove",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-hdfs-nfs",
+      "test": "org.apache.hadoop.hdfs.nfs.nfs3.TestRpcProgramNfs3.testRename",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-hdfs-nfs",
+      "test": "org.apache.hadoop.hdfs.nfs.nfs3.TestRpcProgramNfs3.testRmdir",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-hdfs-nfs",
+      "test": "org.apache.hadoop.hdfs.nfs.nfs3.TestRpcProgramNfs3.testSetattr",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-hdfs-nfs",
+      "test": "org.apache.hadoop.hdfs.nfs.nfs3.TestRpcProgramNfs3.testSymlink",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-hdfs-nfs",
+      "test": "org.apache.hadoop.hdfs.nfs.nfs3.TestRpcProgramNfs3.testWrite",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-hdfs-nfs",
+      "test": "org.apache.hadoop.hdfs.nfs.nfs3.TestViewfsWithNfs3.testNfsAccessNN1",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-hdfs-nfs",
+      "test": "org.apache.hadoop.hdfs.nfs.nfs3.TestViewfsWithNfs3.testNfsAccessNN2",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-hdfs-nfs",
+      "test": "org.apache.hadoop.hdfs.nfs.nfs3.TestViewfsWithNfs3.testNfsRenameSingleNN",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-hdfs-nfs",
+      "test": "org.apache.hadoop.hdfs.nfs.nfs3.TestViewfsWithNfs3.testNfsWriteNN1",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-hdfs-nfs",
+      "test": "org.apache.hadoop.hdfs.nfs.nfs3.TestViewfsWithNfs3.testNfsWriteNN2",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-hdfs-nfs",
+      "test": "org.apache.hadoop.hdfs.nfs.nfs3.TestViewfsWithNfs3.testWrongNfsAccess",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-hdfs-nfs",
+      "test": "org.apache.hadoop.hdfs.nfs.nfs3.TestWrites.testOOOWrites",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-hdfs-nfs",
+      "test": "org.apache.hadoop.hdfs.nfs.nfs3.TestWrites.testOverlappingWrites",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-hdfs-nfs",
+      "test": "org.apache.hadoop.hdfs.nfs.nfs3.TestWrites.testWriteStableHow",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-mapreduce-client-app",
+      "test": "org.apache.hadoop.mapreduce.v2.app.TestMRAppMaster.testMRAppMasterFailLock",
+      "covered_by": "Thm3",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-mapreduce-client-app",
+      "test": "org.apache.hadoop.mapreduce.v2.app.TestMRAppMaster.testMRAppMasterMidLock",
+      "covered_by": "Thm3",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-mapreduce-client-app",
+      "test": "org.apache.hadoop.mapreduce.v2.app.TestMRAppMaster.testMRAppMasterShutDownJob",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-mapreduce-client-app",
+      "test": "org.apache.hadoop.mapreduce.v2.app.TestMRAppMaster.testMRAppMasterSuccessLock",
+      "covered_by": "Thm3",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-mapreduce-client-core",
+      "test": "org.apache.hadoop.mapred.TestTaskProgressReporter.testTaskProgress",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-mapreduce-client-core",
+      "test": "org.apache.hadoop.mapreduce.lib.input.TestLineRecordReader.testUncompressedInputContainingCRLF",
+      "covered_by": "Thm3",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-mapreduce-client-core",
+      "test": "org.apache.hadoop.mapreduce.lib.input.TestLineRecordReader.testUncompressedInputCustomDelimiterPosValue",
+      "covered_by": "Thm3",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-mapreduce-client-core",
+      "test": "org.apache.hadoop.mapreduce.lib.input.TestLineRecordReader.testUncompressedInputDefaultDelimiterPosValue",
+      "covered_by": "Thm3",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-mapreduce-client-core",
+      "test": "org.apache.hadoop.mapreduce.lib.input.TestLineRecordReader.testUncompressedInput",
+      "covered_by": "Thm3",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-mapreduce-client-hs",
+      "test": "org.apache.hadoop.mapreduce.v2.hs.TestJobHistoryParsing.testHistoryParsingForFailedAttempts",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "hadoop-mapreduce-client-hs",
+      "test": "org.apache.hadoop.mapreduce.v2.hs.TestJobHistoryParsing.testHistoryParsing",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "c2mon-server-elasticsearch",
+      "test": "cern.c2mon.server.elasticsearch.tag.config.TagConfigDocumentIndexerTests.reindexTagConfigDocuments",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "cukes-http",
+      "test": "lv.ctco.cukes.http.facade.HttpAssertionFacadeImplTest.shouldReturnBodyWhenEnabledAndNoMax",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "integration-test-2_1",
+      "test": "info.archinnov.achilles.it.TestCRUDSimpleEntity.should_insert_with_insert_strategy_non_null_fields",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "integration-test-2_1",
+      "test": "info.archinnov.achilles.it.TestEntityWithComplexIndices.should_query_using_collection_index",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "integration-test-2_1",
+      "test": "info.archinnov.achilles.it.TestEntityWithComplexIndices.should_query_using_full_collection_index",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "integration-test-2_1",
+      "test": "info.archinnov.achilles.it.TestEntityWithComplexIndices.should_query_using_index_and_clustering_column",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "integration-test-2_1",
+      "test": "info.archinnov.achilles.it.TestEntityWithComplexIndices.should_query_using_index_and_clustering_column_slice",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "integration-test-2_1",
+      "test": "info.archinnov.achilles.it.TestEntityWithComplexIndices.should_query_using_index_and_multi_clustering_columns_slice",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "integration-test-2_1",
+      "test": "info.archinnov.achilles.it.TestEntityWithComplexIndices.should_query_using_map_key_index",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "integration-test-2_1",
+      "test": "info.archinnov.achilles.it.TestEntityWithComplexIndices.should_query_using_map_key_value",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "integration-test-2_1",
+      "test": "info.archinnov.achilles.it.TestEntityWithComplexIndices.should_query_using_simple_index",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "integration-test-2_2",
+      "test": "info.archinnov.achilles.it.TestEntityWithIndicesForJSON.should_query_using_collection_index_fromJSON",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "integration-test-2_2",
+      "test": "info.archinnov.achilles.it.TestEntityWithIndicesForJSON.should_query_using_full_collection_index_fromJSON",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "integration-test-2_2",
+      "test": "info.archinnov.achilles.it.TestEntityWithIndicesForJSON.should_query_using_index_and_clustering_column_fromJSON",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "integration-test-2_2",
+      "test": "info.archinnov.achilles.it.TestEntityWithIndicesForJSON.should_query_using_map_key_entry_fromJSON",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "integration-test-2_2",
+      "test": "info.archinnov.achilles.it.TestEntityWithIndicesForJSON.should_query_using_map_key_index_fromJSON",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "integration-test-2_2",
+      "test": "info.archinnov.achilles.it.TestEntityWithIndicesForJSON.should_query_using_map_key_value_fromJSON",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "integration-test-2_2",
+      "test": "info.archinnov.achilles.it.TestEntityWithIndicesForJSON.should_query_using_simple_index_fromJSON",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "integration-test-3_10",
+      "test": "info.archinnov.achilles.it.TestEntityForGroupByIT.should_select_sum_group_by_partition_keys_and_one_clustering",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "integration-test-3_10",
+      "test": "info.archinnov.achilles.it.TestEntityForGroupByIT.should_select_sum_group_by_partition_keys",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "integration-test-3_7",
+      "test": "info.archinnov.achilles.it.TestEntityWithSASIIndices.should_search_using_contains",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "integration-test-3_7",
+      "test": "info.archinnov.achilles.it.TestEntityWithSASIIndices.should_search_using_end_with",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "integration-test-3_7",
+      "test": "info.archinnov.achilles.it.TestEntityWithSASIIndices.should_search_using_eq_non_tokenizer",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "integration-test-3_7",
+      "test": "info.archinnov.achilles.it.TestEntityWithSASIIndices.should_search_using_like",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "integration-test-3_7",
+      "test": "info.archinnov.achilles.it.TestEntityWithSASIIndices.should_search_using_like_non_tokenizer",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "integration-test-3_7",
+      "test": "info.archinnov.achilles.it.TestEntityWithSASIIndices.should_search_using_prefix_non_tokenizer",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "dropwizard-logging",
+      "test": "io.dropwizard.logging.DefaultLoggingFactoryPrintErrorMessagesTest.testLogbackStatusPrinterPrintStreamIsRestoredToSystemOut",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "elastic-job-lite-core",
+      "test": "io.elasticjob.lite.internal.failover.FailoverServiceTest.assertGetLocalFailoverItemsIfShutdown",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "elastic-job-lite-core",
+      "test": "io.elasticjob.lite.internal.schedule.JobRegistryTest.assertGetCurrentShardingTotalCountIfNull",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "elastic-job-lite-core",
+      "test": "io.elasticjob.lite.reg.zookeeper.ZookeeperRegistryCenterModifyTest.assertPersistEphemeralSequential",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "hsac-fitnesse-fixtures",
+      "test": "nl.hsac.fitnesse.fixture.slim.FileFixtureTest.testDelete",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "spring-data-ebean",
+      "test": "org.springframework.data.ebean.repository.UserRepositoryIntegrationTest.deleteById",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "jhipster-registry",
+      "test": "io.github.jhipster.registry.web.rest.AccountResourceTest.testGetUnknownAccount",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "lib",
+      "test": "com.github.kevinsawicki.http.HttpRequestTest.basicProxyAuthentication",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "lib",
+      "test": "com.github.kevinsawicki.http.HttpRequestTest.deleteWithEscapedMappedQueryParams",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "lib",
+      "test": "com.github.kevinsawicki.http.HttpRequestTest.deleteWithEscapedVarargsQueryParams",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "lib",
+      "test": "com.github.kevinsawicki.http.HttpRequestTest.deleteWithMappedQueryParams",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "lib",
+      "test": "com.github.kevinsawicki.http.HttpRequestTest.deleteWithVarargsQueryParams",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "lib",
+      "test": "com.github.kevinsawicki.http.HttpRequestTest.getUrlEncodedWithPercent",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "lib",
+      "test": "com.github.kevinsawicki.http.HttpRequestTest.getUrlEncodedWithSpace",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "lib",
+      "test": "com.github.kevinsawicki.http.HttpRequestTest.getUrlEncodedWithUnicode",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "lib",
+      "test": "com.github.kevinsawicki.http.HttpRequestTest.getWithEscapedMappedQueryParams",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "lib",
+      "test": "com.github.kevinsawicki.http.HttpRequestTest.getWithEscapedVarargsQueryParams",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "lib",
+      "test": "com.github.kevinsawicki.http.HttpRequestTest.getWithMappedQueryParams",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "lib",
+      "test": "com.github.kevinsawicki.http.HttpRequestTest.getWithVarargsQueryParams",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "lib",
+      "test": "com.github.kevinsawicki.http.HttpRequestTest.headWithEscapedMappedQueryParams",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "lib",
+      "test": "com.github.kevinsawicki.http.HttpRequestTest.headWithEscapedVarargsQueryParams",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "lib",
+      "test": "com.github.kevinsawicki.http.HttpRequestTest.headWithMappedQueryParams",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "lib",
+      "test": "com.github.kevinsawicki.http.HttpRequestTest.headWithVaragsQueryParams",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "lib",
+      "test": "com.github.kevinsawicki.http.HttpRequestTest.postWithEscapedMappedQueryParams",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "lib",
+      "test": "com.github.kevinsawicki.http.HttpRequestTest.postWithMappedQueryParams",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "lib",
+      "test": "com.github.kevinsawicki.http.HttpRequestTest.postWithVaragsQueryParams",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "lib",
+      "test": "com.github.kevinsawicki.http.HttpRequestTest.putWithEscapedMappedQueryParams",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "lib",
+      "test": "com.github.kevinsawicki.http.HttpRequestTest.putWithEscapedVarargsQueryParams",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "lib",
+      "test": "com.github.kevinsawicki.http.HttpRequestTest.putWithMappedQueryParams",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "lib",
+      "test": "com.github.kevinsawicki.http.HttpRequestTest.singleSslSocketFactory",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "lib",
+      "test": "com.github.kevinsawicki.http.HttpRequestTest.singleVerifier",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "lib",
+      "test": "com.github.kevinsawicki.http.HttpRequestTest.verifierAccepts",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "marine-api",
+      "test": "net.sf.marineapi.ais.event.AbstractAISMessageListenerTest.testBasicListenerWithUnexpectedMessage",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "marine-api",
+      "test": "net.sf.marineapi.ais.event.AbstractAISMessageListenerTest.testConstructor",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "marine-api",
+      "test": "net.sf.marineapi.ais.event.AbstractAISMessageListenerTest.testGenericsListenerDefaultConstructorThrows",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "marine-api",
+      "test": "net.sf.marineapi.ais.event.AbstractAISMessageListenerTest.testGenericsListener",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "marine-api",
+      "test": "net.sf.marineapi.ais.event.AbstractAISMessageListenerTest.testOnMessageWithExpectedMessage",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "marine-api",
+      "test": "net.sf.marineapi.ais.event.AbstractAISMessageListenerTest.testParametrizedConstructor",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "marine-api",
+      "test": "net.sf.marineapi.ais.event.AbstractAISMessageListenerTest.testSequenceListener",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "marine-api",
+      "test": "net.sf.marineapi.ais.event.AbstractAISMessageListenerTest.testSequenceListenerWithIncorrectOrder",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "marine-api",
+      "test": "net.sf.marineapi.ais.event.AbstractAISMessageListenerTest.testSequenceListenerWithMixedOrder",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "marine-api",
+      "test": "net.sf.marineapi.ais.parser.AISMessageFactoryTest.testCreate",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "marine-api",
+      "test": "net.sf.marineapi.ais.parser.AISMessageFactoryTest.testCreateWithIncorrectOrder",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "marine-api",
+      "test": "net.sf.marineapi.ais.parser.AISMessageFactoryTest.testCreateWithTwo",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "openpojo",
+      "test": "com.openpojo.issues.issue112.IssueTest.shouldNotFail",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "openpojo",
+      "test": "com.openpojo.validation.test.impl.SerializableTesterTest.shouldSkipOverNonSerializableClass",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "openpojo",
+      "test": "com.openpojo.validation.utils.ValidationHelperTest.shouldReportMissingASMProperly",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "spring-boot",
+      "test": "org.springframework.boot.logging.log4j2.Log4J2LoggingSystemTests.loggingThatUsesJulIsCaptured",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "spring-boot",
+      "test": "org.springframework.boot.SpringApplicationTests.enableBannerInLogViaProperty",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "spring-boot-actuator-autoconfigure",
+      "test": "org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive.CloudFoundryWebFluxEndpointIntegrationTests.linksToOtherEndpointsWithFullAccess",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "spring-boot-actuator-autoconfigure",
+      "test": "org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive.CloudFoundryWebFluxEndpointIntegrationTests.linksToOtherEndpointsWithRestrictedAccess",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "spring-boot-actuator-autoconfigure",
+      "test": "org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive.CloudFoundryWebFluxEndpointIntegrationTests.operationWithSecurityInterceptorForbidden",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "spring-boot-actuator-autoconfigure",
+      "test": "org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive.CloudFoundryWebFluxEndpointIntegrationTests.operationWithSecurityInterceptorSuccess",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "spring-boot-actuator-autoconfigure",
+      "test": "org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryMvcWebEndpointIntegrationTests.linksToOtherEndpointsWithFullAccess",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "spring-boot-actuator-autoconfigure",
+      "test": "org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryMvcWebEndpointIntegrationTests.linksToOtherEndpointsWithRestrictedAccess",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "spring-boot-actuator-autoconfigure",
+      "test": "org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryMvcWebEndpointIntegrationTests.operationWithSecurityInterceptorForbidden",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "spring-boot-actuator-autoconfigure",
+      "test": "org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryMvcWebEndpointIntegrationTests.operationWithSecurityInterceptorSuccess",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "spring-boot-test",
+      "test": "org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListenerTests.test002",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "spring-boot-test-autoconfigure",
+      "test": "org.springframework.boot.test.autoconfigure.data.neo4j.DataNeo4jTestIntegrationTests.testRepository",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "spring-boot-test-autoconfigure",
+      "test": "org.springframework.boot.test.autoconfigure.data.redis.DataRedisTestIntegrationTests.testRepository",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "spring-boot-test-autoconfigure",
+      "test": "org.springframework.boot.test.autoconfigure.web.servlet.mockmvc.WebMvcTestWebDriverCustomScopeIntegrationTests.shouldBeTheSameWebClient",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "spring-boot-test-autoconfigure",
+      "test": "org.springframework.boot.test.autoconfigure.web.servlet.mockmvc.WebMvcTestWebDriverIntegrationTests.shouldBeADifferentWebClient",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "spring-data-envers",
+      "test": "org.springframework.data.envers.repository.support.QueryDslRepositoryIntegrationTests.testWithQueryDsl",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "spring-data-envers",
+      "test": "org.springframework.data.envers.repository.support.QueryDslRepositoryIntegrationTests.testWithRevisions",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "spring-ws-core",
+      "test": "org.springframework.ws.client.core.AxiomNonStreamingSoap11WebServiceTemplateIntegrationTest.attachment",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "spring-ws-core",
+      "test": "org.springframework.ws.client.core.AxiomNonStreamingSoap11WebServiceTemplateIntegrationTest.faultNonCompliant",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "spring-ws-core",
+      "test": "org.springframework.ws.client.core.AxiomNonStreamingSoap11WebServiceTemplateIntegrationTest.fault",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "spring-ws-core",
+      "test": "org.springframework.ws.client.core.AxiomNonStreamingSoap11WebServiceTemplateIntegrationTest.marshalSendAndReceiveNoResponse",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "spring-ws-core",
+      "test": "org.springframework.ws.client.core.AxiomNonStreamingSoap11WebServiceTemplateIntegrationTest.marshalSendAndReceiveResponse",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "spring-ws-core",
+      "test": "org.springframework.ws.client.core.AxiomNonStreamingSoap11WebServiceTemplateIntegrationTest.notFound",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "spring-ws-core",
+      "test": "org.springframework.ws.client.core.AxiomNonStreamingSoap11WebServiceTemplateIntegrationTest.sendSourceAndReceiveToResultNoResponse",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "spring-ws-core",
+      "test": "org.springframework.ws.client.core.AxiomNonStreamingSoap12WebServiceTemplateIntegrationTest.attachment",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "spring-ws-core",
+      "test": "org.springframework.ws.client.core.AxiomNonStreamingSoap12WebServiceTemplateIntegrationTest.marshalSendAndReceiveNoResponse",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "spring-ws-core",
+      "test": "org.springframework.ws.client.core.AxiomNonStreamingSoap12WebServiceTemplateIntegrationTest.marshalSendAndReceiveResponse",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "spring-ws-core",
+      "test": "org.springframework.ws.client.core.AxiomNonStreamingSoap12WebServiceTemplateIntegrationTest.notFound",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "spring-ws-core",
+      "test": "org.springframework.ws.client.core.AxiomNonStreamingSoap12WebServiceTemplateIntegrationTest.receiverFault",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "spring-ws-core",
+      "test": "org.springframework.ws.client.core.AxiomNonStreamingSoap12WebServiceTemplateIntegrationTest.senderFault",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "spring-ws-core",
+      "test": "org.springframework.ws.client.core.AxiomNonStreamingSoap12WebServiceTemplateIntegrationTest.sendSourceAndReceiveToResultNoResponse",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "spring-ws-core",
+      "test": "org.springframework.ws.client.core.AxiomNonStreamingSoap12WebServiceTemplateIntegrationTest.sendSourceAndReceiveToResult",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "spring-ws-security",
+      "test": "org.springframework.ws.soap.security.xwss.callback.SpringDigestPasswordValidationCallbackHandlerTest.testAuthenticateUserDigestUserNotFound",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "spring-ws-security",
+      "test": "org.springframework.ws.soap.security.xwss.callback.SpringDigestPasswordValidationCallbackHandlerTest.testAuthenticateUserDigestValidInvalid",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "aismessages",
+      "test": "dk.tbsalling.aismessages.nmea.NMEAMessageHandlerTest.canHandleFragmentedMessageReceived",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "aismessages",
+      "test": "dk.tbsalling.aismessages.nmea.NMEAMessageHandlerTest.canHandleUnfragmentedMessageReceived",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "unix4j-command",
+      "test": "org.unix4j.unix.FindFileTimeDependentTest.find_fileCreatedBeforeNow",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "compute",
+      "test": "com.vmware.admiral.compute.container.GroupResourcePlacementServiceTest.testMemoryPlacementReservationRequest",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "request",
+      "test": "com.vmware.admiral.request.kubernetes.RequestBrokerKubernetesServiceTest.testRequestStateHasK8sInfo",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "wdtk-dumpfiles",
+      "test": "org.wikidata.wdtk.dumpfiles.MwDumpFileProcessingTest.testMwDailyDumpFileProcessing",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "wdtk-dumpfiles",
+      "test": "org.wikidata.wdtk.dumpfiles.MwDumpFileProcessingTest.testMwMostRecentFullDumpFileProcessing",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "wdtk-dumpfiles",
+      "test": "org.wikidata.wdtk.dumpfiles.MwDumpFileProcessingTest.testMwRecentCurrentDumpFileProcessing",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "wdtk-util",
+      "test": "org.wikidata.wdtk.util.DirectoryManagerFactoryTest.createDefaultDirectoryManagerPath",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "wdtk-util",
+      "test": "org.wikidata.wdtk.util.DirectoryManagerFactoryTest.createDirectoryManagerIoException",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.InitialContextFactoryTestCase.testInitialFactory",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.InitialContextFactoryTestCase.testJavaContext",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.InitialContextTestCase.testRegisterURLSchemeHandler",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.NamingContextTestCase.testBind",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.NamingContextTestCase.testBindReferenceable",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.NamingContextTestCase.testCreateSubcontext",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.NamingContextTestCase.testListBindingsNameNotFound",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.NamingContextTestCase.testListBindings",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.NamingContextTestCase.testListBindingsWithContinuation",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.NamingContextTestCase.testListNameNotFound",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.NamingContextTestCase.testList",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.NamingContextTestCase.testListWithContinuation",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.NamingContextTestCase.testLookupContextLink",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.NamingContextTestCase.testLookupEmptyName",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.NamingContextTestCase.testLookupLink",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.NamingContextTestCase.testLookupNameNotFound",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.NamingContextTestCase.testLookup",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.NamingContextTestCase.testLookupReference",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.NamingContextTestCase.testLookupWithContinuation",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.NamingContextTestCase.testLookupWitResolveResult",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.NamingContextTestCase.testRebind",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.NamingContextTestCase.testRebindReferenceable",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.NamingContextTestCase.testUnbind",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.NamingEventCoordinatorTestCase.testFireAllEvent",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.NamingEventCoordinatorTestCase.testFireMultiLevelEvent",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.NamingEventCoordinatorTestCase.testFireObjectEvent",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.NamingEventCoordinatorTestCase.testFireOneLevelEvent",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.NamingEventCoordinatorTestCase.testFireSubTreeEvent",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.ObjectFactoryTestCase.testBindAndRetrieveObjectFactoryFromInitialContext",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.ObjectFactoryTestCase.testBindAndRetrieveObjectFactoryFromNamingContext",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.ServiceBasedNamingStoreTestCase.testListBindings",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.ServiceBasedNamingStoreTestCase.testLookupBinding",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.ServiceBasedNamingStoreTestCase.testLookupBindingUsingNestedContext",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.ServiceBasedNamingStoreTestCase.testStoredContext",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.subsystem.NamingSubsystemTestCase.testCompositeBindingOps",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.subsystem.NamingSubsystemTestCase.testCompositeBindingUpdate",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.subsystem.NamingSubsystemTestCase.testOnlyExternalContextAllowsCache",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.subsystem.NamingSubsystemTestCase.testRejectionsEAP6",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.subsystem.NamingSubsystemTestCase.testRejectionsEAP7",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.subsystem.NamingSubsystemTestCase.testSubsystem",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.WritableServiceBasedNamingStoreTestCase.testBindNested",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.WritableServiceBasedNamingStoreTestCase.testBind",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.WritableServiceBasedNamingStoreTestCase.testPermissions",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "naming",
+      "test": "org.jboss.as.naming.WritableServiceBasedNamingStoreTestCase.testRebind",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "subsystem",
+      "test": "org.jboss.as.security.SecurityDomainModelv12UnitTestCase.testSubsystem",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "wro4j-core",
+      "test": "ro.isdc.wro.model.resource.processor.TestJsMinProcessor.shouldProcessRegexpContainingCurlyBraces",
+      "covered_by": "Thm3",
+      "self_cleaner": false
+    },
+    {
+      "module": "wro4j-core",
+      "test": "ro.isdc.wro.model.resource.support.change.TestResourceChangeInfo.cannotCheckChangeForNullGroupName",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "wro4j-core",
+      "test": "ro.isdc.wro.model.resource.support.change.TestResourceWatcher.cannotCheckNullCacheEntry",
+      "covered_by": "Thm3",
+      "self_cleaner": false
+    },
+    {
+      "module": "wro4j-core",
+      "test": "ro.isdc.wro.model.resource.support.hash.TestConfigurableHashStrategy.cannotConfigureInvalidAlias",
+      "covered_by": "Thm3",
+      "self_cleaner": false
+    },
+    {
+      "module": "wro4j-core",
+      "test": "ro.isdc.wro.model.resource.support.naming.TestConfigurableNamingStrategy.cannotConfigureInvalidAlias",
+      "covered_by": "Thm3",
+      "self_cleaner": false
+    },
+    {
+      "module": "wro4j-core",
+      "test": "ro.isdc.wro.model.resource.support.naming.TestDefaultHashEncoderNamingStrategy.cannotAcceptNullStream",
+      "covered_by": "Thm3",
+      "self_cleaner": false
+    },
+    {
+      "module": "wro4j-core",
+      "test": "ro.isdc.wro.model.resource.support.naming.TestDefaultHashEncoderNamingStrategy.shouldRenameResourceWithSomeContent",
+      "covered_by": "Thm3",
+      "self_cleaner": false
+    },
+    {
+      "module": "wro4j-core",
+      "test": "ro.isdc.wro.model.resource.support.naming.TestHashEncoderNamingStrategy.cannotAcceptNullStream",
+      "covered_by": "Thm3",
+      "self_cleaner": false
+    },
+    {
+      "module": "wro4j-core",
+      "test": "ro.isdc.wro.model.resource.support.naming.TestHashEncoderNamingStrategy.shouldRenameResourceWithSomeContent",
+      "covered_by": "Thm3",
+      "self_cleaner": false
+    },
+    {
+      "module": "wro4j-core",
+      "test": "ro.isdc.wro.model.resource.support.TestDefaultResourceAuthorizationManager.shouldContainOnlyOneResourceWhenSameIsAddedTwice",
+      "covered_by": "Thm3",
+      "self_cleaner": false
+    },
+    {
+      "module": "wro4j-core",
+      "test": "ro.isdc.wro.model.TestWroModel.shouldNotReturnDuplicatedResources",
+      "covered_by": "Thm3",
+      "self_cleaner": false
+    },
+    {
+      "module": "wro4j-core",
+      "test": "ro.isdc.wro.util.provider.TestProviderFinder.shouldFindConfigurableProviders",
+      "covered_by": "Thm3",
+      "self_cleaner": false
+    },
+    {
+      "module": "wro4j-core",
+      "test": "ro.isdc.wro.util.TestProxyFactory.cannotCreateProxyFromNullObjectFactory",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "wro4j-core",
+      "test": "ro.isdc.wro.util.TestSchedulerHelper.canAcceptNullRunnableWhenPeriodIsZero",
+      "covered_by": "Thm3",
+      "self_cleaner": false
+    },
+    {
+      "module": "wro4j-core",
+      "test": "ro.isdc.wro.util.TestWroUtil.shouldJoinTwoPaths",
+      "covered_by": "Thm3",
+      "self_cleaner": false
+    },
+    {
+      "module": "org.wso2.carbon.apimgt.core",
+      "test": "org.wso2.carbon.apimgt.core.auth.ScopeRegistrationServiceStubFactoryTest.testGetScopeRegistration",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "riptide-spring-boot-starter",
+      "test": "org.zalando.riptide.spring.metrics.MetricsTest.shouldRecordRequests",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    },
+    {
+      "module": "riptide-spring-boot-starter",
+      "test": "org.zalando.riptide.spring.metrics.MetricsTest.shouldRecordRetries",
+      "covered_by": "Thm1",
+      "self_cleaner": false
+    }
+  ]
+}

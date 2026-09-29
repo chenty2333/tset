@@ -1,0 +1,9 @@
+org.apache.dubbo.cache.filter.CacheFilterTest.testException
+org.apache.dubbo.cache.filter.CacheFilterTest.testMethodWithArgs
+org.apache.dubbo.cache.filter.CacheFilterTest.testNull
+org.apache.dubbo.cache.filter.CacheFilterTest.testNonArgsMethod
+org.apache.dubbo.cache.support.threadlocal.ThreadLocalCacheFactoryTest.testThreadLocalCacheFactory
+org.apache.dubbo.cache.support.jcache.JCacheFactoryTest.testJCacheGetExpired
+org.apache.dubbo.cache.support.jcache.JCacheFactoryTest.testJCacheFactory
+org.apache.dubbo.cache.support.lru.LruCacheFactoryTest.testLruCacheFactory
+org.apache.dubbo.cache.support.expiring.ExpiringCacheFactoryTest.testLruCacheFactory

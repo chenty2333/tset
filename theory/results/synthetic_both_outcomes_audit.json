@@ -1,0 +1,306 @@
+{
+  "input_provenance": "SYNTHETIC exact examples. This is NOT the ISSTA 2023 dataset.",
+  "mode": "both outcomes within budget",
+  "tests": 4,
+  "modules": 4,
+  "adaptive_policy": "NOT COMPUTABLE from f,B alone",
+  "ceiling_scope": "independent blocks with equally distributed per-run marginals; not arbitrary pairing",
+  "positive_covariance_test_ids": [
+    "six-test-general-cleaners"
+  ],
+  "warnings": [
+    "Positive covariance profiles exist; noninferiority is not certified for these tests."
+  ],
+  "reports": [
+    {
+      "runs": 2,
+      "test_weighted": {
+        "iid": {
+          "exact": "105959/320000",
+          "decimal": 0.331121875
+        },
+        "pair": {
+          "exact": "279/800",
+          "decimal": 0.34875
+        },
+        "independent_pair_ceiling": {
+          "exact": "429/800",
+          "decimal": 0.53625
+        },
+        "uniform_marginal_ceiling": {
+          "exact": "429/800",
+          "decimal": 0.53625
+        },
+        "gain": {
+          "exact": "5641/320000",
+          "decimal": 0.017628125
+        }
+      },
+      "module_weighted": {
+        "iid": {
+          "exact": "105959/320000",
+          "decimal": 0.331121875
+        },
+        "pair": {
+          "exact": "279/800",
+          "decimal": 0.34875
+        },
+        "independent_pair_ceiling": {
+          "exact": "429/800",
+          "decimal": 0.53625
+        },
+        "uniform_marginal_ceiling": {
+          "exact": "429/800",
+          "decimal": 0.53625
+        },
+        "gain": {
+          "exact": "5641/320000",
+          "decimal": 0.017628125
+        }
+      },
+      "f_below_0.1_count": 1,
+      "iid_miss_fraction_from_f_below_0.1": {
+        "exact": "78416/214041",
+        "decimal": 0.3663597161291528
+      }
+    },
+    {
+      "runs": 4,
+      "test_weighted": {
+        "iid": {
+          "exact": "30222730319/51200000000",
+          "decimal": 0.5902877015429687
+        },
+        "pair": {
+          "exact": "95959/160000",
+          "decimal": 0.59974375
+        },
+        "independent_pair_ceiling": {
+          "exact": "105959/160000",
+          "decimal": 0.66224375
+        },
+        "uniform_marginal_ceiling": {
+          "exact": "19/25",
+          "decimal": 0.76
+        },
+        "gain": {
+          "exact": "484149681/51200000000",
+          "decimal": 0.00945604845703125
+        }
+      },
+      "module_weighted": {
+        "iid": {
+          "exact": "30222730319/51200000000",
+          "decimal": 0.5902877015429687
+        },
+        "pair": {
+          "exact": "95959/160000",
+          "decimal": 0.59974375
+        },
+        "independent_pair_ceiling": {
+          "exact": "105959/160000",
+          "decimal": 0.66224375
+        },
+        "uniform_marginal_ceiling": {
+          "exact": "19/25",
+          "decimal": 0.76
+        },
+        "gain": {
+          "exact": "484149681/51200000000",
+          "decimal": 0.00945604845703125
+        }
+      },
+      "f_below_0.1_count": 1,
+      "iid_miss_fraction_from_f_below_0.1": {
+        "exact": "12295629056/20977269681",
+        "decimal": 0.5861405818287531
+      }
+    },
+    {
+      "runs": 10,
+      "test_weighted": {
+        "iid": {
+          "exact": "158007374620706217081373799/209715200000000000000000000",
+          "decimal": 0.7534378748927413
+        },
+        "pair": {
+          "exact": "970110579399/1280000000000",
+          "decimal": 0.7578988901554687
+        },
+        "independent_pair_ceiling": {
+          "exact": "978372298149/1280000000000",
+          "decimal": 0.7643533579289062
+        },
+        "uniform_marginal_ceiling": {
+          "exact": "31/40",
+          "decimal": 0.775
+        },
+        "gain": {
+          "exact": "935542708025942918626201/209715200000000000000000000",
+          "decimal": 0.004461015262727465
+        }
+      },
+      "module_weighted": {
+        "iid": {
+          "exact": "158007374620706217081373799/209715200000000000000000000",
+          "decimal": 0.7534378748927413
+        },
+        "pair": {
+          "exact": "970110579399/1280000000000",
+          "decimal": 0.7578988901554687
+        },
+        "independent_pair_ceiling": {
+          "exact": "978372298149/1280000000000",
+          "decimal": 0.7643533579289062
+        },
+        "uniform_marginal_ceiling": {
+          "exact": "31/40",
+          "decimal": 0.775
+        },
+        "gain": {
+          "exact": "935542708025942918626201/209715200000000000000000000",
+          "decimal": 0.004461015262727465
+        }
+      },
+      "f_below_0.1_count": 1,
+      "iid_miss_fraction_from_f_below_0.1": {
+        "exact": "47415666934221608846360576/51707825379293782918626201",
+        "decimal": 0.916992091359716
+      }
+    },
+    {
+      "runs": 20,
+      "test_weighted": {
+        "iid": {
+          "exact": "17473237892902201647154126688388462117478098992307599/21990232555520000000000000000000000000000000000000000",
+          "decimal": 0.7945908643206259
+        },
+        "pair": {
+          "exact": "325731549166847766798799/409600000000000000000000",
+          "decimal": 0.7952430399581244
+        },
+        "independent_pair_ceiling": {
+          "exact": "325826113223244251173799/409600000000000000000000",
+          "decimal": 0.7954739092364361
+        },
+        "uniform_marginal_ceiling": {
+          "exact": "4/5",
+          "decimal": 0.8
+        },
+        "gain": {
+          "exact": "14341493935638425489327275080337882521901007692401/21990232555520000000000000000000000000000000000000000",
+          "decimal": 0.0006521756374985864
+        }
+      },
+      "module_weighted": {
+        "iid": {
+          "exact": "17473237892902201647154126688388462117478098992307599/21990232555520000000000000000000000000000000000000000",
+          "decimal": 0.7945908643206259
+        },
+        "pair": {
+          "exact": "325731549166847766798799/409600000000000000000000",
+          "decimal": 0.7952430399581244
+        },
+        "independent_pair_ceiling": {
+          "exact": "325826113223244251173799/409600000000000000000000",
+          "decimal": 0.7954739092364361
+        },
+        "uniform_marginal_ceiling": {
+          "exact": "4/5",
+          "decimal": 0.8
+        },
+        "gain": {
+          "exact": "14341493935638425489327275080337882521901007692401/21990232555520000000000000000000000000000000000000000",
+          "decimal": 0.0006521756374985864
+        }
+      },
+      "f_below_0.1_count": 1,
+      "iid_miss_fraction_from_f_below_0.1": {
+        "exact": "4496490941634072845607304558956709751323017951051776/4516994662617798352845873311611537882521901007692401",
+        "decimal": 0.9954607604136856
+      }
+    }
+  ],
+  "hitting_times": [
+    {
+      "id": "three-test-print-counterexample",
+      "module": "synthetic-one",
+      "first_iid": {
+        "exact": "4",
+        "decimal": 4.0
+      },
+      "first_pair": {
+        "exact": "7/2",
+        "decimal": 3.5
+      },
+      "both_iid": {
+        "exact": "13/3",
+        "decimal": 4.333333333333333
+      },
+      "both_pair": {
+        "exact": "15/4",
+        "decimal": 3.75
+      }
+    },
+    {
+      "id": "hierarchical-zero-gain",
+      "module": "synthetic-two",
+      "first_iid": {
+        "exact": "2",
+        "decimal": 2.0
+      },
+      "first_pair": {
+        "exact": "2",
+        "decimal": 2.0
+      },
+      "both_iid": {
+        "exact": "3",
+        "decimal": 3.0
+      },
+      "both_pair": {
+        "exact": "3",
+        "decimal": 3.0
+      }
+    },
+    {
+      "id": "rare-shared-cleaner",
+      "module": "synthetic-three",
+      "first_iid": {
+        "exact": "100",
+        "decimal": 100.0
+      },
+      "first_pair": {
+        "exact": "199/2",
+        "decimal": 99.5
+      },
+      "both_iid": {
+        "exact": "9901/99",
+        "decimal": 100.01010101010101
+      },
+      "both_pair": {
+        "exact": "9951/100",
+        "decimal": 99.51
+      }
+    },
+    {
+      "id": "six-test-general-cleaners",
+      "module": "synthetic-four",
+      "first_iid": {
+        "exact": "16/11",
+        "decimal": 1.4545454545454546
+      },
+      "first_pair": {
+        "exact": "3/2",
+        "decimal": 1.5
+      },
+      "both_iid": {
+        "exact": "201/55",
+        "decimal": 3.6545454545454548
+      },
+      "both_pair": {
+        "exact": "31/8",
+        "decimal": 3.875
+      }
+    }
+  ]
+}

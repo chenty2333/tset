@@ -1,0 +1,25 @@
+order,reverse_order,fails,reverse_fails
+v p1 g p2 e,e p2 g p1 v,0,1
+v p1 g e p2,p2 e g p1 v,0,1
+v g p1 p2 e,e p2 p1 g v,0,0
+v g p1 e p2,p2 e p1 g v,0,0
+v p2 e p1 g,g p1 e p2 v,0,1
+v p2 e g p1,p1 g e p2 v,0,1
+v e p2 p1 g,g p1 p2 e v,0,1
+v e p2 g p1,p1 g p2 e v,0,0
+p1 g v p2 e,e p2 v g p1,0,1
+p1 g v e p2,p2 e v g p1,0,0
+g p1 v p2 e,e p2 v p1 g,1,1
+g p1 v e p2,p2 e v p1 g,1,0
+p1 g p2 e v,v e p2 g p1,0,0
+p1 g e p2 v,v p2 e g p1,1,0
+g p1 p2 e v,v e p2 p1 g,1,0
+g p1 e p2 v,v p2 e p1 g,1,0
+p2 e v p1 g,g p1 v e p2,0,1
+p2 e v g p1,p1 g v e p2,0,0
+e p2 v p1 g,g p1 v p2 e,1,1
+e p2 v g p1,p1 g v p2 e,1,0
+p2 e p1 g v,v g p1 e p2,0,0
+p2 e g p1 v,v p1 g e p2,1,0
+e p2 p1 g v,v g p1 p2 e,0,0
+e p2 g p1 v,v p1 g p2 e,1,0

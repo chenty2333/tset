@@ -1,0 +1,12 @@
+{
+  "cyclic_cut_order_checks": 74106,
+  "S1_identity_models": 230,
+  "extended_theorem4_instances": 250,
+  "of_which_outside_old_theorem4": 37,
+  "S2_region_instances": 600,
+  "pruning_instances_pointwise": 298,
+  "strict_example": {
+    "f": "3/8",
+    "B": "1/12"
+  }
+}

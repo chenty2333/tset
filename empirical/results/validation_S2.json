@@ -1,0 +1,10 @@
+{
+  "semantics": "S2",
+  "suite_vs_closed_form": {
+    "comparisons": 6272,
+    "max_abs_z": 3.2724372743087855,
+    "share_abs_z_gt_3": 0.00015943877551020407,
+    "note": "z uses max(sample SE, conservative Bernoulli-sum SE)"
+  },
+  "evaluator_vs_issta23_reference_simulator": null
+}

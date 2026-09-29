@@ -1,0 +1,22 @@
+{
+  "3": {
+    "configurations": 8,
+    "max_B_minus_f2": -0.1111111111111111
+  },
+  "4": {
+    "configurations": 124,
+    "max_B_minus_f2": -0.0625
+  },
+  "5": {
+    "configurations": 6560,
+    "max_B_minus_f2": -0.04000000000000001
+  },
+  "6": {
+    "configurations": 1419856,
+    "max_B_minus_f2": -0.027777777777777776
+  },
+  "2": {
+    "configurations": 1,
+    "max_B_minus_f2": -0.25
+  }
+}

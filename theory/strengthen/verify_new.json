@@ -1,0 +1,98 @@
+{
+  "flat_disjoint_exhaustive": {
+    "2": {
+      "configurations": 1,
+      "min_gap": "1/4",
+      "monotonicity_violations": 0
+    },
+    "3": {
+      "configurations": 7,
+      "min_gap": "1/9",
+      "monotonicity_violations": 0
+    },
+    "4": {
+      "configurations": 43,
+      "min_gap": "1/16",
+      "monotonicity_violations": 0
+    },
+    "5": {
+      "configurations": 295,
+      "min_gap": "1/25",
+      "monotonicity_violations": 0
+    },
+    "6": {
+      "configurations": 2551,
+      "min_gap": "1/36",
+      "monotonicity_violations": 0
+    }
+  },
+  "flat_overlap_position_monotonicity": {
+    "samples": 300,
+    "violations": 0
+  },
+  "boundary_instances": {
+    "two_level_overlapping_roles": {
+      "tree": "((6, 4, 0, 2), 1, 3, 5)",
+      "P": [
+        1,
+        6,
+        4,
+        5,
+        3
+      ],
+      "C": {
+        "1": [
+          6,
+          5
+        ],
+        "6": [
+          4
+        ],
+        "4": [
+          3,
+          2,
+          5
+        ],
+        "5": [
+          6,
+          3,
+          1
+        ],
+        "3": [
+          5,
+          6
+        ]
+      },
+      "f": "83/96",
+      "B": "3/4",
+      "B_minus_f2": "23/9216"
+    },
+    "three_level_disjoint_roles": {
+      "tree": "(((0, (1, 4)), (2, 5)), 3)",
+      "P": [
+        1,
+        2,
+        3
+      ],
+      "C": {
+        "1": [
+          4
+        ],
+        "2": [
+          4
+        ],
+        "3": [
+          5
+        ]
+      },
+      "f": "11/16",
+      "B": "1/2",
+      "B_minus_f2": "7/256"
+    }
+  },
+  "block_limit": {
+    "instances": 2000,
+    "disjoint_equality_instances": 587
+  },
+  "seconds": 4.6
+}

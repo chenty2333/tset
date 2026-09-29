@@ -1,0 +1,29 @@
+{
+ "postWithNumericQueryParams": {
+  "polluter": "com.github.kevinsawicki.http.HttpRequestTest.customConnectionFactory",
+  "cleaners": [
+   "com.github.kevinsawicki.http.HttpRequestTest.nullConnectionFactory"
+  ],
+  "agree": 613,
+  "total": 613,
+  "fails": 204
+ },
+ "postWithEscapedVarargsQueryParams": {
+  "polluter": "com.github.kevinsawicki.http.HttpRequestTest.customConnectionFactory",
+  "cleaners": [
+   "com.github.kevinsawicki.http.HttpRequestTest.nullConnectionFactory"
+  ],
+  "agree": 613,
+  "total": 613,
+  "fails": 202
+ },
+ "putWithVarargsQueryParams": {
+  "polluter": "com.github.kevinsawicki.http.HttpRequestTest.customConnectionFactory",
+  "cleaners": [
+   "com.github.kevinsawicki.http.HttpRequestTest.nullConnectionFactory"
+  ],
+  "agree": 613,
+  "total": 613,
+  "fails": 221
+ }
+}

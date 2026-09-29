@@ -1,0 +1,112 @@
+{
+  "subject": "marine-api",
+  "repository": "https://github.com/ktuukkan/marine-api",
+  "revision": "af0003847db9ba822f67d4f1dceb8de3fe63250a",
+  "tests": 926,
+  "targets": 12,
+  "expected_ignored": [
+    "net.sf.marineapi.nmea.io.SentenceReaderTest.testSetDatagramSocket"
+  ],
+  "planned_pairs": 1000,
+  "completed_valid_pairs": 1000,
+  "invalid_or_incomplete_pairs": [],
+  "stop_reason": "completed",
+  "formal_wall_seconds": 2337.332214924012,
+  "attempted_runs": 2000,
+  "valid_runs": 2000,
+  "invalid_runs": 0,
+  "timeouts": 0,
+  "pilot_runs": 13,
+  "pilot_valid_runs": 13,
+  "pilot_seed": 2026100101,
+  "formal_seed": 2026100102,
+  "unstable_repeated_pilot_orders": [],
+  "native_baseline": {
+    "tests": 926,
+    "failure": 0,
+    "error": 0,
+    "skipped": 1
+  },
+  "original_runs": [
+    {
+      "target_failures": 0,
+      "all_failures": [],
+      "matches_S1": true,
+      "matches_S2": true
+    },
+    {
+      "target_failures": 0,
+      "all_failures": [],
+      "matches_S1": true,
+      "matches_S2": true
+    },
+    {
+      "target_failures": 0,
+      "all_failures": [],
+      "matches_S1": true,
+      "matches_S2": true
+    }
+  ],
+  "pilot_failures_any": 0,
+  "S1": {
+    "target_outcome_comparisons": 24000,
+    "disagreeing_target_outcomes": 0,
+    "directions": 2000,
+    "directions_with_any_disagreement": 0,
+    "pairs_with_any_target_disagreement": 0,
+    "pair_disagreement_ci95": [
+      0.0,
+      0.0038267584855551234
+    ],
+    "zero_pair_disagreement_one_sided95_upper": 0.0029912495450953314,
+    "directions_with_predicted_failure": 86,
+    "failing_directions_observed": 86,
+    "failing_directions_disagreeing": 0,
+    "failing_direction_target_comparisons": 1032,
+    "failing_direction_target_mismatches": 0,
+    "predicted_fail_directions_disagreeing": 0
+  },
+  "S2": {
+    "target_outcome_comparisons": 24000,
+    "disagreeing_target_outcomes": 0,
+    "directions": 2000,
+    "directions_with_any_disagreement": 0,
+    "pairs_with_any_target_disagreement": 0,
+    "pair_disagreement_ci95": [
+      0.0,
+      0.0038267584855551234
+    ],
+    "zero_pair_disagreement_one_sided95_upper": 0.0029912495450953314,
+    "directions_with_predicted_failure": 86,
+    "failing_directions_observed": 86,
+    "failing_directions_disagreeing": 0,
+    "failing_direction_target_comparisons": 1032,
+    "failing_direction_target_mismatches": 0,
+    "predicted_fail_directions_disagreeing": 0
+  },
+  "failing_directions_by_type": {
+    "anchor": 41,
+    "reverse": 45,
+    "pairs_with_any_failing_direction": 86,
+    "pairs_both_directions_failing": 0
+  },
+  "failing_target_counts_per_failing_direction": {
+    "3": 25,
+    "9": 24,
+    "12": 37
+  },
+  "non_target_failures": {},
+  "total_pair_seconds": 2327.4533082321577
+}
+testBasicListenerWithUnexpectedMessage f= 0.028 rev= 0.033 B= 0.0 cells 939 33 28 0
+testConstructor f= 0.028 rev= 0.033 B= 0.0 cells 939 33 28 0
+testGenericsListenerDefaultConstructorThrows f= 0.028 rev= 0.033 B= 0.0 cells 939 33 28 0
+testGenericsListener f= 0.028 rev= 0.033 B= 0.0 cells 939 33 28 0
+testOnMessageWithExpectedMessage f= 0.028 rev= 0.033 B= 0.0 cells 939 33 28 0
+testParametrizedConstructor f= 0.028 rev= 0.033 B= 0.0 cells 939 33 28 0
+testSequenceListener f= 0.028 rev= 0.033 B= 0.0 cells 939 33 28 0
+testSequenceListenerWithIncorrectOrder f= 0.028 rev= 0.033 B= 0.0 cells 939 33 28 0
+testSequenceListenerWithMixedOrder f= 0.028 rev= 0.033 B= 0.0 cells 939 33 28 0
+testCreate f= 0.03 rev= 0.032 B= 0.0 cells 938 32 30 0
+testCreateWithIncorrectOrder f= 0.03 rev= 0.032 B= 0.0 cells 938 32 30 0
+testCreateWithTwo f= 0.03 rev= 0.032 B= 0.0 cells 938 32 30 0

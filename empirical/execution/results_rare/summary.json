@@ -1,0 +1,990 @@
+{
+  "subject": "marine-api",
+  "repository": "https://github.com/ktuukkan/marine-api",
+  "revision": "af0003847db9ba822f67d4f1dceb8de3fe63250a",
+  "tests": 926,
+  "targets": 12,
+  "expected_ignored": [
+    "net.sf.marineapi.nmea.io.SentenceReaderTest.testSetDatagramSocket"
+  ],
+  "planned_pairs": 1000,
+  "completed_valid_pairs": 1000,
+  "invalid_or_incomplete_pairs": [],
+  "stop_reason": "completed",
+  "formal_wall_seconds": 2337.332214924012,
+  "attempted_runs": 2000,
+  "valid_runs": 2000,
+  "invalid_runs": 0,
+  "timeouts": 0,
+  "pilot_runs": 13,
+  "pilot_valid_runs": 13,
+  "pilot_seed": 2026100101,
+  "formal_seed": 2026100102,
+  "unstable_repeated_pilot_orders": [],
+  "native_baseline": {
+    "tests": 926,
+    "failure": 0,
+    "error": 0,
+    "skipped": 1
+  },
+  "original_runs": [
+    {
+      "target_failures": 0,
+      "all_failures": [],
+      "matches_S1": true,
+      "matches_S2": true
+    },
+    {
+      "target_failures": 0,
+      "all_failures": [],
+      "matches_S1": true,
+      "matches_S2": true
+    },
+    {
+      "target_failures": 0,
+      "all_failures": [],
+      "matches_S1": true,
+      "matches_S2": true
+    }
+  ],
+  "pilot_failures_any": 0,
+  "per_target": [
+    {
+      "test": "net.sf.marineapi.ais.event.AbstractAISMessageListenerTest.testBasicListenerWithUnexpectedMessage",
+      "reference_consistent": true,
+      "n": 1000,
+      "n00": 939,
+      "n01": 33,
+      "n10": 28,
+      "n11": 0,
+      "f_anchor": 0.028,
+      "f_anchor_ci95": [
+        0.019442276812770925,
+        0.04017018319759311
+      ],
+      "f_reverse": 0.033,
+      "f_reverse_ci95": [
+        0.023592927958426907,
+        0.04598126446708159
+      ],
+      "B": 0.0,
+      "B_ci95": [
+        0.0,
+        0.0038267584855551234
+      ],
+      "B_zero_one_sided95_upper": 0.0029912495450953314,
+      "model_f": 0.03125,
+      "model_B": 0.0,
+      "model_f_inside_anchor_ci": true,
+      "semantics": {
+        "S1": {
+          "predicted_pair_cells": {
+            "00": 939,
+            "01": 33,
+            "10": 28,
+            "11": 0
+          },
+          "confusion": {
+            "pred0_actual0": 1939,
+            "pred0_actual1": 0,
+            "pred1_actual0": 0,
+            "pred1_actual1": 61
+          },
+          "predicted_pass_observed_fail": 0,
+          "predicted_fail_observed_pass": 0,
+          "disagreeing_directions": 0,
+          "disagreeing_pairs": 0,
+          "pair_disagreement_ci95": [
+            0.0,
+            0.0038267584855551234
+          ]
+        },
+        "S2": {
+          "predicted_pair_cells": {
+            "00": 939,
+            "01": 33,
+            "10": 28,
+            "11": 0
+          },
+          "confusion": {
+            "pred0_actual0": 1939,
+            "pred0_actual1": 0,
+            "pred1_actual0": 0,
+            "pred1_actual1": 61
+          },
+          "predicted_pass_observed_fail": 0,
+          "predicted_fail_observed_pass": 0,
+          "disagreeing_directions": 0,
+          "disagreeing_pairs": 0,
+          "pair_disagreement_ci95": [
+            0.0,
+            0.0038267584855551234
+          ]
+        }
+      }
+    },
+    {
+      "test": "net.sf.marineapi.ais.event.AbstractAISMessageListenerTest.testConstructor",
+      "reference_consistent": true,
+      "n": 1000,
+      "n00": 939,
+      "n01": 33,
+      "n10": 28,
+      "n11": 0,
+      "f_anchor": 0.028,
+      "f_anchor_ci95": [
+        0.019442276812770925,
+        0.04017018319759311
+      ],
+      "f_reverse": 0.033,
+      "f_reverse_ci95": [
+        0.023592927958426907,
+        0.04598126446708159
+      ],
+      "B": 0.0,
+      "B_ci95": [
+        0.0,
+        0.0038267584855551234
+      ],
+      "B_zero_one_sided95_upper": 0.0029912495450953314,
+      "model_f": 0.03125,
+      "model_B": 0.0,
+      "model_f_inside_anchor_ci": true,
+      "semantics": {
+        "S1": {
+          "predicted_pair_cells": {
+            "00": 939,
+            "01": 33,
+            "10": 28,
+            "11": 0
+          },
+          "confusion": {
+            "pred0_actual0": 1939,
+            "pred0_actual1": 0,
+            "pred1_actual0": 0,
+            "pred1_actual1": 61
+          },
+          "predicted_pass_observed_fail": 0,
+          "predicted_fail_observed_pass": 0,
+          "disagreeing_directions": 0,
+          "disagreeing_pairs": 0,
+          "pair_disagreement_ci95": [
+            0.0,
+            0.0038267584855551234
+          ]
+        },
+        "S2": {
+          "predicted_pair_cells": {
+            "00": 939,
+            "01": 33,
+            "10": 28,
+            "11": 0
+          },
+          "confusion": {
+            "pred0_actual0": 1939,
+            "pred0_actual1": 0,
+            "pred1_actual0": 0,
+            "pred1_actual1": 61
+          },
+          "predicted_pass_observed_fail": 0,
+          "predicted_fail_observed_pass": 0,
+          "disagreeing_directions": 0,
+          "disagreeing_pairs": 0,
+          "pair_disagreement_ci95": [
+            0.0,
+            0.0038267584855551234
+          ]
+        }
+      }
+    },
+    {
+      "test": "net.sf.marineapi.ais.event.AbstractAISMessageListenerTest.testGenericsListenerDefaultConstructorThrows",
+      "reference_consistent": true,
+      "n": 1000,
+      "n00": 939,
+      "n01": 33,
+      "n10": 28,
+      "n11": 0,
+      "f_anchor": 0.028,
+      "f_anchor_ci95": [
+        0.019442276812770925,
+        0.04017018319759311
+      ],
+      "f_reverse": 0.033,
+      "f_reverse_ci95": [
+        0.023592927958426907,
+        0.04598126446708159
+      ],
+      "B": 0.0,
+      "B_ci95": [
+        0.0,
+        0.0038267584855551234
+      ],
+      "B_zero_one_sided95_upper": 0.0029912495450953314,
+      "model_f": 0.03125,
+      "model_B": 0.0,
+      "model_f_inside_anchor_ci": true,
+      "semantics": {
+        "S1": {
+          "predicted_pair_cells": {
+            "00": 939,
+            "01": 33,
+            "10": 28,
+            "11": 0
+          },
+          "confusion": {
+            "pred0_actual0": 1939,
+            "pred0_actual1": 0,
+            "pred1_actual0": 0,
+            "pred1_actual1": 61
+          },
+          "predicted_pass_observed_fail": 0,
+          "predicted_fail_observed_pass": 0,
+          "disagreeing_directions": 0,
+          "disagreeing_pairs": 0,
+          "pair_disagreement_ci95": [
+            0.0,
+            0.0038267584855551234
+          ]
+        },
+        "S2": {
+          "predicted_pair_cells": {
+            "00": 939,
+            "01": 33,
+            "10": 28,
+            "11": 0
+          },
+          "confusion": {
+            "pred0_actual0": 1939,
+            "pred0_actual1": 0,
+            "pred1_actual0": 0,
+            "pred1_actual1": 61
+          },
+          "predicted_pass_observed_fail": 0,
+          "predicted_fail_observed_pass": 0,
+          "disagreeing_directions": 0,
+          "disagreeing_pairs": 0,
+          "pair_disagreement_ci95": [
+            0.0,
+            0.0038267584855551234
+          ]
+        }
+      }
+    },
+    {
+      "test": "net.sf.marineapi.ais.event.AbstractAISMessageListenerTest.testGenericsListener",
+      "reference_consistent": true,
+      "n": 1000,
+      "n00": 939,
+      "n01": 33,
+      "n10": 28,
+      "n11": 0,
+      "f_anchor": 0.028,
+      "f_anchor_ci95": [
+        0.019442276812770925,
+        0.04017018319759311
+      ],
+      "f_reverse": 0.033,
+      "f_reverse_ci95": [
+        0.023592927958426907,
+        0.04598126446708159
+      ],
+      "B": 0.0,
+      "B_ci95": [
+        0.0,
+        0.0038267584855551234
+      ],
+      "B_zero_one_sided95_upper": 0.0029912495450953314,
+      "model_f": 0.03125,
+      "model_B": 0.0,
+      "model_f_inside_anchor_ci": true,
+      "semantics": {
+        "S1": {
+          "predicted_pair_cells": {
+            "00": 939,
+            "01": 33,
+            "10": 28,
+            "11": 0
+          },
+          "confusion": {
+            "pred0_actual0": 1939,
+            "pred0_actual1": 0,
+            "pred1_actual0": 0,
+            "pred1_actual1": 61
+          },
+          "predicted_pass_observed_fail": 0,
+          "predicted_fail_observed_pass": 0,
+          "disagreeing_directions": 0,
+          "disagreeing_pairs": 0,
+          "pair_disagreement_ci95": [
+            0.0,
+            0.0038267584855551234
+          ]
+        },
+        "S2": {
+          "predicted_pair_cells": {
+            "00": 939,
+            "01": 33,
+            "10": 28,
+            "11": 0
+          },
+          "confusion": {
+            "pred0_actual0": 1939,
+            "pred0_actual1": 0,
+            "pred1_actual0": 0,
+            "pred1_actual1": 61
+          },
+          "predicted_pass_observed_fail": 0,
+          "predicted_fail_observed_pass": 0,
+          "disagreeing_directions": 0,
+          "disagreeing_pairs": 0,
+          "pair_disagreement_ci95": [
+            0.0,
+            0.0038267584855551234
+          ]
+        }
+      }
+    },
+    {
+      "test": "net.sf.marineapi.ais.event.AbstractAISMessageListenerTest.testOnMessageWithExpectedMessage",
+      "reference_consistent": true,
+      "n": 1000,
+      "n00": 939,
+      "n01": 33,
+      "n10": 28,
+      "n11": 0,
+      "f_anchor": 0.028,
+      "f_anchor_ci95": [
+        0.019442276812770925,
+        0.04017018319759311
+      ],
+      "f_reverse": 0.033,
+      "f_reverse_ci95": [
+        0.023592927958426907,
+        0.04598126446708159
+      ],
+      "B": 0.0,
+      "B_ci95": [
+        0.0,
+        0.0038267584855551234
+      ],
+      "B_zero_one_sided95_upper": 0.0029912495450953314,
+      "model_f": 0.03125,
+      "model_B": 0.0,
+      "model_f_inside_anchor_ci": true,
+      "semantics": {
+        "S1": {
+          "predicted_pair_cells": {
+            "00": 939,
+            "01": 33,
+            "10": 28,
+            "11": 0
+          },
+          "confusion": {
+            "pred0_actual0": 1939,
+            "pred0_actual1": 0,
+            "pred1_actual0": 0,
+            "pred1_actual1": 61
+          },
+          "predicted_pass_observed_fail": 0,
+          "predicted_fail_observed_pass": 0,
+          "disagreeing_directions": 0,
+          "disagreeing_pairs": 0,
+          "pair_disagreement_ci95": [
+            0.0,
+            0.0038267584855551234
+          ]
+        },
+        "S2": {
+          "predicted_pair_cells": {
+            "00": 939,
+            "01": 33,
+            "10": 28,
+            "11": 0
+          },
+          "confusion": {
+            "pred0_actual0": 1939,
+            "pred0_actual1": 0,
+            "pred1_actual0": 0,
+            "pred1_actual1": 61
+          },
+          "predicted_pass_observed_fail": 0,
+          "predicted_fail_observed_pass": 0,
+          "disagreeing_directions": 0,
+          "disagreeing_pairs": 0,
+          "pair_disagreement_ci95": [
+            0.0,
+            0.0038267584855551234
+          ]
+        }
+      }
+    },
+    {
+      "test": "net.sf.marineapi.ais.event.AbstractAISMessageListenerTest.testParametrizedConstructor",
+      "reference_consistent": true,
+      "n": 1000,
+      "n00": 939,
+      "n01": 33,
+      "n10": 28,
+      "n11": 0,
+      "f_anchor": 0.028,
+      "f_anchor_ci95": [
+        0.019442276812770925,
+        0.04017018319759311
+      ],
+      "f_reverse": 0.033,
+      "f_reverse_ci95": [
+        0.023592927958426907,
+        0.04598126446708159
+      ],
+      "B": 0.0,
+      "B_ci95": [
+        0.0,
+        0.0038267584855551234
+      ],
+      "B_zero_one_sided95_upper": 0.0029912495450953314,
+      "model_f": 0.03125,
+      "model_B": 0.0,
+      "model_f_inside_anchor_ci": true,
+      "semantics": {
+        "S1": {
+          "predicted_pair_cells": {
+            "00": 939,
+            "01": 33,
+            "10": 28,
+            "11": 0
+          },
+          "confusion": {
+            "pred0_actual0": 1939,
+            "pred0_actual1": 0,
+            "pred1_actual0": 0,
+            "pred1_actual1": 61
+          },
+          "predicted_pass_observed_fail": 0,
+          "predicted_fail_observed_pass": 0,
+          "disagreeing_directions": 0,
+          "disagreeing_pairs": 0,
+          "pair_disagreement_ci95": [
+            0.0,
+            0.0038267584855551234
+          ]
+        },
+        "S2": {
+          "predicted_pair_cells": {
+            "00": 939,
+            "01": 33,
+            "10": 28,
+            "11": 0
+          },
+          "confusion": {
+            "pred0_actual0": 1939,
+            "pred0_actual1": 0,
+            "pred1_actual0": 0,
+            "pred1_actual1": 61
+          },
+          "predicted_pass_observed_fail": 0,
+          "predicted_fail_observed_pass": 0,
+          "disagreeing_directions": 0,
+          "disagreeing_pairs": 0,
+          "pair_disagreement_ci95": [
+            0.0,
+            0.0038267584855551234
+          ]
+        }
+      }
+    },
+    {
+      "test": "net.sf.marineapi.ais.event.AbstractAISMessageListenerTest.testSequenceListener",
+      "reference_consistent": true,
+      "n": 1000,
+      "n00": 939,
+      "n01": 33,
+      "n10": 28,
+      "n11": 0,
+      "f_anchor": 0.028,
+      "f_anchor_ci95": [
+        0.019442276812770925,
+        0.04017018319759311
+      ],
+      "f_reverse": 0.033,
+      "f_reverse_ci95": [
+        0.023592927958426907,
+        0.04598126446708159
+      ],
+      "B": 0.0,
+      "B_ci95": [
+        0.0,
+        0.0038267584855551234
+      ],
+      "B_zero_one_sided95_upper": 0.0029912495450953314,
+      "model_f": 0.03125,
+      "model_B": 0.0,
+      "model_f_inside_anchor_ci": true,
+      "semantics": {
+        "S1": {
+          "predicted_pair_cells": {
+            "00": 939,
+            "01": 33,
+            "10": 28,
+            "11": 0
+          },
+          "confusion": {
+            "pred0_actual0": 1939,
+            "pred0_actual1": 0,
+            "pred1_actual0": 0,
+            "pred1_actual1": 61
+          },
+          "predicted_pass_observed_fail": 0,
+          "predicted_fail_observed_pass": 0,
+          "disagreeing_directions": 0,
+          "disagreeing_pairs": 0,
+          "pair_disagreement_ci95": [
+            0.0,
+            0.0038267584855551234
+          ]
+        },
+        "S2": {
+          "predicted_pair_cells": {
+            "00": 939,
+            "01": 33,
+            "10": 28,
+            "11": 0
+          },
+          "confusion": {
+            "pred0_actual0": 1939,
+            "pred0_actual1": 0,
+            "pred1_actual0": 0,
+            "pred1_actual1": 61
+          },
+          "predicted_pass_observed_fail": 0,
+          "predicted_fail_observed_pass": 0,
+          "disagreeing_directions": 0,
+          "disagreeing_pairs": 0,
+          "pair_disagreement_ci95": [
+            0.0,
+            0.0038267584855551234
+          ]
+        }
+      }
+    },
+    {
+      "test": "net.sf.marineapi.ais.event.AbstractAISMessageListenerTest.testSequenceListenerWithIncorrectOrder",
+      "reference_consistent": true,
+      "n": 1000,
+      "n00": 939,
+      "n01": 33,
+      "n10": 28,
+      "n11": 0,
+      "f_anchor": 0.028,
+      "f_anchor_ci95": [
+        0.019442276812770925,
+        0.04017018319759311
+      ],
+      "f_reverse": 0.033,
+      "f_reverse_ci95": [
+        0.023592927958426907,
+        0.04598126446708159
+      ],
+      "B": 0.0,
+      "B_ci95": [
+        0.0,
+        0.0038267584855551234
+      ],
+      "B_zero_one_sided95_upper": 0.0029912495450953314,
+      "model_f": 0.03125,
+      "model_B": 0.0,
+      "model_f_inside_anchor_ci": true,
+      "semantics": {
+        "S1": {
+          "predicted_pair_cells": {
+            "00": 939,
+            "01": 33,
+            "10": 28,
+            "11": 0
+          },
+          "confusion": {
+            "pred0_actual0": 1939,
+            "pred0_actual1": 0,
+            "pred1_actual0": 0,
+            "pred1_actual1": 61
+          },
+          "predicted_pass_observed_fail": 0,
+          "predicted_fail_observed_pass": 0,
+          "disagreeing_directions": 0,
+          "disagreeing_pairs": 0,
+          "pair_disagreement_ci95": [
+            0.0,
+            0.0038267584855551234
+          ]
+        },
+        "S2": {
+          "predicted_pair_cells": {
+            "00": 939,
+            "01": 33,
+            "10": 28,
+            "11": 0
+          },
+          "confusion": {
+            "pred0_actual0": 1939,
+            "pred0_actual1": 0,
+            "pred1_actual0": 0,
+            "pred1_actual1": 61
+          },
+          "predicted_pass_observed_fail": 0,
+          "predicted_fail_observed_pass": 0,
+          "disagreeing_directions": 0,
+          "disagreeing_pairs": 0,
+          "pair_disagreement_ci95": [
+            0.0,
+            0.0038267584855551234
+          ]
+        }
+      }
+    },
+    {
+      "test": "net.sf.marineapi.ais.event.AbstractAISMessageListenerTest.testSequenceListenerWithMixedOrder",
+      "reference_consistent": true,
+      "n": 1000,
+      "n00": 939,
+      "n01": 33,
+      "n10": 28,
+      "n11": 0,
+      "f_anchor": 0.028,
+      "f_anchor_ci95": [
+        0.019442276812770925,
+        0.04017018319759311
+      ],
+      "f_reverse": 0.033,
+      "f_reverse_ci95": [
+        0.023592927958426907,
+        0.04598126446708159
+      ],
+      "B": 0.0,
+      "B_ci95": [
+        0.0,
+        0.0038267584855551234
+      ],
+      "B_zero_one_sided95_upper": 0.0029912495450953314,
+      "model_f": 0.03125,
+      "model_B": 0.0,
+      "model_f_inside_anchor_ci": true,
+      "semantics": {
+        "S1": {
+          "predicted_pair_cells": {
+            "00": 939,
+            "01": 33,
+            "10": 28,
+            "11": 0
+          },
+          "confusion": {
+            "pred0_actual0": 1939,
+            "pred0_actual1": 0,
+            "pred1_actual0": 0,
+            "pred1_actual1": 61
+          },
+          "predicted_pass_observed_fail": 0,
+          "predicted_fail_observed_pass": 0,
+          "disagreeing_directions": 0,
+          "disagreeing_pairs": 0,
+          "pair_disagreement_ci95": [
+            0.0,
+            0.0038267584855551234
+          ]
+        },
+        "S2": {
+          "predicted_pair_cells": {
+            "00": 939,
+            "01": 33,
+            "10": 28,
+            "11": 0
+          },
+          "confusion": {
+            "pred0_actual0": 1939,
+            "pred0_actual1": 0,
+            "pred1_actual0": 0,
+            "pred1_actual1": 61
+          },
+          "predicted_pass_observed_fail": 0,
+          "predicted_fail_observed_pass": 0,
+          "disagreeing_directions": 0,
+          "disagreeing_pairs": 0,
+          "pair_disagreement_ci95": [
+            0.0,
+            0.0038267584855551234
+          ]
+        }
+      }
+    },
+    {
+      "test": "net.sf.marineapi.ais.parser.AISMessageFactoryTest.testCreate",
+      "reference_consistent": true,
+      "n": 1000,
+      "n00": 938,
+      "n01": 32,
+      "n10": 30,
+      "n11": 0,
+      "f_anchor": 0.03,
+      "f_anchor_ci95": [
+        0.0210937388288347,
+        0.042503414147587126
+      ],
+      "f_reverse": 0.032,
+      "f_reverse_ci95": [
+        0.022757107858710962,
+        0.04482473808376865
+      ],
+      "B": 0.0,
+      "B_ci95": [
+        0.0,
+        0.0038267584855551234
+      ],
+      "B_zero_one_sided95_upper": 0.0029912495450953314,
+      "model_f": 0.03125,
+      "model_B": 0.0,
+      "model_f_inside_anchor_ci": true,
+      "semantics": {
+        "S1": {
+          "predicted_pair_cells": {
+            "00": 938,
+            "01": 32,
+            "10": 30,
+            "11": 0
+          },
+          "confusion": {
+            "pred0_actual0": 1938,
+            "pred0_actual1": 0,
+            "pred1_actual0": 0,
+            "pred1_actual1": 62
+          },
+          "predicted_pass_observed_fail": 0,
+          "predicted_fail_observed_pass": 0,
+          "disagreeing_directions": 0,
+          "disagreeing_pairs": 0,
+          "pair_disagreement_ci95": [
+            0.0,
+            0.0038267584855551234
+          ]
+        },
+        "S2": {
+          "predicted_pair_cells": {
+            "00": 938,
+            "01": 32,
+            "10": 30,
+            "11": 0
+          },
+          "confusion": {
+            "pred0_actual0": 1938,
+            "pred0_actual1": 0,
+            "pred1_actual0": 0,
+            "pred1_actual1": 62
+          },
+          "predicted_pass_observed_fail": 0,
+          "predicted_fail_observed_pass": 0,
+          "disagreeing_directions": 0,
+          "disagreeing_pairs": 0,
+          "pair_disagreement_ci95": [
+            0.0,
+            0.0038267584855551234
+          ]
+        }
+      }
+    },
+    {
+      "test": "net.sf.marineapi.ais.parser.AISMessageFactoryTest.testCreateWithIncorrectOrder",
+      "reference_consistent": true,
+      "n": 1000,
+      "n00": 938,
+      "n01": 32,
+      "n10": 30,
+      "n11": 0,
+      "f_anchor": 0.03,
+      "f_anchor_ci95": [
+        0.0210937388288347,
+        0.042503414147587126
+      ],
+      "f_reverse": 0.032,
+      "f_reverse_ci95": [
+        0.022757107858710962,
+        0.04482473808376865
+      ],
+      "B": 0.0,
+      "B_ci95": [
+        0.0,
+        0.0038267584855551234
+      ],
+      "B_zero_one_sided95_upper": 0.0029912495450953314,
+      "model_f": 0.03125,
+      "model_B": 0.0,
+      "model_f_inside_anchor_ci": true,
+      "semantics": {
+        "S1": {
+          "predicted_pair_cells": {
+            "00": 938,
+            "01": 32,
+            "10": 30,
+            "11": 0
+          },
+          "confusion": {
+            "pred0_actual0": 1938,
+            "pred0_actual1": 0,
+            "pred1_actual0": 0,
+            "pred1_actual1": 62
+          },
+          "predicted_pass_observed_fail": 0,
+          "predicted_fail_observed_pass": 0,
+          "disagreeing_directions": 0,
+          "disagreeing_pairs": 0,
+          "pair_disagreement_ci95": [
+            0.0,
+            0.0038267584855551234
+          ]
+        },
+        "S2": {
+          "predicted_pair_cells": {
+            "00": 938,
+            "01": 32,
+            "10": 30,
+            "11": 0
+          },
+          "confusion": {
+            "pred0_actual0": 1938,
+            "pred0_actual1": 0,
+            "pred1_actual0": 0,
+            "pred1_actual1": 62
+          },
+          "predicted_pass_observed_fail": 0,
+          "predicted_fail_observed_pass": 0,
+          "disagreeing_directions": 0,
+          "disagreeing_pairs": 0,
+          "pair_disagreement_ci95": [
+            0.0,
+            0.0038267584855551234
+          ]
+        }
+      }
+    },
+    {
+      "test": "net.sf.marineapi.ais.parser.AISMessageFactoryTest.testCreateWithTwo",
+      "reference_consistent": true,
+      "n": 1000,
+      "n00": 938,
+      "n01": 32,
+      "n10": 30,
+      "n11": 0,
+      "f_anchor": 0.03,
+      "f_anchor_ci95": [
+        0.0210937388288347,
+        0.042503414147587126
+      ],
+      "f_reverse": 0.032,
+      "f_reverse_ci95": [
+        0.022757107858710962,
+        0.04482473808376865
+      ],
+      "B": 0.0,
+      "B_ci95": [
+        0.0,
+        0.0038267584855551234
+      ],
+      "B_zero_one_sided95_upper": 0.0029912495450953314,
+      "model_f": 0.03125,
+      "model_B": 0.0,
+      "model_f_inside_anchor_ci": true,
+      "semantics": {
+        "S1": {
+          "predicted_pair_cells": {
+            "00": 938,
+            "01": 32,
+            "10": 30,
+            "11": 0
+          },
+          "confusion": {
+            "pred0_actual0": 1938,
+            "pred0_actual1": 0,
+            "pred1_actual0": 0,
+            "pred1_actual1": 62
+          },
+          "predicted_pass_observed_fail": 0,
+          "predicted_fail_observed_pass": 0,
+          "disagreeing_directions": 0,
+          "disagreeing_pairs": 0,
+          "pair_disagreement_ci95": [
+            0.0,
+            0.0038267584855551234
+          ]
+        },
+        "S2": {
+          "predicted_pair_cells": {
+            "00": 938,
+            "01": 32,
+            "10": 30,
+            "11": 0
+          },
+          "confusion": {
+            "pred0_actual0": 1938,
+            "pred0_actual1": 0,
+            "pred1_actual0": 0,
+            "pred1_actual1": 62
+          },
+          "predicted_pass_observed_fail": 0,
+          "predicted_fail_observed_pass": 0,
+          "disagreeing_directions": 0,
+          "disagreeing_pairs": 0,
+          "pair_disagreement_ci95": [
+            0.0,
+            0.0038267584855551234
+          ]
+        }
+      }
+    }
+  ],
+  "S1": {
+    "target_outcome_comparisons": 24000,
+    "disagreeing_target_outcomes": 0,
+    "directions": 2000,
+    "directions_with_any_disagreement": 0,
+    "pairs_with_any_target_disagreement": 0,
+    "pair_disagreement_ci95": [
+      0.0,
+      0.0038267584855551234
+    ],
+    "zero_pair_disagreement_one_sided95_upper": 0.0029912495450953314,
+    "directions_with_predicted_failure": 86,
+    "failing_directions_observed": 86,
+    "failing_directions_disagreeing": 0,
+    "failing_direction_target_comparisons": 1032,
+    "failing_direction_target_mismatches": 0,
+    "predicted_fail_directions_disagreeing": 0
+  },
+  "S2": {
+    "target_outcome_comparisons": 24000,
+    "disagreeing_target_outcomes": 0,
+    "directions": 2000,
+    "directions_with_any_disagreement": 0,
+    "pairs_with_any_target_disagreement": 0,
+    "pair_disagreement_ci95": [
+      0.0,
+      0.0038267584855551234
+    ],
+    "zero_pair_disagreement_one_sided95_upper": 0.0029912495450953314,
+    "directions_with_predicted_failure": 86,
+    "failing_directions_observed": 86,
+    "failing_directions_disagreeing": 0,
+    "failing_direction_target_comparisons": 1032,
+    "failing_direction_target_mismatches": 0,
+    "predicted_fail_directions_disagreeing": 0
+  },
+  "failing_directions_by_type": {
+    "anchor": 41,
+    "reverse": 45,
+    "pairs_with_any_failing_direction": 86,
+    "pairs_both_directions_failing": 0
+  },
+  "failing_target_counts_per_failing_direction": {
+    "3": 25,
+    "9": 24,
+    "12": 37
+  },
+  "non_target_failures": {},
+  "total_pair_seconds": 2327.4533082321577
+}

@@ -27,10 +27,24 @@ from common import Sampler, Evaluator, load_modules, class_of
 SUBJECTS = {
     'aismessages': ('tbsalling/aismessages', '.'),
     'http-request': ('kevinsawicki/http-request', './lib'),
+    'marine-api': ('ktuukkan/marine-api', '.'),
 }
 PILOT_SEED = 2026092801
 FORMAL_SEED = 2026092802
 PAIRS = 300
+# Constants of the two original subjects (PLAN.md); kept unchanged.
+DEFAULTS = dict(pilot_seed=PILOT_SEED, formal_seed=FORMAL_SEED, pairs=PAIRS,
+                timeout=180, cap=7200, output=HERE / 'results', extra_meta=False, runner='runner')
+# Subject-specific settings frozen in PLAN_RARE.md; anything absent uses DEFAULTS.
+SETTINGS = {
+    'marine-api': dict(pilot_seed=2026100101, formal_seed=2026100102, pairs=1000,
+                       timeout=300, cap=12 * 3600, output=HERE / 'results_rare', extra_meta=True,
+                       runner='runner_rare'),  # compiled from rare/OrderedJUnit.java (JUnit 3 order control)
+}
+
+
+def settings(name):
+    return {**DEFAULTS, **SETTINGS.get(name, {})}
 
 
 def model(name):
@@ -61,13 +75,14 @@ def order_indices(sampler, rng):
 class Experiment:
     def __init__(self, args):
         self.args, self.m = args, model(args.subject)
+        self.cfg = settings(args.subject)
         self.work = args.work.resolve()
         repo = self.m.slug.split('/')[-1]
         self.cwd = self.work / 'subjects' / (repo + '-' + self.m.sha) / self.m.path.lstrip('./')
         self.java = args.java.resolve()
-        self.out = args.output.resolve() / args.subject
+        self.out = (args.output or self.cfg['output']).resolve() / args.subject
         self.out.mkdir(parents=True, exist_ok=True)
-        self.cp = os.pathsep.join(map(str, [self.work / 'runner', self.cwd / 'target/test-classes', self.cwd / 'target/classes']))
+        self.cp = os.pathsep.join(map(str, [self.work / self.cfg['runner'], self.cwd / 'target/test-classes', self.cwd / 'target/classes']))
         self.cp += os.pathsep + (self.work / (args.subject + '.classpath')).read_text().strip()
         self.jvm_flags = ['-ea']
         if args.subject == 'aismessages':
@@ -82,7 +97,7 @@ class Experiment:
             p = subprocess.Popen(cmd, cwd=self.cwd, stdout=log, stderr=subprocess.STDOUT, start_new_session=True)
             timeout = False
             try:
-                p.wait(timeout=180)
+                p.wait(timeout=self.cfg['timeout'])
             except subprocess.TimeoutExpired:
                 timeout = True
                 os.killpg(p.pid, signal.SIGKILL)
@@ -96,6 +111,7 @@ class Experiment:
         if (self.out / 'formal.jsonl').exists():
             raise RuntimeError('Do not overwrite discovery after formal sampling')
         native = []
+        native_skipped = []
         baseline = collections.Counter()
         for path in sorted((self.cwd / 'target/surefire-reports').glob('TEST-*.xml')):
             root = ET.parse(path).getroot()
@@ -104,6 +120,8 @@ class Experiment:
                 baseline['tests'] += 1
                 for status in ('failure', 'error', 'skipped'):
                     baseline[status] += int(tc.find(status) is not None)
+                if tc.find('skipped') is not None:
+                    native_skipped.append(tc.attrib['classname'] + '.' + tc.attrib['name'])
         if not native or len(native) != len(set(native)):
             raise RuntimeError('Missing or duplicate native test inventory')
         classes = sorted({class_of(t) for t in native})
@@ -123,9 +141,14 @@ class Experiment:
                     original_count=len(self.m.original), missing_original=sorted(set(self.m.original)-set(tests)),
                     extra_discovered=sorted(set(tests)-set(self.m.original)),
                     missing_relevant=missing_relevant, targets=[t.name for t in self.m.targets],
-                    jvm_flags=self.jvm_flags, pilot_seed=PILOT_SEED, formal_seed=FORMAL_SEED,
-                    planned_pairs=PAIRS,
+                    jvm_flags=self.jvm_flags, pilot_seed=self.cfg['pilot_seed'], formal_seed=self.cfg['formal_seed'],
+                    planned_pairs=self.cfg['pairs'],
                     java_version=subprocess.check_output([str(self.java), '-version'], stderr=subprocess.STDOUT, text=True).strip())
+        if self.cfg['extra_meta']:
+            # Tests the project's own native run skips (@Ignore). They cannot fail and are
+            # expected to be reported as skipped, not started, in every ordered run.
+            meta.update(timeout_seconds=self.cfg['timeout'], formal_cap_seconds=self.cfg['cap'],
+                        expected_ignored=sorted(native_skipped))
         (self.out / 'metadata.json').write_text(json.dumps(meta, indent=2) + '\n')
         print(json.dumps({k:v for k,v in meta.items() if k not in ('tests','targets')}, indent=2), flush=True)
         if missing_relevant: raise RuntimeError('Missing model-relevant tests; non-evaluable')
@@ -133,6 +156,7 @@ class Experiment:
     def initialize(self):
         self.meta = json.loads((self.out / 'metadata.json').read_text())
         self.tests = self.meta['tests']
+        self.ignored = set(self.meta.get('expected_ignored', []))  # empty for the original subjects
         self.sampler = Sampler(self.tests)
         self.eval = {sem: Evaluator(self.m.targets, self.sampler, sem) for sem in ('S1','S2')}
 
@@ -143,12 +167,14 @@ class Experiment:
             inp.write_text('\n'.join(requested) + '\n')
             proc = self.process('run', inp, out, tmp)
             events = parse_events(out) if out.exists() else dict(started=[],ended=[],skipped=[],assumed=[],failures={},junit_result=None)
+        skipped = [t for t in requested if t in self.ignored]
+        runnable = [t for t in requested if t not in self.ignored]
         valid = (proc['exit_code'] == 0 and not proc['timeout'] and events['junit_result'] is not None
-                 and events['started'] == requested and events['ended'] == requested
-                 and not events['skipped'] and not events['assumed']
+                 and events['started'] == runnable and events['ended'] == runnable
+                 and events['skipped'] == skipped and not events['assumed']
                  and set(events['failures']) <= set(requested)
-                 and events['junit_result'][0] == len(requested)
-                 and events['junit_result'][2] == 0)
+                 and events['junit_result'][0] == len(runnable)
+                 and events['junit_result'][2] == len(skipped))
         positions = np.argsort(indices)[None, :]
         predicted = {sem: ev.fails(positions)[0].astype(int).tolist() for sem,ev in self.eval.items()}
         observed = [int(t.name in events['failures']) for t in self.m.targets] if valid else None
@@ -165,7 +191,7 @@ class Experiment:
         if set(self.m.original) != set(self.tests) or len(self.m.original) != len(self.tests):
             raise RuntimeError('Original inventory differs: explicit protocol amendment required')
         original = [self.sampler.index[t] for t in self.m.original]
-        rng = np.random.default_rng(PILOT_SEED)
+        rng = np.random.default_rng(self.cfg['pilot_seed'])
         orders = [('original', 0, original, 3)] + [('random', i, order_indices(self.sampler, rng), 2) for i in range(5)]
         with path.open('x') as fh:
             for kind, oi, order, reps in orders:
@@ -183,22 +209,33 @@ class Experiment:
         path = self.out / 'formal.jsonl'
         # Never silently restart/overwrite an incomplete experiment.
         if path.exists(): raise RuntimeError('Formal output exists; explicit diagnosis needed before continuing')
-        rng = np.random.default_rng(FORMAL_SEED)
+        rng = np.random.default_rng(self.cfg['formal_seed'])
         start = time.monotonic()
         bad = 0
+        status = dict(stop_reason='completed', completed_pair_attempts=0)
         with path.open('x') as fh:
-            for pair in range(PAIRS):
+            for pair in range(self.cfg['pairs']):
                 order = order_indices(self.sampler, rng)
-                if time.monotonic()-start >= 7200:
-                    print('Formal module time cap reached',flush=True); break
+                if time.monotonic()-start >= self.cfg['cap']:
+                    print('Formal module time cap reached',flush=True); status['stop_reason']='time_cap'; break
                 for direction, indices in [('anchor',order),('reverse',list(reversed(order)))]:
                     record = self.execute(indices, phase='formal', pair=pair, direction=direction)
                     fh.write(json.dumps(record) + '\n'); fh.flush()
                     bad = bad + 1 if not record['valid'] else 0
                     if bad >= 2:
-                        print('Repeated infrastructure/order faults; stopping',flush=True); return
+                        print('Repeated infrastructure/order faults; stopping',flush=True)
+                        status['stop_reason']='repeated_invalid'; status['completed_pair_attempts']=pair+1
+                        self.write_status(status,start); return
+                status['completed_pair_attempts']=pair+1
                 if (pair+1)%25 == 0:
                     print(self.args.subject,'completed pairs',pair+1,'seconds',round(time.monotonic()-start,1),flush=True)
+        self.write_status(status,start)
+
+    def write_status(self, status, start):
+        # Only the rare-stratum subject records a stop reason; original outputs are untouched.
+        if self.cfg['extra_meta']:
+            status['formal_wall_seconds'] = time.monotonic() - start
+            (self.out / 'formal_status.json').write_text(json.dumps(status, indent=2) + '\n')
 
 
 def main():
@@ -207,7 +244,7 @@ def main():
     ap.add_argument('subject',choices=SUBJECTS)
     ap.add_argument('--work',type=Path,default=Path('/tmp/execution'))
     ap.add_argument('--java',type=Path,default=Path('/tmp/execution/deps/jdk8u504-b01/bin/java'))
-    ap.add_argument('--output',type=Path,default=HERE/'results')
+    ap.add_argument('--output',type=Path,default=None,help='default: subject-specific (results/ or results_rare/)')
     args=ap.parse_args()
     getattr(Experiment(args), args.stage)()
 

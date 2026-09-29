@@ -81,7 +81,7 @@ def simulate_chunk(Fm, Rm, allbits, consistent):
                 fresh = np.where(rev, fresh, fresh + 1)
                 seenF |= mask
                 seenP |= (~mask) & allbits
-                newdet = (seenF & seenP) if proto == "NR" else seenF
+                newdet = (seenF & seenP) if proto == "NR" else seenF.copy()  # copy: det must not alias seenF
                 last_new = newdet & ~det
                 det = newdet
                 last_rev, last_mask = rev, mask

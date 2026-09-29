@@ -10,6 +10,7 @@
 \input{generated/macros_limits_S1.tex}
 \input{generated/macros_coverage_S1.tex}
 \input{generated/macros_execution_rare.tex}
+\input{generated/macros_idflakies.tex}
 \newcommand{\pp}{\,pp}
 \newcommand{\IIDp}{\textup{\textsc{IID}}}
 \newcommand{\PAIRp}{\textup{\textsc{Pair}}}
@@ -1247,6 +1248,18 @@ The protocol \texttt{empirical/execution/PLAN\_RARE.md} was frozen before any bu
 \item One JUnit~3 class ignored the method sort. A runner variant now executes such classes in the requested method order. The pilot attempt that detected the problem is kept as invalid, and the pilot was redone with the same seed.
 \end{enumerate}
 All \ExecRarePairs{} pairs (\ExecRareRuns{} executions) completed, with no invalid runs or timeouts. The pilot and the recorded original order passed in all repetitions, as the model predicts. Targets failed in \ExecRareFailingDirections{} executions (\ExecRareFailingAnchor{} anchors, \ExecRareFailingReverse{} reversals), never in both directions of one pair. S1 and S2 predicted all \ExecRareComparisons{} target outcomes, including the \ExecRareFailingComparisons{} target outcomes in failing executions. The exact one-sided 95\% bound for zero mismatching pairs is \ExecRareZeroBound. No non-target test failed.
+
+
+\section{Real iDFlakies runs}\label{sec:idflakies}
+\textbf{Setup.} We built iDFlakies at commit f54b3f0 from source, without changes, and ran it on a 64-thread Linux server with JDK~8 and Maven~3.9.9. The protocols were frozen before the runs they govern: \texttt{PLAN\_IDFLAKIES.md}, \texttt{PLAN\_IDFLAKIES\_POWER.md} with Notes~1--3, and \texttt{PLAN\_IDFLAKIES\_RARE.md}. We ran three variants: \textsc{Gate}, the unmodified tool; \textsc{IID}, which always requests a fresh order; and \textsc{Pair}, which reverses after every fresh order. \textsc{IID} and \textsc{Pair} are few-line patches of \texttt{RandomDetector.results()} and are given in the package. Every detector run used detector type \texttt{random-class-method}, 20 rounds, a seed shared across variants, and a fresh copy of the module.
+
+\textbf{Samples.} The completed samples are \IdfRunsAis{} seeds per variant on \texttt{aismessages}, \IdfRunsHttp{} on \texttt{http-request}, and \IdfRunsMarine{} on \texttt{marine-api}. The \texttt{marine-api} sample is the set of seeds completed by all variants before the frozen hard stop. Under load, one detector run of its 926 tests took 5--18 minutes. Runs that timed out or were interrupted are excluded and listed in \texttt{idflakies/REPORT.md}.
+
+\textbf{Deviation.} On \texttt{http-request}, the reference order that the tool reconstructs fails 15 of the 25 targets, as S1 predicts for that order. The tool's default then aborts, so this module ran with \texttt{-Ddt.detector.original\_order.all\_must\_pass=false}. As a consequence, round-0 passes of those targets count as new detections, and the gate never reverses in round~1.
+
+\textbf{Fidelity.} All \IdfOrders{} executed orders were class-contiguous permutations of the complete module. \textsc{Gate} followed the simulated rule in all \IdfGateTransitions{} of its decisions. All \IdfComparisons{} target outcomes on the tool's orders matched S1 and S2, including the original-order and confirmation runs in the fidelity sample.
+
+\textbf{Contrasts.} The main text reports KR contrasts (Table~V). The package also reports NR contrasts and contrasts based on the tool's own confirmed detections. On \texttt{marine-api}, all 95\% intervals include zero and are much wider than the theoretical gain bound of about $f/(2e)$.
 
 \begin{thebibliography}{9}
 \bibitem{wei} Anjiang Wei, Pu Yi, Tao Xie, Darko Marinov, and Wing Lam.

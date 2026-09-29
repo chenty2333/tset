@@ -21,7 +21,7 @@ rows = []
 for m, short in (('aismessages', 'aismessages'), ('http-request', 'http-request')):
     for key, lab in (('gate-iid', r'\GATEp$-$\IIDp'), ('pair-gate', r'\PAIRp$-$\GATEp')):
         cells = []
-        for r in (2, 4, 10):
+        for r in (2, 4, 10, 20):
             c = p[m]['contrasts'][f'KR:{key}:r{r}']
             cells.append(f"${c['mean_pp']:+.1f}$\\,{{\\scriptsize[{c['lo']:+.1f},{c['hi']:+.1f}]}}")
         rows.append(f"{short if key == 'gate-iid' else ''} & {lab} & " + ' & '.join(cells) + r'\\')

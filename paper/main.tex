@@ -493,8 +493,11 @@ Module & tests/OD & pairs & $\hat f$ & $\hat B$ & mismatch\\
 \section{Conclusion}\label{sec:conclusion}
 Reversal's value is bounded, even when its intuition is correct: independent pairs save at most half a run per target's first failure, and independent small blocks cannot deliver constant-factor savings for rare failures. Under explicit OD-model hypotheses, pairing is safe; a suite-level gate is a different policy and does not inherit that guarantee. Simulation of \NTargets{} published models finds gains below 1\pp{} from 10 runs on. Real executions of two modules match all \ExecComparisons{} predicted outcomes of \ExecTargets{} targets. Our predictor tradeoff makes the next question concrete: can useful failure information be obtained accurately and cheaply enough to outperform outcome-blind sampling?
 
+\section*{Acknowledgment}
+We used generative AI tools extensively and disclose their use here. Gemini (Google) assisted with the literature search. GPT and Codex (OpenAI) and Claude (Anthropic) proposed proof strategies and wrote first versions of several proofs, including the cyclic-cut, window-identity, and composition arguments behind Theorem~\ref{thm:cov}(b) and~(d). These tools also wrote the simulation, verification, and execution code, and drafted and revised the text. The authors checked every proof, which independent exact computations also cross-check, verified every citation against its source, and regenerated every number from the released scripts. The authors take full responsibility for the content.
+
 \section*{Data Availability}\label{sec:data}
-\textbf{Submission draft:} the anonymous artifact URL must be added before submission; no public availability is claimed here. It contains the complete proofs, exact verification scripts, the suite simulator, the analysis scripts that generate every number, table, and figure in this paper, and the processed dataset of Li et al.~\cite{li2023issta} with provenance.
+The anonymized replication package is available at \url{https://anonymous.4open.science/r/tset-71C0}. It contains the complete proofs, exact verification scripts, the suite simulator, the analysis scripts that generate every number, table, and figure in this paper, the real-execution protocol, runner, and measurements, and the processed dataset of Li et al.~\cite{li2023issta} with provenance.
 
 \bibliographystyle{IEEEtran}
 \bibliography{references}

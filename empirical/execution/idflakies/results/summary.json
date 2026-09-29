@@ -1,0 +1,516 @@
+{
+ "aismessages": {
+  "counts": {
+   "detector_runs": 20,
+   "complete_runs": 20,
+   "orig_orders": 20,
+   "orig_not_full_permutation": 0,
+   "orig_not_class_contiguous": 0,
+   "orig_orders_with_nontarget_failures": 0,
+   "orig_nontarget_failure_instances": 0,
+   "round_orders": 400,
+   "round_not_full_permutation": 0,
+   "round_not_class_contiguous": 0,
+   "round_orders_with_nontarget_failures": 0,
+   "round_nontarget_failure_instances": 0,
+   "rounds": 400,
+   "rounds_with_recorded_new_detection": 26,
+   "rounds_with_unfiltered_detection": 335,
+   "unfiltered_detections": 546,
+   "recorded_new_detections": 40,
+   "recorded_new_detections_targets": 40,
+   "recorded_new_detections_nontargets": 0,
+   "transitions": 380,
+   "transitions_reverse": 183,
+   "transitions_fresh": 197,
+   "gate_expect_fresh": 197,
+   "gate_matches": 380,
+   "gate_expect_reverse": 183,
+   "prev_empty_but_prev_was_reverse_fallback_transitions": 171,
+   "confirmation_runs_confirmation-sampling": 202,
+   "confirmation_expected_confirmation-sampling_got_same": 202,
+   "confirmation_expected_confirmation-sampling_got_different": 0,
+   "confirmation_full_length": 4,
+   "confirmation_prefix_runs": 278,
+   "confirmation_class_noncontiguous": 0,
+   "confirmation_of_target_tests": 282,
+   "confirmation_runs_verify": 80,
+   "confirmation_expected_verify_got_same": 80,
+   "confirmation_expected_verify_got_different": 0,
+   "verified_lines_mismatched": 0,
+   "verified_lines": 282,
+   "identical_round_orders_within_run": 0
+  },
+  "comparisons": {
+   "round": {
+    "S1_comparisons": 800,
+    "S2_comparisons": 800
+   },
+   "orig": {
+    "S1_comparisons": 40,
+    "S2_comparisons": 40
+   },
+   "confirm": {
+    "S1_comparisons": 282,
+    "S2_comparisons": 282
+   }
+  },
+  "per_run": [
+   {
+    "run": 1,
+    "seed": 1,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 99.9,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 2,
+    "seed": 2,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 86.2,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 3,
+    "seed": 3,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 100.6,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 4,
+    "seed": 4,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 95.9,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 5,
+    "seed": 5,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 96.8,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 6,
+    "seed": 6,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 121.5,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 7,
+    "seed": 7,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 101.9,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 8,
+    "seed": 8,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 92.8,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 9,
+    "seed": 9,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 112.2,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 10,
+    "seed": 10,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 96.9,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 11,
+    "seed": 11,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 96.8,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 12,
+    "seed": 12,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 92.7,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 13,
+    "seed": 13,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 91.3,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 14,
+    "seed": 14,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 98.2,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 15,
+    "seed": 15,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 122.9,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 16,
+    "seed": 16,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 84.4,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 17,
+    "seed": 17,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 104.1,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 18,
+    "seed": 18,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 131.3,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 19,
+    "seed": 19,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 95.5,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 20,
+    "seed": 20,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 96.7,
+    "rounds_recorded": 20,
+    "complete": true
+   }
+  ],
+  "model_targets": [
+   "dk.tbsalling.aismessages.nmea.NMEAMessageHandlerTest.canHandleFragmentedMessageReceived",
+   "dk.tbsalling.aismessages.nmea.NMEAMessageHandlerTest.canHandleUnfragmentedMessageReceived"
+  ],
+  "dataset_inventory_size": 44
+ },
+ "http-request": {
+  "counts": {
+   "detector_runs": 20,
+   "complete_runs": 20,
+   "orig_orders": 60,
+   "orig_not_full_permutation": 0,
+   "orig_not_class_contiguous": 0,
+   "orig_orders_with_nontarget_failures": 0,
+   "orig_nontarget_failure_instances": 0,
+   "round_orders": 400,
+   "round_not_full_permutation": 0,
+   "round_not_class_contiguous": 0,
+   "round_orders_with_nontarget_failures": 241,
+   "round_nontarget_failure_instances": 399,
+   "nontarget_failing_tests:com.github.kevinsawicki.http.HttpRequestTest.postWithNumericQueryParams": 138,
+   "nontarget_failing_tests:com.github.kevinsawicki.http.HttpRequestTest.putWithVarargsQueryParams": 128,
+   "nontarget_failing_tests:com.github.kevinsawicki.http.HttpRequestTest.postWithEscapedVarargsQueryParams": 133,
+   "rounds": 400,
+   "rounds_with_recorded_new_detection": 102,
+   "rounds_with_unfiltered_detection": 400,
+   "unfiltered_detections": 5771,
+   "recorded_new_detections": 560,
+   "recorded_new_detections_targets": 500,
+   "recorded_new_detections_nontargets": 60,
+   "transitions": 380,
+   "transitions_reverse": 154,
+   "transitions_fresh": 226,
+   "gate_expect_fresh": 226,
+   "gate_matches": 380,
+   "gate_expect_reverse": 154,
+   "prev_empty_but_prev_was_reverse_fallback_transitions": 124,
+   "confirmation_runs_confirmation-sampling": 2162,
+   "confirmation_expected_confirmation-sampling_got_same": 2162,
+   "confirmation_expected_confirmation-sampling_got_different": 0,
+   "confirmation_full_length": 56,
+   "confirmation_prefix_runs": 3226,
+   "confirmation_class_noncontiguous": 0,
+   "confirmation_of_target_tests": 3022,
+   "confirmation_runs_verify": 1120,
+   "confirmation_expected_verify_got_same": 1120,
+   "confirmation_expected_verify_got_different": 0,
+   "verified_lines_mismatched": 0,
+   "verified_lines": 3282,
+   "identical_round_orders_within_run": 0
+  },
+  "comparisons": {
+   "round": {
+    "S1_comparisons": 10000,
+    "S2_comparisons": 10000
+   },
+   "orig": {
+    "S1_comparisons": 1500,
+    "S2_comparisons": 1500
+   },
+   "confirm": {
+    "S1_comparisons": 3022,
+    "S2_comparisons": 3022
+   }
+  },
+  "per_run": [
+   {
+    "run": 1,
+    "seed": 1,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 955.0,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 2,
+    "seed": 2,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 860.5,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 3,
+    "seed": 3,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 930.6,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 4,
+    "seed": 4,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 769.2,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 5,
+    "seed": 5,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 774.3,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 6,
+    "seed": 6,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 859.7,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 7,
+    "seed": 7,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 886.0,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 8,
+    "seed": 8,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 878.0,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 9,
+    "seed": 9,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 850.0,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 10,
+    "seed": 10,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 817.8,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 11,
+    "seed": 11,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 900.0,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 12,
+    "seed": 12,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 905.7,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 13,
+    "seed": 13,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 825.0,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 14,
+    "seed": 14,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 919.0,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 15,
+    "seed": 15,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 888.5,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 16,
+    "seed": 16,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 941.8,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 17,
+    "seed": 17,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 860.6,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 18,
+    "seed": 18,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 836.0,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 19,
+    "seed": 19,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 985.9,
+    "rounds_recorded": 20,
+    "complete": true
+   },
+   {
+    "run": 20,
+    "seed": 20,
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 899.9,
+    "rounds_recorded": 20,
+    "complete": true
+   }
+  ],
+  "model_targets": [
+   "com.github.kevinsawicki.http.HttpRequestTest.basicProxyAuthentication",
+   "com.github.kevinsawicki.http.HttpRequestTest.deleteWithEscapedMappedQueryParams",
+   "com.github.kevinsawicki.http.HttpRequestTest.deleteWithEscapedVarargsQueryParams",
+   "com.github.kevinsawicki.http.HttpRequestTest.deleteWithMappedQueryParams",
+   "com.github.kevinsawicki.http.HttpRequestTest.deleteWithVarargsQueryParams",
+   "com.github.kevinsawicki.http.HttpRequestTest.getUrlEncodedWithPercent",
+   "com.github.kevinsawicki.http.HttpRequestTest.getUrlEncodedWithSpace",
+   "com.github.kevinsawicki.http.HttpRequestTest.getUrlEncodedWithUnicode",
+   "com.github.kevinsawicki.http.HttpRequestTest.getWithEscapedMappedQueryParams",
+   "com.github.kevinsawicki.http.HttpRequestTest.getWithEscapedVarargsQueryParams",
+   "com.github.kevinsawicki.http.HttpRequestTest.getWithMappedQueryParams",
+   "com.github.kevinsawicki.http.HttpRequestTest.getWithVarargsQueryParams",
+   "com.github.kevinsawicki.http.HttpRequestTest.headWithEscapedMappedQueryParams",
+   "com.github.kevinsawicki.http.HttpRequestTest.headWithEscapedVarargsQueryParams",
+   "com.github.kevinsawicki.http.HttpRequestTest.headWithMappedQueryParams",
+   "com.github.kevinsawicki.http.HttpRequestTest.headWithVaragsQueryParams",
+   "com.github.kevinsawicki.http.HttpRequestTest.postWithEscapedMappedQueryParams",
+   "com.github.kevinsawicki.http.HttpRequestTest.postWithMappedQueryParams",
+   "com.github.kevinsawicki.http.HttpRequestTest.postWithVaragsQueryParams",
+   "com.github.kevinsawicki.http.HttpRequestTest.putWithEscapedMappedQueryParams",
+   "com.github.kevinsawicki.http.HttpRequestTest.putWithEscapedVarargsQueryParams",
+   "com.github.kevinsawicki.http.HttpRequestTest.putWithMappedQueryParams",
+   "com.github.kevinsawicki.http.HttpRequestTest.singleSslSocketFactory",
+   "com.github.kevinsawicki.http.HttpRequestTest.singleVerifier",
+   "com.github.kevinsawicki.http.HttpRequestTest.verifierAccepts"
+  ],
+  "dataset_inventory_size": 163
+ }
+}

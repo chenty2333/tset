@@ -1,0 +1,25 @@
+--- a/idflakies-core/src/main/java/edu/illinois/cs/dt/tools/detection/detectors/RandomDetector.java
++++ b/idflakies-core/src/main/java/edu/illinois/cs/dt/tools/detection/detectors/RandomDetector.java
+@@ -17,6 +17,7 @@
+     private TestRunResult origResult;
+     private TestRunResult lastRandomResult;
+     private DetectionRound lastRandomDetectionRound;
++    private boolean lastWasReversal = false;
+ 
+     private final TestShuffler testShuffler;
+ 
+@@ -40,10 +41,10 @@
+ 
+     @Override
+     public DetectionRound results() throws Exception {
+-        lastRandomResult = runList(testShuffler.shuffledOrder(absoluteRound.get(),
+-                                                              lastRandomResult,
+-                                                              // if last detection round didn't find any *new* OD test, then reverse the last (likely passing) order
+-                                                              lastRandomDetectionRound == null || lastRandomResult == null || lastRandomDetectionRound.filteredTests().size() != 0));
++        // PAIR variant: reverse right after every fresh order, regardless of outcome
++        final boolean fresh = lastRandomResult == null || lastWasReversal;
++        lastRandomResult = runList(testShuffler.shuffledOrder(absoluteRound.get(), lastRandomResult, fresh));
++        lastWasReversal = !fresh;
+         // if we want to reverse a run with no failures or errors, then replace the line above with the following
+         // lastRandomResult.results().values().stream().anyMatch(testResult -> testResult.result() == Result.FAILURE || testResult.result() == Result.ERROR)
+         lastRandomDetectionRound = makeDts(origResult, lastRandomResult);

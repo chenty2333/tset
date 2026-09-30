@@ -30,4 +30,10 @@ Reference consistency is reported alongside the main results. `analyze.py S1` ge
 
 ## Separate real-execution validation
 
-`execution/` is a frozen two-module check, independent of the main simulation. Both original revisions built without changing tests or production code; the complete inventories are 44 and 163 tests. Each module completed 300 random/reversed pairs with exact requested/observed order agreement. All 16,200 outcomes of 27 preselected targets matched both S1 and S2 predictions. See `execution/README.md` for commands, intervals, pilot controls, and limits. The check does not cover the other 262 models or the deployed gate.
+`execution/` holds three frozen real-execution studies, independent of the main simulation:
+
+1. Two frequently failing modules (`aismessages`, `http-request/lib`). Both original revisions built without changing tests or production code; the complete inventories are 44 and 163 tests. Each module completed 300 random/reversed pairs with exact requested/observed order agreement (`execution/README.md`).
+2. One rare-failure module (`marine-api`: 926 tests, 12 targets with model f = 1/32, 1,000 pairs; `execution/results_rare/README.md`).
+3. Real iDFlakies runs (unmodified tool at commit f54b3f0 plus two minimal patches of its decision code) on the same three modules: 4,731 complete 20-round detector runs (`execution/idflakies/REPORT.md`).
+
+All 40,200 outcomes of the 39 preselected targets matched both S1 and S2 predictions, and the tool reversed exactly as the simulated gate rule predicts in all 29,963 gate decisions. See the three files above for commands, intervals, pilot controls, and limits. The studies cover 39 of the 289 models, one JDK/OS environment, and no detector wall-clock savings.

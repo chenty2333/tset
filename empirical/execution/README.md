@@ -4,6 +4,8 @@ Read `PLAN.md` for the frozen population, seeds, sample size, and stopping rules
 This experiment measures the outcome abstraction, not the deployed iDFlakies gate.
 No subject production code, test code, dependency version, or fixture is changed.
 
+**Scope of this file.** It documents the first frozen protocol (`PLAN.md`: `aismessages` and `http-request/lib`, model f >= 1/3). Two later protocols are documented separately: the rare-failure check on `marine-api` (`PLAN_RARE.md`, `results_rare/README.md`) and the real iDFlakies runs on all three modules (`PLAN_IDFLAKIES*.md`, `idflakies/REPORT.md`). The three unlisted victims found in `http-request/lib` are in `extra_tests/REPORT.md`.
+
 ## Setup used
 
 - Linux x86-64; Temurin JDK 8u504-b01; Apache Maven 3.9.9.
@@ -101,4 +103,4 @@ Ranges are across targets, not confidence intervals. Full per-target counts, bot
 
 The recorded http-request original order consistently failed six known targets and three other tests, unlike the native Maven baseline. Both models correctly predicted the six target failures. This is a failure to reproduce the historical passing-reference assumption in this environment, not evidence of model/actual disagreement for these targets. The three additional tests were retained but not added post hoc to the target sample.
 
-The selected cases have model f >= 1/3. Do not generalize this result to rare failures, all 289 models, other JDKs, the deployed gate, or detector wall-clock savings.
+The two cases of this first protocol have model f >= 1/3; rare failures are covered by the second protocol (`results_rare/`) and the deployed gate by the third (`idflakies/`). Do not generalize these results to all 289 models, other JDKs, or detector wall-clock savings.

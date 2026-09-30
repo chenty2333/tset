@@ -412,9 +412,44 @@ def limits_map(sem="S1"):
         M[f"ET{k}Rare"] = f"{x[rare].mean():.2f}"
     M["HeadroomShare"] = f"{100 * (vals['Iid'] - vals['Pair']).sum() / (vals['Iid'] - vals['Uniform']).sum():.1f}"
     M["HeadroomUniformPct"] = f"{100 * (1 - vals['Uniform'].mean() / vals['Iid'].mean()):.0f}"
+    M.update(rare_tail_concentration(rows, f, rare))
     txt = "\n".join(f"\\newcommand{{\\{k}}}{{{v}}}" for k, v in M.items())
     (GEN / f"macros_limits_{sem}.tex").write_text(txt + "\n")
     print(txt)
+
+
+def rare_tail_concentration(rows, f, rare):
+    """Numbers behind the RQ1 sentence on how concentrated the rare tail is (KR protocol).
+
+    The two modules with the most rare targets are found from the data.  The structural
+    claims that the text makes about them are asserted, so the sentence cannot go stale.
+    """
+    import collections
+    from common import class_of, load_modules
+    mod = np.array([r["module"] for r in rows])
+    (m1, _), (m2, _) = collections.Counter(mod[rare]).most_common(2)
+    assert {m1, m2} == {"dubbo-config-api", "marine-api"}, (m1, m2)
+    by_name = collections.defaultdict(list)
+    for m in load_modules():
+        by_name[m.name].append(m)
+    (dubbo,), (marine,) = by_name["dubbo-config-api"], by_name["marine-api"]
+    assert all(t.kind == "brittle" for t in dubbo.targets)          # "brittles of one test class"
+    assert len({class_of(t.name) for t in dubbo.targets}) == 1
+    assert all(t.kind == "victim" for t in marine.targets)          # "victims of one polluter"
+    assert len({tuple(sorted(t.polluters)) for t in marine.targets}) == 1
+    two = np.isin(mod, [m1, m2])
+    M = {
+        "NRareDubbo": int((rare & (mod == "dubbo-config-api")).sum()),
+        "NRareMarine": int((rare & (mod == "marine-api")).sum()),
+        "NRareTwoMods": int((rare & two).sum()),
+        "NRareOther": int((rare & ~two).sum()),
+        "NOtherTargets": int((~two).sum()),
+    }
+    for r, word in ((10, "Ten"), (20, "Twenty")):
+        miss = (1 - f) ** r                                          # KR miss probability of IID
+        M[f"ShareMissTwo{word}"] = f"{100 * miss[two].sum() / miss.sum():.0f}"
+        M[f"KRShareLow{word}Excl"] = f"{100 * miss[rare & ~two].sum() / miss[~two].sum():.0f}"
+    return M
 
 
 if __name__ == "__main__" and (len(sys.argv) < 2 or sys.argv[1] == "S1"):
